@@ -660,6 +660,18 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
       "weekday.4": "Donnerstag", "weekday.5": "Freitag", "weekday.6": "Samstag",
       "period.1w": "Eine Woche", "period.2w": "Zwei Wochen", "period.1m": "Ein Monat", "period.3m": "Drei Monate", "period.1y": "Ein Jahr",
 
+      "w.eyebrow": "Amtsdeutsch-Wörterbuch",
+      "w.title": "Was heißt das auf Deutsch?",
+      "w.lede": "Behörden schreiben kompliziert. Hier stehen die wichtigsten Wörter in einfacher Sprache – mit einem Tipp, was Sie tun können.",
+      "w.search": "Wort suchen",
+      "w.placeholder": "z. B. Bescheid, Frist, Mahnung",
+      "w.filter": "Thema",
+      "w.all": "Alle",
+      "w.count": "{n} Wörter",
+      "w.none": "Kein Treffer. Versuchen Sie ein kürzeres Wort oder einen Teil des Wortes.",
+      "w.also": "Auch",
+      "w.inGerman": "Auf Deutsch lesen",
+
       "disclaimer": "Amtsklar ist keine Rechtsberatung. Wir prüfen die Inhalte sorgfältig, aber Gesetze ändern sich und jeder Fall ist anders. Bei wichtigen Fragen: kostenlose Beratung nutzen (siehe „Hilfe“).",
       "footer.privacy": "Keine Anmeldung, kein Tracking, keine Daten verlassen Ihr Gerät.",
       "footer.source": "Freie Software. Quellcode und Mitmachen:",
@@ -732,6 +744,18 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
       "weekday.4": "Thursday", "weekday.5": "Friday", "weekday.6": "Saturday",
       "period.1w": "One week", "period.2w": "Two weeks", "period.1m": "One month", "period.3m": "Three months", "period.1y": "One year",
 
+      "w.eyebrow": "Bureaucratic German decoder",
+      "w.title": "What does this word mean?",
+      "w.lede": "Authorities write in complicated German. Here are the most important words in plain language – with a tip on what you can do.",
+      "w.search": "Search a word",
+      "w.placeholder": "e.g. Bescheid, Frist, Mahnung",
+      "w.filter": "Topic",
+      "w.all": "All",
+      "w.count": "{n} words",
+      "w.none": "No match. Try a shorter word or part of the word.",
+      "w.also": "Also",
+      "w.inGerman": "Read in German",
+
       "disclaimer": "Amtsklar is not legal advice. We check the content carefully, but laws change and every case is different. For important questions, use free counselling (see „Help“).",
       "footer.privacy": "No sign-up, no tracking, no data leaves your device.",
       "footer.source": "Free software. Source code and how to contribute:",
@@ -748,6 +772,338 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
   root.Amtsklar = root.Amtsklar || {};
   root.Amtsklar.i18n = { LANGS, T, t };
 })(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/*
+ * Amtsklar – Amtsdeutsch glossary.
+ * Each entry: w (German term), alt (other spellings/search words), cat (category),
+ * and per language: p (plain meaning) and optionally tip (what to do).
+ * German explanations are written in plain language (Einfache Sprache).
+ */
+(function (root) {
+  "use strict";
+  const CATS = {
+    brief: { de: "Brief", en: "Letter" },
+    recht: { de: "Wehren", en: "Challenge" },
+    geld: { de: "Geld", en: "Money" },
+    sozial: { de: "Jobcenter & Soziales", en: "Benefits" },
+    aufenthalt: { de: "Aufenthalt", en: "Residence" },
+    alltag: { de: "Alltag", en: "Everyday" },
+  };
+
+  const G = [
+    // ---------------------------------------------------------------- Brief
+    { w: "Bescheid", alt: "Verwaltungsakt, Entscheidung", cat: "brief",
+      de: { p: "Eine Entscheidung der Behörde über Ihren Fall, z. B. ob Sie Geld bekommen oder zahlen müssen.", tip: "Ein Bescheid wird verbindlich, wenn Sie nicht innerhalb der Frist widersprechen. Lesen Sie ihn sofort und prüfen Sie das Datum." },
+      en: { p: "An official decision about your case, e.g. whether you receive money or have to pay.", tip: "A decision becomes final if you do not object within the deadline. Read it immediately and check the date." } },
+    { w: "Rechtsbehelfsbelehrung", alt: "Rechtsmittelbelehrung, Rechtsbehelf", cat: "brief",
+      de: { p: "Der Absatz am Ende des Bescheids. Er sagt, wie und bis wann Sie sich wehren können und wo.", tip: "Fehlt sie oder ist sie falsch, haben Sie meist ein Jahr Zeit statt einem Monat." },
+      en: { p: "The paragraph at the end of a decision that tells you how, where and by when you can challenge it.", tip: "If it is missing or wrong, you usually have one year instead of one month." } },
+    { w: "Aktenzeichen", alt: "Az., Geschäftszeichen, Kundennummer, BG-Nummer, Steuernummer", cat: "brief",
+      de: { p: "Die Nummer Ihres Falls bei der Behörde.", tip: "Schreiben Sie das Aktenzeichen auf jeden Brief an die Behörde. Dann wird Ihr Schreiben schneller gefunden." },
+      en: { p: "The reference number of your case at the authority.", tip: "Put this number on every letter you send to the authority so your letter is found quickly." } },
+    { w: "Anhörung", alt: "Anhörungsschreiben, rechtliches Gehör", cat: "brief",
+      de: { p: "Die Behörde plant eine Entscheidung gegen Sie (z. B. Geld zurückfordern) und fragt vorher nach Ihrer Sicht.", tip: "Antworten Sie! Das ist Ihre Chance, eine schlechte Entscheidung zu verhindern. Die Antwort ist freiwillig, aber oft sehr wichtig." },
+      en: { p: "The authority plans a decision against you (e.g. to reclaim money) and asks for your side first.", tip: "Answer! This is your chance to prevent a bad decision. Answering is voluntary but often very important." } },
+    { w: "Mitwirkungspflicht", alt: "Mitwirkung, mitwirken, § 60 SGB I", cat: "brief",
+      de: { p: "Sie müssen der Behörde die nötigen Informationen und Unterlagen geben.", tip: "Wenn Sie nicht mitwirken, kann die Leistung gekürzt oder gestoppt werden. Können Sie etwas nicht liefern, schreiben Sie warum." },
+      en: { p: "You must give the authority the information and documents it needs.", tip: "If you do not cooperate, benefits can be reduced or stopped. If you cannot provide something, write why." } },
+    { w: "Zustellung", alt: "zugestellt, Postzustellungsurkunde, gelber Brief", cat: "brief",
+      de: { p: "Der Brief wurde Ihnen offiziell übergeben. Oft im gelben Umschlag mit Datum darauf.", tip: "Heben Sie den Umschlag auf. Das Datum darauf startet die Frist – auch wenn der Brief nur im Briefkasten lag." },
+      en: { p: "The letter was officially delivered to you, often in a yellow envelope with the date written on it.", tip: "Keep the envelope. That date starts the deadline – even if the letter was only put in your mailbox." } },
+    { w: "Bekanntgabe", alt: "bekannt gegeben, gilt als bekannt gegeben", cat: "brief",
+      de: { p: "Der Tag, ab dem ein Bescheid für Sie gilt. Bei normaler Post: 4 Tage nach dem Absenden.", tip: "Ab diesem Tag läuft die Frist. Nutzen Sie den Fristenrechner." },
+      en: { p: "The day from which a decision applies to you. For normal post: 4 days after it was sent.", tip: "The deadline runs from this day. Use the deadline calculator." } },
+    { w: "Frist", alt: "fristgerecht, fristwahrend, Fristablauf", cat: "brief",
+      de: { p: "Die Zeit, bis zu der Sie etwas tun müssen.", tip: "Die Frist endet um 23:59 Uhr am letzten Tag. Entscheidend ist, wann Ihr Brief ankommt." },
+      en: { p: "The time by which you have to do something.", tip: "The deadline ends at 11:59 pm on the last day. What counts is when your letter arrives." } },
+    { w: "unverzüglich", alt: "umgehend, sofort", cat: "brief",
+      de: { p: "So schnell wie möglich, ohne unnötiges Warten. Meist: innerhalb weniger Tage.", tip: "" },
+      en: { p: "As soon as possible, without unnecessary delay. Usually: within a few days.", tip: "" } },
+    { w: "Vollmacht", alt: "bevollmächtigen, Bevollmächtigte", cat: "brief",
+      de: { p: "Eine schriftliche Erlaubnis, dass eine andere Person für Sie mit der Behörde sprechen oder Briefe bekommen darf.", tip: "Praktisch, wenn eine Beratungsstelle oder Freund*in Ihnen hilft." },
+      en: { p: "Written permission that someone else may deal with the authority or receive letters for you.", tip: "Useful when a counselling service or a friend helps you." } },
+    { w: "Formular", alt: "Vordruck, Antragsformular, Anlage", cat: "brief",
+      de: { p: "Ein Blatt mit Feldern, die Sie ausfüllen müssen. „Anlage“ heißt: ein zusätzliches Blatt zum Antrag.", tip: "Lassen Sie Felder, die nicht auf Sie zutreffen, nicht einfach leer – schreiben Sie „entfällt“ oder einen Strich." },
+      en: { p: "A sheet with fields to fill in. „Anlage“ means an additional sheet for an application.", tip: "Do not just leave fields empty if they do not apply to you – write „entfällt“ (not applicable) or draw a line." } },
+    { w: "Nachweis", alt: "Beleg, Bescheinigung, nachweisen, glaubhaft machen", cat: "brief",
+      de: { p: "Ein Dokument, das etwas beweist, z. B. Lohnabrechnung, Mietvertrag, Kontoauszug.", tip: "Schicken Sie nur Kopien, nie Originale. Machen Sie Fotos von allem, was Sie abgeben." },
+      en: { p: "A document that proves something, e.g. payslip, rental contract, bank statement.", tip: "Send copies only, never originals. Take photos of everything you hand in." } },
+    { w: "Antrag", alt: "beantragen, Antragstellung", cat: "brief",
+      de: { p: "Eine schriftliche Bitte an die Behörde, z. B. um Geld oder eine Erlaubnis.", tip: "Viele Leistungen gibt es erst ab dem Tag des Antrags. Stellen Sie Anträge früh – auch ohne alle Unterlagen." },
+      en: { p: "A written request to the authority, e.g. for money or a permit.", tip: "Many benefits only start from the day you apply. Apply early – even without all documents." } },
+    { w: "vorläufig", alt: "vorläufiger Bescheid, vorläufige Bewilligung", cat: "brief",
+      de: { p: "Die Entscheidung gilt erst einmal, kann sich aber später noch ändern, wenn genaue Zahlen da sind.", tip: "Später kann eine Nachzahlung oder Rückforderung kommen. Heben Sie alle Belege auf." },
+      en: { p: "The decision applies for now but can change later when exact figures are known.", tip: "You may later get an extra payment or have to pay something back. Keep all receipts." } },
+    { w: "Ermessen", alt: "Ermessensentscheidung, kann, soll", cat: "brief",
+      de: { p: "Die Behörde darf zwischen mehreren Möglichkeiten wählen. Sie muss dabei Ihre Situation berücksichtigen.", tip: "Erklären Sie Ihre besondere Lage (Kinder, Krankheit, Schulden). Das kann die Entscheidung ändern." },
+      en: { p: "The authority may choose between several options, but must take your situation into account.", tip: "Explain your special situation (children, illness, debts). It can change the decision." } },
+
+    // ---------------------------------------------------------------- Wehren
+    { w: "Widerspruch", alt: "widersprechen, Widerspruch einlegen", cat: "recht",
+      de: { p: "Sie sagen der Behörde: „Ich bin mit der Entscheidung nicht einverstanden. Prüfen Sie sie noch einmal.“ Kostenlos.", tip: "Meist 1 Monat Zeit. Eine Begründung können Sie nachreichen. Vorlage unter „Vorlagen“." },
+      en: { p: "You tell the authority: „I do not agree with the decision. Please review it.“ Free of charge.", tip: "Usually 1 month. You can send the reasons later. See the template under „Letters“." } },
+    { w: "Einspruch", alt: "Einspruch einlegen", cat: "recht",
+      de: { p: "Wie Widerspruch – heißt so beim Finanzamt, bei Bußgeldern und bei Strafbefehlen.", tip: "Finanzamt: 1 Monat. Bußgeldbescheid und Strafbefehl: nur 2 Wochen!" },
+      en: { p: "Like an objection – this is the word used by the tax office, for fines and penalty orders.", tip: "Tax office: 1 month. Fine notice and penalty order: only 2 weeks!" } },
+    { w: "Widerspruchsbescheid", alt: "", cat: "recht",
+      de: { p: "Die Antwort auf Ihren Widerspruch. Die Behörde hat noch einmal entschieden.", tip: "Sind Sie immer noch nicht einverstanden, können Sie innerhalb von 1 Monat klagen. Vor dem Sozialgericht ist das kostenlos." },
+      en: { p: "The answer to your objection. The authority has decided again.", tip: "If you still disagree, you can sue within 1 month. At the social court this is free of charge." } },
+    { w: "Klage", alt: "klagen, Sozialgericht, Verwaltungsgericht", cat: "recht",
+      de: { p: "Sie bitten ein Gericht, die Entscheidung der Behörde zu prüfen.", tip: "Beim Sozialgericht (Jobcenter, Rente, Krankenkasse) kostet die Klage für Sie nichts. Sie können sie bei der Rechtsantragsstelle des Gerichts aufschreiben lassen." },
+      en: { p: "You ask a court to review the authority's decision.", tip: "At the social court (Jobcenter, pension, health insurance) it costs you nothing. The court's legal application office (Rechtsantragsstelle) can write it down for you." } },
+    { w: "Überprüfungsantrag", alt: "§ 44 SGB X, Überprüfung", cat: "recht",
+      de: { p: "Antrag, einen alten Sozial-Bescheid noch einmal zu prüfen – auch wenn die Widerspruchsfrist vorbei ist.", tip: "Bei Jobcenter und Sozialamt: Fehler bis zu 1 Jahr rückwirkend korrigierbar (im Bürgergeld-Bereich). Vorlage unter „Vorlagen“." },
+      en: { p: "Request to review an old social benefits decision – even after the objection deadline has passed.", tip: "Jobcenter and social welfare office: mistakes can be corrected up to 1 year back. See template under „Letters“." } },
+    { w: "Wiedereinsetzung in den vorigen Stand", alt: "Wiedereinsetzung, Fristversäumnis", cat: "recht",
+      de: { p: "Sie haben eine Frist ohne eigene Schuld verpasst (z. B. Krankenhaus) und bitten darum, so behandelt zu werden, als wären Sie rechtzeitig gewesen.", tip: "Muss meist innerhalb von 2 Wochen nach Wegfall des Hindernisses beantragt werden (beim Finanzamt: 1 Monat). Den Widerspruch gleich mitschicken." },
+      en: { p: "You missed a deadline through no fault of your own (e.g. hospital) and ask to be treated as if you had been on time.", tip: "Usually must be requested within 2 weeks after the obstacle ended (tax office: 1 month). Send the objection at the same time." } },
+    { w: "Akteneinsicht", alt: "Akte einsehen, § 25 SGB X, § 29 VwVfG", cat: "recht",
+      de: { p: "Sie dürfen die Akte lesen, die die Behörde über Sie führt.", tip: "Hilfreich vor einem Widerspruch: Sie sehen, worauf die Behörde ihre Entscheidung stützt." },
+      en: { p: "You may read the file the authority keeps about you.", tip: "Helpful before an objection: you see what the authority based its decision on." } },
+    { w: "aufschiebende Wirkung", alt: "sofortige Vollziehung, sofort vollziehbar", cat: "recht",
+      de: { p: "Solange über Ihren Widerspruch nicht entschieden ist, muss die Entscheidung meist noch nicht umgesetzt werden. Bei „sofortiger Vollziehung“ gilt das nicht.", tip: "Bei Jobcenter-Kürzungen und vielen Ausländerbehörde-Entscheidungen hat der Widerspruch keine aufschiebende Wirkung. Dann schnell Eilantrag beim Gericht prüfen lassen." },
+      en: { p: "As long as your objection is pending, the decision usually does not have to be carried out yet. With „sofortige Vollziehung“ (immediate enforcement) this does not apply.", tip: "For Jobcenter cuts and many immigration office decisions, an objection does not stop the decision. Then get an urgent court application (Eilantrag) checked quickly." } },
+    { w: "Eilantrag", alt: "einstweiliger Rechtsschutz, einstweilige Anordnung", cat: "recht",
+      de: { p: "Ein schneller Antrag beim Gericht, wenn Sie nicht auf das normale Verfahren warten können (z. B. kein Geld für Essen oder Miete).", tip: "Die Rechtsantragsstelle beim Sozialgericht hilft kostenlos beim Aufschreiben." },
+      en: { p: "A fast application to the court when you cannot wait for the normal procedure (e.g. no money for food or rent).", tip: "The legal application office at the social court helps you write it for free." } },
+    { w: "Beratungshilfe", alt: "Beratungshilfeschein, Prozesskostenhilfe", cat: "recht",
+      de: { p: "Wenn Sie wenig Geld haben, zahlt der Staat fast die ganze Rechtsberatung. Sie zahlen höchstens 15 Euro.", tip: "Den Beratungshilfeschein bekommen Sie beim Amtsgericht Ihres Wohnorts. Mitnehmen: Ausweis, Bescheid, Einkommensnachweise." },
+      en: { p: "If you have little money, the state pays almost all of your legal advice. You pay at most 15 euros.", tip: "Get the certificate (Beratungshilfeschein) at the local court (Amtsgericht). Bring ID, the decision and proof of income." } },
+    { w: "bestandskräftig", alt: "Bestandskraft, rechtskräftig", cat: "recht",
+      de: { p: "Die Entscheidung ist endgültig, weil die Frist für Widerspruch oder Klage vorbei ist.", tip: "Bei Sozialleistungen hilft dann oft noch der Überprüfungsantrag." },
+      en: { p: "The decision is final because the deadline for objection or lawsuit has passed.", tip: "For social benefits, a request for review (Überprüfungsantrag) often still helps." } },
+
+    // ---------------------------------------------------------------- Geld
+    { w: "Rückforderung", alt: "Erstattung, Erstattungsbescheid, zurückfordern", cat: "geld",
+      de: { p: "Die Behörde will Geld zurück, das Sie ihrer Meinung nach zu viel bekommen haben.", tip: "Prüfen Sie die Rechnung genau. Widerspruch ist möglich. Sie können auch Ratenzahlung beantragen." },
+      en: { p: "The authority wants back money it believes you received too much of.", tip: "Check the calculation carefully. You can object. You can also request to pay in instalments." } },
+    { w: "Aufhebungsbescheid", alt: "Aufhebung, aufheben, Rücknahme", cat: "geld",
+      de: { p: "Eine frühere Entscheidung wird ganz oder teilweise gestrichen. Oft kommt danach eine Rückforderung.", tip: "Widerspruch prüfen lassen – besonders, wenn Sie alles richtig angegeben hatten." },
+      en: { p: "An earlier decision is cancelled fully or in part. Often followed by a demand for repayment.", tip: "Have an objection checked – especially if you had reported everything correctly." } },
+    { w: "Säumniszuschlag", alt: "Säumnis, Verzugszinsen", cat: "geld",
+      de: { p: "Eine Strafgebühr, weil Sie zu spät gezahlt haben. Beim Finanzamt und vielen Behörden: 1 % pro angefangenem Monat.", tip: "Wenn Sie nicht zahlen können: sofort Stundung oder Ratenzahlung beantragen." },
+      en: { p: "A late-payment fee. At the tax office and many authorities: 1 % per started month.", tip: "If you cannot pay: request a deferral or instalments immediately." } },
+    { w: "Mahnung", alt: "Mahngebühr, gemahnt", cat: "geld",
+      de: { p: "Erinnerung, dass eine Zahlung zu spät ist. Oft mit Gebühr.", tip: "Nicht ignorieren. Nach der Mahnung kann die Vollstreckung kommen." },
+      en: { p: "Reminder that a payment is late, often with a fee.", tip: "Do not ignore it. Enforcement can follow." } },
+    { w: "Vollstreckung", alt: "Zwangsvollstreckung, Vollstreckungsankündigung, Gerichtsvollzieher", cat: "geld",
+      de: { p: "Die Behörde holt sich das Geld mit Zwang, z. B. vom Konto oder Lohn.", tip: "Sofort reagieren: Ratenzahlung anbieten, Schuldnerberatung kontaktieren. Ein P-Konto schützt das Existenzminimum." },
+      en: { p: "The authority takes the money by force, e.g. from your bank account or wages.", tip: "React immediately: offer instalments, contact debt counselling. A P-Konto protects the minimum you need to live." } },
+    { w: "Pfändung", alt: "pfänden, Kontopfändung, Lohnpfändung", cat: "geld",
+      de: { p: "Ein Teil Ihres Geldes wird für Schulden einbehalten.", tip: "Wandeln Sie Ihr Konto in ein Pfändungsschutzkonto (P-Konto) um – das muss die Bank kostenlos tun." },
+      en: { p: "Part of your money is withheld to pay debts.", tip: "Turn your account into a protected account (P-Konto) – the bank must do this free of charge." } },
+    { w: "P-Konto", alt: "Pfändungsschutzkonto", cat: "geld",
+      de: { p: "Ein Bankkonto, bei dem ein Grundbetrag pro Monat nicht gepfändet werden darf.", tip: "Jede Person darf ein P-Konto haben. Für Kinder und Unterhalt gibt es höhere Freibeträge mit Bescheinigung." },
+      en: { p: "A bank account where a basic amount each month cannot be seized.", tip: "Everyone may have one P-Konto. Higher protected amounts for children or maintenance with a certificate." } },
+    { w: "Ratenzahlung", alt: "Raten, in Raten zahlen", cat: "geld",
+      de: { p: "Sie zahlen eine Schuld in kleinen monatlichen Beträgen.", tip: "Beantragen Sie Raten schriftlich und nennen Sie einen Betrag, den Sie wirklich zahlen können. Vorlage unter „Vorlagen“." },
+      en: { p: "You pay a debt in small monthly amounts.", tip: "Request instalments in writing and name an amount you can really afford. Template under „Letters“." } },
+    { w: "Stundung", alt: "stunden, Zahlungsaufschub", cat: "geld",
+      de: { p: "Sie dürfen später zahlen.", tip: "Gut, wenn Sie bald Geld erwarten (z. B. Nachzahlung). Schriftlich beantragen, Grund nennen." },
+      en: { p: "You are allowed to pay later.", tip: "Useful if you expect money soon. Apply in writing and give a reason." } },
+    { w: "Nachzahlung", alt: "nachzahlen, Guthaben", cat: "geld",
+      de: { p: "Sie bekommen Geld nachträglich, weil Ihnen mehr zustand – oder Sie müssen nachzahlen (z. B. Nebenkosten, Steuern).", tip: "Lesen Sie genau, wer an wen zahlt." },
+      en: { p: "Money paid afterwards because you were owed more – or you have to pay more (e.g. utilities, taxes).", tip: "Read carefully who pays whom." } },
+    { w: "Gebühr", alt: "Gebührenbescheid, Verwaltungsgebühr, Kosten", cat: "geld",
+      de: { p: "Geld, das die Behörde für ihre Arbeit verlangt.", tip: "Bei wenig Einkommen kann man oft Ermäßigung oder Befreiung beantragen." },
+      en: { p: "Money the authority charges for its work.", tip: "With low income you can often apply for a reduction or exemption." } },
+    { w: "Rundfunkbeitrag", alt: "GEZ, Beitragsservice", cat: "geld",
+      de: { p: "Monatlicher Beitrag pro Wohnung für das öffentliche Radio und Fernsehen.", tip: "Mit Bürgergeld, Grundsicherung, BAföG ohne Elternwohnung oder Asylbewerberleistungen können Sie sich befreien lassen – Antrag beim Beitragsservice." },
+      en: { p: "Monthly fee per household for public radio and TV.", tip: "With Bürgergeld, basic income support, some BAföG or asylum seeker benefits you can be exempted – apply at the Beitragsservice." } },
+    { w: "Steuer-ID", alt: "Steueridentifikationsnummer, Identifikationsnummer, IdNr", cat: "geld",
+      de: { p: "Ihre persönliche 11-stellige Steuernummer fürs ganze Leben. Kommt nach der Anmeldung per Post.", tip: "Brauchen Sie für Arbeit, Kindergeld und Bank. Nicht zu verwechseln mit der Steuernummer." },
+      en: { p: "Your personal 11-digit tax number for life. Sent by post after registering your address.", tip: "Needed for work, child benefit and banks. Not the same as the „Steuernummer“." } },
+
+    // ---------------------------------------------------------------- Jobcenter & Soziales
+    { w: "Bürgergeld", alt: "Grundsicherung für Arbeitsuchende, SGB II, Hartz IV, Grundsicherungsgeld", cat: "sozial",
+      de: { p: "Geld vom Jobcenter zum Leben für Menschen, die arbeiten können, aber zu wenig Geld haben.", tip: "Das Bürgergeld wird zur neuen „Grundsicherung“ umgebaut; einzelne Regeln ändern sich. Aktuelle Infos bekommen Sie bei einer Beratungsstelle." },
+      en: { p: "Money from the Jobcenter to live on for people who can work but do not have enough money.", tip: "Bürgergeld is being turned into a new „Grundsicherung“ and some rules change. Get current information from a counselling service." } },
+    { w: "Bedarfsgemeinschaft", alt: "BG, BG-Nummer", cat: "sozial",
+      de: { p: "Alle Personen in einem Haushalt, deren Geld zusammen gerechnet wird, z. B. Paar und Kinder.", tip: "Das Einkommen jeder Person in der BG zählt. Ändert sich etwas, sofort melden." },
+      en: { p: "All people in a household whose money is counted together, e.g. a couple and their children.", tip: "Every person's income counts. Report changes immediately." } },
+    { w: "Kosten der Unterkunft", alt: "KdU, Unterkunftskosten, Miete, angemessen", cat: "sozial",
+      de: { p: "Miete und Heizkosten, die das Jobcenter oder Sozialamt übernimmt.", tip: "Nur „angemessene“ Kosten werden dauerhaft gezahlt. Vor einem Umzug immer vorher die Zusicherung beantragen." },
+      en: { p: "Rent and heating costs paid by the Jobcenter or social welfare office.", tip: "Only „reasonable“ costs are paid long-term. Always ask for approval before moving." } },
+    { w: "Leistungsminderung", alt: "Sanktion, Minderung, Kürzung", cat: "sozial",
+      de: { p: "Das Jobcenter kürzt Ihr Geld, weil Sie eine Pflicht nicht erfüllt haben (z. B. Termin verpasst).", tip: "Wichtiger Grund (Krankheit, Kinderbetreuung)? Sofort mitteilen und Nachweis schicken. Widerspruch möglich." },
+      en: { p: "The Jobcenter reduces your money because you did not fulfil a duty (e.g. missed an appointment).", tip: "Important reason (illness, childcare)? Report it right away with proof. You can object." } },
+    { w: "Meldeversäumnis", alt: "Einladung, Termin, Meldetermin", cat: "sozial",
+      de: { p: "Sie sind ohne wichtigen Grund nicht zu einem Termin beim Jobcenter gekommen.", tip: "Krank? Arbeitsunfähigkeitsbescheinigung (gelber Schein) schicken – am besten vor dem Termin anrufen." },
+      en: { p: "You did not attend a Jobcenter appointment without an important reason.", tip: "Sick? Send a sick note (Arbeitsunfähigkeitsbescheinigung) – best call before the appointment." } },
+    { w: "Kooperationsplan", alt: "Eingliederungsvereinbarung, EGV", cat: "sozial",
+      de: { p: "Ein gemeinsamer Plan mit dem Jobcenter: Was tun Sie, was tut das Jobcenter, um Arbeit zu finden?", tip: "Sie dürfen Wünsche und Einwände äußern. Nehmen Sie sich Zeit zum Lesen." },
+      en: { p: "A joint plan with the Jobcenter: what you and the Jobcenter will do to find work.", tip: "You may voice wishes and objections. Take time to read it." } },
+    { w: "Weiterbewilligungsantrag", alt: "WBA, Weiterbewilligung, Bewilligungszeitraum", cat: "sozial",
+      de: { p: "Antrag, damit das Bürgergeld nach Ende des Bewilligungszeitraums weiter gezahlt wird.", tip: "Rechtzeitig vor Ende stellen – sonst kann eine Lücke ohne Geld entstehen." },
+      en: { p: "Application to keep receiving Bürgergeld after the current approval period ends.", tip: "Submit it before the period ends – otherwise there may be a gap without money." } },
+    { w: "Wohngeld", alt: "Mietzuschuss, Lastenzuschuss", cat: "sozial",
+      de: { p: "Zuschuss zur Miete für Menschen mit geringem Einkommen, die kein Bürgergeld bekommen.", tip: "Viele haben Anspruch und wissen es nicht. Der Wohngeldrechner des Bundes hilft." },
+      en: { p: "Rent subsidy for people with low income who do not receive Bürgergeld.", tip: "Many people are eligible without knowing it. The federal housing benefit calculator helps." } },
+    { w: "Kinderzuschlag", alt: "KiZ", cat: "sozial",
+      de: { p: "Zusätzliches Geld von der Familienkasse für Familien mit kleinem Einkommen.", tip: "Wer Kinderzuschlag bekommt, bekommt oft auch Bildungs- und Teilhabeleistungen und keine Kita-Gebühren." },
+      en: { p: "Extra money from the family benefits office for families with small incomes.", tip: "Recipients often also get education and participation benefits and pay no daycare fees." } },
+    { w: "Kindergeld", alt: "Familienkasse", cat: "sozial",
+      de: { p: "Monatliches Geld für jedes Kind, von der Familienkasse.", tip: "Rückwirkend nur für 6 Monate. Darum früh beantragen." },
+      en: { p: "Monthly money for each child, from the family benefits office (Familienkasse).", tip: "Paid retroactively for only 6 months, so apply early." } },
+    { w: "Bildung und Teilhabe", alt: "BuT, Bildungspaket", cat: "sozial",
+      de: { p: "Extra-Leistungen für Kinder: Schulbedarf, Klassenfahrten, Mittagessen, Nachhilfe, Sportverein.", tip: "Gibt es bei Bürgergeld, Wohngeld, Kinderzuschlag und Sozialhilfe. Oft muss man es extra beantragen." },
+      en: { p: "Extra benefits for children: school supplies, class trips, lunch, tutoring, sports club.", tip: "Available with Bürgergeld, housing benefit, child supplement and social assistance. Often needs a separate application." } },
+    { w: "Mehrbedarf", alt: "Mehrbedarfe, Alleinerziehende, Schwangerschaft", cat: "sozial",
+      de: { p: "Zusätzliches Geld für besondere Situationen, z. B. Schwangerschaft, alleinerziehend, Behinderung, besondere Ernährung.", tip: "Wird oft nicht automatisch gezahlt. Fragen Sie nach!" },
+      en: { p: "Extra money for special situations, e.g. pregnancy, single parents, disability, special diet.", tip: "Often not paid automatically. Ask for it!" } },
+
+    // ---------------------------------------------------------------- Aufenthalt
+    { w: "Ausländerbehörde", alt: "Ausländeramt, Einwanderungsbehörde, Landesamt für Einwanderung", cat: "aufenthalt",
+      de: { p: "Die Behörde für Aufenthaltserlaubnisse, Visa-Verlängerungen und Einbürgerung (manchmal getrennt).", tip: "Termine sind oft knapp. Verlängerung früh beantragen – schriftlich, damit Sie einen Nachweis haben." },
+      en: { p: "The authority for residence permits, visa extensions and sometimes naturalisation.", tip: "Appointments are scarce. Apply for an extension early – in writing, so you have proof." } },
+    { w: "Fiktionsbescheinigung", alt: "Fiktion, § 81 AufenthG", cat: "aufenthalt",
+      de: { p: "Ein Papier, das zeigt: Ihr Aufenthalt gilt weiter, solange über Ihren Antrag noch nicht entschieden ist.", tip: "Wichtig: Verlängerung VOR Ablauf des alten Titels beantragen. Dann gilt der alte Aufenthalt weiter." },
+      en: { p: "A document showing that your residence remains valid while your application is pending.", tip: "Important: apply for the extension BEFORE your old permit expires. Then your status continues." } },
+    { w: "Aufenthaltserlaubnis", alt: "Aufenthaltstitel, eAT, Titel", cat: "aufenthalt",
+      de: { p: "Die Erlaubnis, für eine bestimmte Zeit und einen bestimmten Zweck in Deutschland zu leben.", tip: "Ablaufdatum im Kalender notieren und etwa 2–3 Monate vorher die Verlängerung beantragen." },
+      en: { p: "Permission to live in Germany for a certain time and purpose.", tip: "Note the expiry date and apply for an extension about 2–3 months before." } },
+    { w: "Duldung", alt: "geduldet, Aussetzung der Abschiebung", cat: "aufenthalt",
+      de: { p: "Keine Aufenthaltserlaubnis, sondern die Bestätigung, dass die Abschiebung vorübergehend ausgesetzt ist.", tip: "Holen Sie sich unbedingt Beratung, z. B. bei einer Flüchtlingsberatung. Es gibt Wege zu einem Aufenthaltstitel." },
+      en: { p: "Not a residence permit, but confirmation that deportation is temporarily suspended.", tip: "Be sure to get advice, e.g. from refugee counselling. There are paths to a residence permit." } },
+    { w: "Wohnsitzauflage", alt: "Wohnsitzregelung, § 12a AufenthG", cat: "aufenthalt",
+      de: { p: "Sie müssen an einem bestimmten Ort oder in einem bestimmten Bundesland wohnen.", tip: "Bei Arbeit, Ausbildung oder Familie kann sie aufgehoben werden. Antrag stellen." },
+      en: { p: "You must live in a specific place or state.", tip: "It can be lifted for work, training or family reasons. Apply for it." } },
+    { w: "Anmeldung", alt: "Wohnsitzanmeldung, Meldebescheinigung, Bürgeramt, Wohnungsgeberbestätigung", cat: "aufenthalt",
+      de: { p: "Sie melden Ihre Adresse beim Bürgeramt. Pflicht innerhalb von 2 Wochen nach dem Einzug.", tip: "Mitnehmen: Ausweis/Pass und die Wohnungsgeberbestätigung vom Vermieter." },
+      en: { p: "You register your address at the citizens' office. Required within 2 weeks after moving in.", tip: "Bring your ID/passport and the landlord's confirmation (Wohnungsgeberbestätigung)." } },
+    { w: "Einbürgerung", alt: "Staatsangehörigkeit, deutscher Pass", cat: "aufenthalt",
+      de: { p: "Sie werden deutsche Staatsbürgerin oder deutscher Staatsbürger.", tip: "Seit 2024 ist doppelte Staatsangehörigkeit grundsätzlich erlaubt. Voraussetzungen bei der Einbürgerungsbehörde erfragen." },
+      en: { p: "You become a German citizen.", tip: "Since 2024, dual citizenship is generally allowed. Ask the naturalisation authority about the requirements." } },
+    { w: "Verpflichtungserklärung", alt: "", cat: "aufenthalt",
+      de: { p: "Eine Person verspricht, alle Kosten für den Aufenthalt eines Gastes zu zahlen – auch Kosten für Behörden.", tip: "Gilt oft für lange Zeit. Vor der Unterschrift beraten lassen." },
+      en: { p: "A person promises to pay all costs of a guest's stay – including costs to authorities.", tip: "Often valid for a long time. Get advice before signing." } },
+
+    // ---------------------------------------------------------------- Alltag
+    { w: "Arbeitsunfähigkeitsbescheinigung", alt: "AU, Krankschreibung, gelber Schein", cat: "alltag",
+      de: { p: "Bescheinigung vom Arzt, dass Sie krank sind und nicht arbeiten können.", tip: "Arbeitgeber bekommen sie meist elektronisch. Für das Jobcenter brauchen Sie oft trotzdem einen Ausdruck." },
+      en: { p: "Doctor's certificate that you are ill and cannot work.", tip: "Employers usually get it electronically. The Jobcenter often still needs a paper copy." } },
+    { w: "Schufa", alt: "Schufa-Auskunft, Bonität, Datenkopie", cat: "alltag",
+      de: { p: "Eine Firma, die speichert, ob Sie Rechnungen bezahlen. Vermieter und Banken fragen dort nach.", tip: "Eine kostenlose Datenkopie nach Art. 15 DSGVO können Sie jederzeit bei der Schufa bestellen." },
+      en: { p: "A company that records whether you pay your bills. Landlords and banks check it.", tip: "You can order a free copy of your data (Art. 15 GDPR) from Schufa at any time." } },
+    { w: "Kündigung", alt: "kündigen, Kündigungsfrist", cat: "alltag",
+      de: { p: "Ein Vertrag (Wohnung, Arbeit, Handy) wird beendet.", tip: "Kündigung der Arbeit? Innerhalb von 3 Wochen kann man klagen. Bei der Agentur für Arbeit innerhalb von 3 Tagen arbeitsuchend melden." },
+      en: { p: "A contract (flat, job, mobile phone) is ended.", tip: "Dismissed from work? You can sue within 3 weeks. Register as job-seeking at the employment agency within 3 days." } },
+    { w: "Nebenkostenabrechnung", alt: "Betriebskostenabrechnung, Nebenkosten", cat: "alltag",
+      de: { p: "Jährliche Rechnung des Vermieters für Wasser, Müll, Heizung usw.", tip: "Sie dürfen die Belege ansehen. Bei Bürgergeld: Nachzahlungen sofort beim Jobcenter einreichen." },
+      en: { p: "Yearly bill from the landlord for water, rubbish, heating etc.", tip: "You may inspect the receipts. With Bürgergeld: submit extra payments to the Jobcenter right away." } },
+    { w: "Bußgeldbescheid", alt: "Bußgeld, Ordnungswidrigkeit, Verwarnung", cat: "alltag",
+      de: { p: "Eine Geldstrafe für eine Ordnungswidrigkeit, z. B. zu schnelles Fahren.", tip: "Einspruch nur innerhalb von 2 Wochen ab Zustellung!" },
+      en: { p: "A fine for a minor offence, e.g. speeding.", tip: "Objection only within 2 weeks after delivery!" } },
+    { w: "Strafbefehl", alt: "Amtsgericht, Staatsanwaltschaft", cat: "alltag",
+      de: { p: "Eine Strafe vom Gericht ohne Verhandlung. Wird wie ein Urteil, wenn Sie nichts tun.", tip: "Einspruch innerhalb von 2 Wochen. Sofort Beratung holen – das kann Folgen für den Aufenthalt haben." },
+      en: { p: "A court penalty without a hearing. Becomes like a judgment if you do nothing.", tip: "Objection within 2 weeks. Get advice immediately – it can affect your residence status." } },
+  ];
+
+  root.Amtsklar = root.Amtsklar || {};
+  root.Amtsklar.glossary = { CATS, TERMS: G };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/* Amtsklar – glossary view (Amtsdeutsch decoder) */
+(function () {
+  "use strict";
+  const A = (window.Amtsklar = window.Amtsklar || {});
+  A.views = A.views || {};
+  const { CATS, TERMS } = A.glossary;
+  let query = "";
+  let cat = "";
+
+  function norm(s) {
+    return String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/ß/g, "ss");
+  }
+
+  function texts(term, lang) {
+    return term[lang] || term.en || term.de;
+  }
+
+  function render(el) {
+    const { esc, h, t, state } = A.util;
+    const lang = state.lang;
+    const catLabel = (c) => (CATS[c][lang] || CATS[c].en || CATS[c].de);
+    el.replaceChildren(
+      h(`
+      <section class="view" aria-labelledby="w-title">
+        <header style="display:grid;gap:10px">
+          <p class="eyebrow">${esc(t("w.eyebrow"))}</p>
+          <h2 id="w-title">${esc(t("w.title"))}</h2>
+          <p class="lede">${esc(t("w.lede"))}</p>
+        </header>
+        <div class="field">
+          <label for="w-search">${esc(t("w.search"))}</label>
+          <input type="search" id="w-search" placeholder="${esc(t("w.placeholder"))}" value="${esc(query)}" autocomplete="off">
+        </div>
+        <div class="chips" role="group" aria-label="${esc(t("w.filter"))}">
+          <button type="button" class="chip" data-cat="" aria-pressed="${cat === ""}">${esc(t("w.all"))}</button>
+          ${Object.keys(CATS).map((c) => `<button type="button" class="chip" data-cat="${c}" aria-pressed="${cat === c}">${esc(catLabel(c))}</button>`).join("")}
+        </div>
+        <p class="small" id="w-count" aria-live="polite"></p>
+        <div class="terms" id="w-list"></div>
+      </section>`)
+    );
+
+    const list = el.querySelector("#w-list");
+    const count = el.querySelector("#w-count");
+    const draw = () => {
+      const q = norm(query.trim());
+      const hits = TERMS.filter((x) => {
+        if (cat && x.cat !== cat) return false;
+        if (!q) return true;
+        const tx = texts(x, lang);
+        return [x.w, x.alt, tx.p, x.de.p].some((s) => norm(s).includes(q));
+      }).sort((a, b) => {
+        // exact/prefix matches on the term first, then alphabetical
+        const qa = q && norm(a.w).startsWith(q) ? 0 : 1;
+        const qb = q && norm(b.w).startsWith(q) ? 0 : 1;
+        return qa - qb || a.w.localeCompare(b.w, "de");
+      });
+      count.textContent = t("w.count", { n: hits.length });
+      if (!hits.length) {
+        list.replaceChildren(h(`<p class="empty">${esc(t("w.none"))}</p>`));
+        return;
+      }
+      list.replaceChildren(
+        h(
+          hits
+            .map((x) => {
+              const tx = texts(x, lang);
+              const showDe = lang !== "de" && tx !== x.de;
+              return `<article class="term" id="term-${esc(norm(x.w).replace(/[^a-z0-9]+/g, "-"))}">
+                <div class="term-head"><span class="term-word" lang="de">${esc(x.w)}</span><span class="term-cat">${esc(catLabel(x.cat))}</span></div>
+                <p class="term-plain">${esc(tx.p)}</p>
+                ${tx.tip ? `<p class="term-tip">→ ${esc(tx.tip)}</p>` : ""}
+                ${showDe ? `<details class="small"><summary>${esc(t("w.inGerman"))}</summary><p lang="de">${esc(x.de.p)} ${esc(x.de.tip || "")}</p></details>` : ""}
+                ${x.alt ? `<p class="small" lang="de">${esc(t("w.also"))}: ${esc(x.alt)}</p>` : ""}
+              </article>`;
+            })
+            .join("")
+        )
+      );
+    };
+
+    el.querySelector("#w-search").addEventListener("input", (e) => {
+      query = e.target.value;
+      draw();
+    });
+    el.querySelectorAll(".chip").forEach((b) =>
+      b.addEventListener("click", () => {
+        cat = b.dataset.cat;
+        el.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        draw();
+      })
+    );
+    draw();
+  }
+
+  A.views.woerter = { render };
+})();
 
 </script>
 <script>
