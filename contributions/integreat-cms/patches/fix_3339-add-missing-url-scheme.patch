@@ -1,0 +1,146 @@
+From df2f1b107e4f6d0c5d93c3eee1956a0032753c3d Mon Sep 17 00:00:00 2001
+From: Simon Spitzer <simon.spitzer@live.de>
+Date: Wed, 4 Nov 2026 07:31:52 +0000
+Subject: [PATCH] Prepend https:// to URL fields without scheme
+
+Entering e.g. "www.example.com" into a URL field was rejected by the
+browser's built-in validation. Now "https://" is prepended automatically
+when the field is changed or the form is submitted via enter. Values which
+already contain a scheme (e.g. mailto: or tel:) are left unchanged.
+
+Fixes #3339
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ .../release_notes/current/unreleased/3339.yml |  2 ++
+ integreat_cms/static/src/index.ts             |  1 +
+ .../static/src/js/__tests__/utils/url.test.ts | 26 ++++++++++++++++
+ .../src/js/forms/add-missing-url-scheme.ts    | 30 +++++++++++++++++++
+ integreat_cms/static/src/js/utils/url.ts      | 24 +++++++++++++++
+ 5 files changed, 83 insertions(+)
+ create mode 100644 integreat_cms/release_notes/current/unreleased/3339.yml
+ create mode 100644 integreat_cms/static/src/js/__tests__/utils/url.test.ts
+ create mode 100644 integreat_cms/static/src/js/forms/add-missing-url-scheme.ts
+ create mode 100644 integreat_cms/static/src/js/utils/url.ts
+
+diff --git a/integreat_cms/release_notes/current/unreleased/3339.yml b/integreat_cms/release_notes/current/unreleased/3339.yml
+new file mode 100644
+index 0000000..febabd8
+--- /dev/null
++++ b/integreat_cms/release_notes/current/unreleased/3339.yml
+@@ -0,0 +1,2 @@
++en: URLs without "https://" (e.g. "www.example.com") can now be entered in URL fields, the prefix is added automatically.
++de: URLs ohne "https://" (z. B. "www.example.com") können jetzt in URL-Felder eingegeben werden, das Präfix wird automatisch ergänzt.
+diff --git a/integreat_cms/static/src/index.ts b/integreat_cms/static/src/index.ts
+index 693368b..4a06d6f 100644
+--- a/integreat_cms/static/src/index.ts
++++ b/integreat_cms/static/src/index.ts
+@@ -39,6 +39,7 @@ import "./js/machine-translation-overlay";
+ import "./js/revisions";
+ import "./js/event-duration";
+ 
++import "./js/forms/add-missing-url-scheme";
+ import "./js/forms/slug-error";
+ import "./js/forms/update-permalink";
+ import "./js/forms/distribute-sidebar-boxes";
+diff --git a/integreat_cms/static/src/js/__tests__/utils/url.test.ts b/integreat_cms/static/src/js/__tests__/utils/url.test.ts
+new file mode 100644
+index 0000000..dce5081
+--- /dev/null
++++ b/integreat_cms/static/src/js/__tests__/utils/url.test.ts
+@@ -0,0 +1,26 @@
++import { describe, expect, test } from "vitest";
++import { addMissingUrlScheme } from "../../utils/url";
++
++describe("addMissingUrlScheme", () => {
++    test.each([
++        ["www.example.com", "https://www.example.com"],
++        ["example.com/path?query=1", "https://example.com/path?query=1"],
++        ["www.example.com:8080/path", "https://www.example.com:8080/path"],
++        ["  www.example.com  ", "https://www.example.com"],
++        ["//example.com", "https://example.com"],
++    ])("prepends https:// to %j", (input, expected) => {
++        expect(addMissingUrlScheme(input)).toBe(expected);
++    });
++
++    test.each([
++        "https://www.example.com",
++        "http://www.example.com",
++        "HTTPS://www.example.com",
++        "mailto:info@example.com",
++        "tel:+49821123456",
++        "",
++        "   ",
++    ])("leaves %j unchanged", (input) => {
++        expect(addMissingUrlScheme(input)).toBe(input);
++    });
++});
+diff --git a/integreat_cms/static/src/js/forms/add-missing-url-scheme.ts b/integreat_cms/static/src/js/forms/add-missing-url-scheme.ts
+new file mode 100644
+index 0000000..e4a63be
+--- /dev/null
++++ b/integreat_cms/static/src/js/forms/add-missing-url-scheme.ts
+@@ -0,0 +1,30 @@
++/**
++ * This file prepends "https://" to the value of URL input fields if the user did not enter a scheme.
++ * Otherwise, the browser's built-in validation rejects values like "www.example.com" with an unhelpful error.
++ */
++
++import { addMissingUrlScheme } from "../utils/url";
++
++const completeUrl = (target: EventTarget | null) => {
++    if (target instanceof HTMLInputElement && target.type === "url" && !target.readOnly && !target.disabled) {
++        const completedUrl = addMissingUrlScheme(target.value);
++        if (completedUrl !== target.value) {
++            // eslint-disable-next-line no-param-reassign
++            target.value = completedUrl;
++        }
++    }
++};
++
++// Use event delegation, so that dynamically added input fields are covered as well.
++// The "change" event is fired when the field loses focus after the value was modified.
++document.addEventListener("change", (event) => completeUrl(event.target), true);
++// When the form is submitted by pressing enter, the browser validates the field before it loses focus
++document.addEventListener(
++    "keydown",
++    (event) => {
++        if (event.key === "Enter") {
++            completeUrl(event.target);
++        }
++    },
++    true
++);
+diff --git a/integreat_cms/static/src/js/utils/url.ts b/integreat_cms/static/src/js/utils/url.ts
+new file mode 100644
+index 0000000..282b49b
+--- /dev/null
++++ b/integreat_cms/static/src/js/utils/url.ts
+@@ -0,0 +1,24 @@
++/**
++ * Matches values which already start with a URL scheme, e.g. "https:", "mailto:" or "tel:".
++ * Dots are deliberately not allowed in the scheme, so that a host with a port
++ * (e.g. "www.example.com:8080") is not mistaken for a scheme.
++ */
++const SCHEME_REGEX = /^[a-z][a-z0-9+-]*:/i;
++
++/**
++ * Prepend "https://" to a URL if it does not contain a scheme yet,
++ * e.g. "www.example.com" becomes "https://www.example.com".
++ *
++ * @param value The URL entered by the user
++ * @returns The URL including a scheme
++ */
++export const addMissingUrlScheme = (value: string): string => {
++    const trimmedValue = value.trim();
++    if (!trimmedValue || SCHEME_REGEX.test(trimmedValue)) {
++        return value;
++    }
++    if (trimmedValue.startsWith("//")) {
++        return `https:${trimmedValue}`;
++    }
++    return `https://${trimmedValue}`;
++};
+-- 
+2.43.0
+
