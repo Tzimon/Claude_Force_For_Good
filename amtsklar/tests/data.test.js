@@ -40,3 +40,19 @@ test("letter templates build complete German letters", () => {
     assert.match(full, /04\.11\.2026/);
   }
 });
+
+test("every translation covers all interface strings", () => {
+  require("../js/i18n/uk.js");
+  require("../js/i18n/ar.js");
+  require("../js/i18n/tr.js");
+  const en = Object.keys(T.en);
+  for (const lang of Object.keys(global.Amtsklar.i18n.LANGS)) {
+    const keys = Object.keys(T[lang]);
+    assert.deepEqual(en.filter((k) => !keys.includes(k)), [], `${lang} missing keys`);
+    assert.deepEqual(keys.filter((k) => !en.includes(k)), [], `${lang} unknown keys`);
+    for (const k of en) {
+      const vars = (T.en[k].match(/\{\w+\}/g) || []).sort().join();
+      assert.equal((T[lang][k].match(/\{\w+\}/g) || []).sort().join(), vars, `${lang}.${k} placeholders`);
+    }
+  }
+});

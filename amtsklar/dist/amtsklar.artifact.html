@@ -122,6 +122,7 @@ p { margin: 0; }
 .tab:hover { color: var(--ink); }
 
 main { padding-block: 28px 64px; }
+#lang-note { margin: 0 0 24px; }
 .view { display: grid; gap: 24px; }
 .lede { color: var(--muted); max-width: 62ch; }
 .eyebrow { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.95rem; color: var(--muted); font-weight: 600; }
@@ -257,6 +258,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
   </div>
 </header>
 <main class="wrap">
+  <p class="callout" id="lang-note" hidden></p>
   <div id="view"></div>
 </main>
 <footer class="wrap">
@@ -589,6 +591,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     de: {
       tagline: "Behördenbriefe verstehen",
       language: "Sprache",
+      "lang.ai": "",
       "nav.frist": "Frist",
       "nav.woerter": "Wörter",
       "nav.vorlagen": "Vorlagen",
@@ -698,6 +701,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     en: {
       tagline: "Understand German official letters",
       language: "Language",
+      "lang.ai": "",
       "nav.frist": "Deadline",
       "nav.woerter": "Words",
       "nav.vorlagen": "Letters",
@@ -814,6 +818,363 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
 
   root.Amtsklar = root.Amtsklar || {};
   root.Amtsklar.i18n = { LANGS, T, t };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/* Amtsklar – Ukrainian interface (AI-assisted translation, review by native speakers welcome) */
+(function (root) {
+  "use strict";
+  const I = root.Amtsklar.i18n;
+  I.LANGS.uk = { name: "Українська", dir: "ltr", ai: true };
+  I.T.uk = {
+    tagline: "Зрозуміти листи від установ",
+    language: "Мова",
+    "lang.ai": "Переклад створено за допомогою ШІ. Офіційні листи завжди пишуться німецькою – Amtsklar показує німецькі слова поруч.",
+    "nav.frist": "Строк",
+    "nav.woerter": "Слова",
+    "nav.vorlagen": "Листи",
+    "nav.hilfe": "Допомога",
+
+    "frist.eyebrow": "Калькулятор строків",
+    "frist.title": "До якого дня я маю відповісти?",
+    "frist.lede": "Рішення установи (Bescheid) можна оскаржити – але лише протягом певного строку. Введіть дані з вашого листа. Amtsklar обчислить останній день і пояснить кожен крок.",
+    "frist.how": "Як ви отримали лист?",
+    "frist.how.post": "Звичайний лист, e-mail або повідомлення в онлайн-порталі",
+    "frist.how.post.hint": "Лист вважається доставленим на 4-й день після відправлення.",
+    "frist.how.formal": "Жовтий конверт (офіційне вручення)",
+    "frist.how.formal.hint": "На конверті написана дата вручення.",
+    "frist.how.known": "Мені передали особисто",
+    "frist.how.known.hint": "Ви точно знаєте, в який день отримали лист.",
+    "frist.date.post": "Дата листа",
+    "frist.date.post.hint": "Зазвичай угорі праворуч. Якщо в листі вказано дату відправлення, використовуйте її.",
+    "frist.date.formal": "Дата на жовтому конверті",
+    "frist.date.formal.hint": "Листоноша пише її на конверті. Збережіть конверт!",
+    "frist.date.known": "День отримання",
+    "frist.date.known.hint": "День, коли лист опинився у ваших руках.",
+    "frist.period": "Який строк?",
+    "frist.period.hint": "Дивіться в кінці листа, розділ „Rechtsbehelfsbelehrung“. Найчастіше: один місяць.",
+    "frist.period.1w": "1 тиждень",
+    "frist.period.2w": "2 тижні (напр. штраф, судовий наказ про покарання)",
+    "frist.period.1m": "1 місяць (заперечення, оскарження, позов)",
+    "frist.period.3m": "3 місяці",
+    "frist.period.1y": "1 рік (якщо роз'яснення про оскарження відсутнє або неправильне)",
+    "frist.state": "Федеральна земля установи",
+    "frist.state.hint": "Важливо через святкові дні. Вказуйте місце установи, а не ваше місце проживання.",
+    "frist.result.label": "Строк закінчується",
+    "frist.result.end": "Ваше заперечення має надійти до установи до {date}, 23:59.",
+    "frist.daysLeft": "Залишилось днів: {n}",
+    "frist.daysLeft.1": "Залишився 1 день – дійте сьогодні!",
+    "frist.daysLeft.0": "Сьогодні останній день!",
+    "frist.daysLeft.past": "Цей строк закінчився {n} дн. тому.",
+    "frist.past.help": "Пропущений строк – не завжди втрачений: якщо ви запізнилися не з власної вини (напр. лікарня, відпустка), можна подати заяву про „Wiedereinsetzung in den vorigen Stand“ (поновлення строку) протягом 2 тижнів. Для Jobcenter та соцслужби є також „Überprüfungsantrag“ (заява про перегляд). Швидко зверніться по консультацію.",
+    "frist.steps": "Як це обчислено",
+    "frist.step.fiction": "Лист відправлено {from}. Він вважається доставленим через {days} дні: {to}.",
+    "frist.step.formal": "Вручено {to} (дата на жовтому конверті).",
+    "frist.step.known": "Передано {to}.",
+    "frist.step.period": "Строк починається наступного дня. {period} після {from} – це {to}.",
+    "frist.step.monthEnd": "Такого дня немає в цьому місяці, тому строк закінчується в останній день місяця: {to}.",
+    "frist.step.shift": "{list} – у цей день строк не може закінчитися. Він переноситься на наступний робочий день: {to}.",
+    "frist.law.fiction": "§ 41 Abs. 2 VwVfG · § 37 Abs. 2 SGB X · § 122 Abs. 2 AO",
+    "frist.law.period": "§ 187 Abs. 1, § 188 Abs. 2 BGB",
+    "frist.law.monthEnd": "§ 188 Abs. 3 BGB",
+    "frist.law.shift": "§ 193 BGB · § 31 Abs. 3 VwVfG · § 26 Abs. 3 SGB X · § 108 Abs. 3 AO",
+    "frist.warn.received": "Лист прийшов пізніше, ніж через 4 дні після відправлення? Тоді строк може закінчитися пізніше – але у спорі це має доводити установа. Напевно: якщо ви дієте до вказаної дати, ви встигаєте.",
+    "frist.warn.partial": "{date} – „{name}“. Це свято не по всій землі, тому Amtsklar для безпеки його не враховує.",
+    "frist.tips": "Як надійно встигнути",
+    "frist.tip.1": "Не чекайте останнього дня. Важливо, коли ваш лист надійде, а не коли ви його відправите.",
+    "frist.tip.2": "Надійно й безкоштовно: самі вкиньте лист у поштову скриньку установи (візьміть свідка) або віддайте особисто й попросіть підтвердження отримання (Eingangsbestätigung).",
+    "frist.tip.3": "Звичайного e-mail для заперечення часто НЕ достатньо! Використовуйте лист, факс, онлайн-портал установи (напр. jobcenter.digital, ELSTER) або прийдіть особисто.",
+    "frist.tip.4": "Щоб дотриматися строку, обґрунтування не потрібне. Напишіть: „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“ (Я подаю заперечення. Обґрунтування надішлю пізніше.)",
+    "frist.toTemplate": "Написати заперечення",
+    "frist.copy": "Копіювати результат",
+    "frist.copied": "Скопійовано",
+    "frist.invalid": "Будь ласка, введіть правильну дату.",
+
+    "weekday.0": "неділя", "weekday.1": "понеділок", "weekday.2": "вівторок", "weekday.3": "середа",
+    "weekday.4": "четвер", "weekday.5": "п'ятниця", "weekday.6": "субота",
+    "period.1w": "Один тиждень", "period.2w": "Два тижні", "period.1m": "Один місяць", "period.3m": "Три місяці", "period.1y": "Один рік",
+
+    "w.eyebrow": "Словник канцелярської німецької",
+    "w.title": "Що означає це слово?",
+    "w.lede": "Установи пишуть складною німецькою. Тут найважливіші слова простою мовою – з порадою, що робити.",
+    "w.search": "Шукати слово",
+    "w.placeholder": "напр. Bescheid, Frist, Mahnung",
+    "w.filter": "Тема",
+    "w.all": "Усі",
+    "w.count": "Слів: {n}",
+    "w.none": "Нічого не знайдено. Спробуйте коротше слово або частину слова.",
+    "w.also": "Також",
+    "w.inGerman": "Читати німецькою",
+
+    "v.eyebrow": "Зразки листів",
+    "v.title": "Написати правильний лист",
+    "v.lede": "Оберіть зразок і заповніть поля. Лист одразу з'явиться німецькою – так, як потрібно установі.",
+    "v.choose": "Оберіть зразок",
+    "v.you": "Ваші дані",
+    "v.privacy": "Ваші дані залишаються на цьому пристрої. Amtsklar запам'ятовує ім'я та адресу для наступного листа.",
+    "v.letter": "Ваш лист",
+    "v.copy": "Копіювати лист",
+    "v.print": "Друкувати",
+    "v.download": "Зберегти як текстовий файл",
+    "v.missing": "Ще {n} пропусків у квадратних дужках [ ]. Заповніть поля вище.",
+    "v.complete": "Лист готовий. Роздрукуйте, підпишіть, збережіть копію.",
+    "v.notes": "Корисно знати",
+
+    "h.eyebrow": "Безкоштовна допомога",
+    "h.title": "Вам не потрібно робити це самотужки",
+    "h.lede": "Ці служби безкоштовно допомагають з листами, заявами та проблемами з установами. Багато консультують і іншими мовами.",
+    "h.emergency": "Екстрені випадки: поліція 110 · пожежна та швидка допомога 112",
+    "h.phone": "Телефон (безкоштовно)",
+    "h.bring": "Що взяти на консультацію",
+    "h.bring.1": "Лист від установи – всі сторінки та конверт.",
+    "h.bring.2": "Посвідчення особи або паспорт і, якщо є, дозвіл на проживання.",
+    "h.bring.3": "Попередні рішення та ваші власні листи до установи.",
+    "h.bring.4": "Результат калькулятора строків – щоб не забути про строк.",
+
+    disclaimer: "Amtsklar – не юридична консультація. Ми ретельно перевіряємо зміст, але закони змінюються, і кожен випадок інший. З важливих питань звертайтеся по безкоштовну консультацію (див. „Допомога“).",
+    "footer.privacy": "Без реєстрації, без відстеження, жодні дані не залишають ваш пристрій.",
+    "footer.source": "Вільне програмне забезпечення. Код і участь:",
+    "footer.updated": "Правовий стан: листопад 2026.",
+  };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/* Amtsklar – Arabic interface (AI-assisted translation, review by native speakers welcome) */
+(function (root) {
+  "use strict";
+  const I = root.Amtsklar.i18n;
+  I.LANGS.ar = { name: "العربية", dir: "rtl", ai: true };
+  I.T.ar = {
+    tagline: "فهم رسائل الدوائر الرسمية",
+    language: "اللغة",
+    "lang.ai": "تمت الترجمة بمساعدة الذكاء الاصطناعي. الرسائل الرسمية تُكتب دائماً بالألمانية – يعرض Amtsklar الكلمات الألمانية بجانب الترجمة.",
+    "nav.frist": "المهلة",
+    "nav.woerter": "كلمات",
+    "nav.vorlagen": "رسائل",
+    "nav.hilfe": "مساعدة",
+
+    "frist.eyebrow": "حاسبة المهلة",
+    "frist.title": "حتى متى يجب أن أرد؟",
+    "frist.lede": "يمكنك الاعتراض على قرار رسمي (Bescheid)، لكن فقط خلال مهلة محددة. أدخل ما هو مكتوب في رسالتك. يحسب Amtsklar آخر يوم ويشرح كل خطوة.",
+    "frist.how": "كيف وصلتك الرسالة؟",
+    "frist.how.post": "رسالة عادية أو بريد إلكتروني أو رسالة في بوابة إلكترونية",
+    "frist.how.post.hint": "تُعتبر الرسالة مُسلَّمة في اليوم الرابع بعد إرسالها.",
+    "frist.how.formal": "ظرف أصفر (تسليم رسمي)",
+    "frist.how.formal.hint": "تاريخ التسليم مكتوب على الظرف.",
+    "frist.how.known": "سُلِّمت لي شخصياً",
+    "frist.how.known.hint": "تعرف بالضبط في أي يوم استلمت الرسالة.",
+    "frist.date.post": "تاريخ الرسالة",
+    "frist.date.post.hint": "عادةً في أعلى اليمين. إذا ذكرت الرسالة تاريخ الإرسال فاستخدمه.",
+    "frist.date.formal": "التاريخ على الظرف الأصفر",
+    "frist.date.formal.hint": "يكتبه ساعي البريد على الظرف. احتفظ بالظرف!",
+    "frist.date.known": "يوم الاستلام",
+    "frist.date.known.hint": "اليوم الذي أصبحت فيه الرسالة بين يديك.",
+    "frist.period": "ما طول المهلة؟",
+    "frist.period.hint": "انظر في نهاية الرسالة تحت „Rechtsbehelfsbelehrung“. غالباً: شهر واحد.",
+    "frist.period.1w": "أسبوع واحد",
+    "frist.period.2w": "أسبوعان (مثل إشعار غرامة أو أمر جزائي)",
+    "frist.period.1m": "شهر واحد (اعتراض، طعن، دعوى)",
+    "frist.period.3m": "3 أشهر",
+    "frist.period.1y": "سنة واحدة (إذا كان بيان طرق الطعن مفقوداً أو خاطئاً)",
+    "frist.state": "الولاية التي تقع فيها الدائرة",
+    "frist.state.hint": "مهم بسبب العطل الرسمية. المقصود مكان الدائرة وليس مكان سكنك.",
+    "frist.result.label": "تنتهي المهلة في",
+    "frist.result.end": "يجب أن يصل اعتراضك إلى الدائرة حتى {date} الساعة 23:59.",
+    "frist.daysLeft": "متبقٍّ {n} يوماً",
+    "frist.daysLeft.1": "متبقٍّ يوم واحد – تصرّف اليوم!",
+    "frist.daysLeft.0": "اليوم هو آخر يوم!",
+    "frist.daysLeft.past": "انتهت هذه المهلة منذ {n} يوماً.",
+    "frist.past.help": "انتهاء المهلة لا يعني دائماً ضياع الحق: إذا تأخرت دون ذنب منك (مثلاً المستشفى أو السفر) يمكنك طلب „Wiedereinsetzung in den vorigen Stand“ (إعادة المهلة) خلال أسبوعين. ولدى الجوب سنتر ومكتب الشؤون الاجتماعية يوجد أيضاً „Überprüfungsantrag“ (طلب المراجعة). اطلب الاستشارة بسرعة.",
+    "frist.steps": "كيف تم الحساب",
+    "frist.step.fiction": "أُرسلت الرسالة في {from}. تُعتبر مُسلَّمة بعد {days} أيام: في {to}.",
+    "frist.step.formal": "سُلِّمت في {to} (التاريخ على الظرف الأصفر).",
+    "frist.step.known": "سُلِّمت في {to}.",
+    "frist.step.period": "تبدأ المهلة في اليوم التالي. {period} بعد {from} هو {to}.",
+    "frist.step.monthEnd": "هذا اليوم غير موجود في الشهر المستهدف، لذلك تنتهي المهلة في آخر يوم من الشهر: {to}.",
+    "frist.step.shift": "{list} – لا يمكن أن تنتهي مهلة في هذا اليوم. تنتقل إلى يوم العمل التالي: {to}.",
+    "frist.law.fiction": "§ 41 Abs. 2 VwVfG · § 37 Abs. 2 SGB X · § 122 Abs. 2 AO",
+    "frist.law.period": "§ 187 Abs. 1, § 188 Abs. 2 BGB",
+    "frist.law.monthEnd": "§ 188 Abs. 3 BGB",
+    "frist.law.shift": "§ 193 BGB · § 31 Abs. 3 VwVfG · § 26 Abs. 3 SGB X · § 108 Abs. 3 AO",
+    "frist.warn.received": "هل وصلتك الرسالة بعد أكثر من 4 أيام من إرسالها؟ عندها قد تنتهي المهلة لاحقاً – لكن في حال النزاع على الدائرة أن تثبت ذلك. المؤكد: إذا تصرفت قبل التاريخ المذكور أعلاه فأنت في الوقت المحدد.",
+    "frist.warn.partial": "في {date} يصادف „{name}“. هذه ليست عطلة في كل أنحاء الولاية، لذلك لا يحتسبها Amtsklar احتياطاً.",
+    "frist.tips": "كيف تلتزم بالمهلة بأمان",
+    "frist.tip.1": "لا تنتظر حتى اليوم الأخير. المهم هو موعد وصول اعتراضك وليس موعد إرساله.",
+    "frist.tip.2": "آمن ومجاني: ضع الرسالة بنفسك في صندوق بريد الدائرة (خذ معك شاهداً) أو سلّمها هناك واطلب تأكيد الاستلام (Eingangsbestätigung).",
+    "frist.tip.3": "البريد الإلكتروني العادي غالباً لا يكفي للاعتراض! استخدم رسالة أو فاكس أو البوابة الإلكترونية للدائرة (مثل jobcenter.digital أو ELSTER) أو اذهب بنفسك.",
+    "frist.tip.4": "لا تحتاج إلى تبرير للالتزام بالمهلة. اكتب: „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“ (أعترض. سأرسل الأسباب لاحقاً.)",
+    "frist.toTemplate": "اكتب الاعتراض الآن",
+    "frist.copy": "نسخ النتيجة",
+    "frist.copied": "تم النسخ",
+    "frist.invalid": "يرجى إدخال تاريخ صحيح.",
+
+    "weekday.0": "الأحد", "weekday.1": "الاثنين", "weekday.2": "الثلاثاء", "weekday.3": "الأربعاء",
+    "weekday.4": "الخميس", "weekday.5": "الجمعة", "weekday.6": "السبت",
+    "period.1w": "أسبوع واحد", "period.2w": "أسبوعان", "period.1m": "شهر واحد", "period.3m": "ثلاثة أشهر", "period.1y": "سنة واحدة",
+
+    "w.eyebrow": "قاموس لغة الدوائر الرسمية",
+    "w.title": "ماذا تعني هذه الكلمة؟",
+    "w.lede": "تكتب الدوائر بلغة ألمانية معقدة. هنا أهم الكلمات بلغة بسيطة – مع نصيحة عمّا يمكنك فعله.",
+    "w.search": "ابحث عن كلمة",
+    "w.placeholder": "مثلاً Bescheid أو Frist أو Mahnung",
+    "w.filter": "الموضوع",
+    "w.all": "الكل",
+    "w.count": "{n} كلمة",
+    "w.none": "لا توجد نتيجة. جرّب كلمة أقصر أو جزءاً من الكلمة.",
+    "w.also": "أيضاً",
+    "w.inGerman": "اقرأ بالألمانية",
+
+    "v.eyebrow": "نماذج رسائل",
+    "v.title": "اكتب الرسالة الصحيحة",
+    "v.lede": "اختر نموذجاً واملأ الحقول. تُكتب الرسالة فوراً بالألمانية – كما تحتاجها الدائرة.",
+    "v.choose": "اختر نموذجاً",
+    "v.you": "بياناتك",
+    "v.privacy": "تبقى بياناتك على هذا الجهاز. يتذكر Amtsklar اسمك وعنوانك للرسالة التالية.",
+    "v.letter": "رسالتك",
+    "v.copy": "نسخ الرسالة",
+    "v.print": "طباعة",
+    "v.download": "حفظ كملف نصي",
+    "v.missing": "ما زال هناك {n} فراغات بين أقواس مربعة [ ]. املأ الحقول أعلاه.",
+    "v.complete": "الرسالة كاملة. اطبعها ووقّعها واحتفظ بنسخة.",
+    "v.notes": "من المفيد أن تعرف",
+
+    "h.eyebrow": "مساعدة مجانية",
+    "h.title": "لست مضطراً لفعل ذلك وحدك",
+    "h.lede": "هذه الجهات تساعد مجاناً في الرسائل والطلبات والمشاكل مع الدوائر. كثير منها يقدم الاستشارة بلغات أخرى أيضاً.",
+    "h.emergency": "الطوارئ: الشرطة 110 · الإطفاء والإسعاف 112",
+    "h.phone": "الهاتف (مجاني)",
+    "h.bring": "ما يجب أن تأخذه معك إلى الاستشارة",
+    "h.bring.1": "رسالة الدائرة – كل الصفحات والظرف.",
+    "h.bring.2": "الهوية أو جواز السفر، وتصريح الإقامة إن وُجد.",
+    "h.bring.3": "القرارات السابقة ورسائلك أنت إلى الدائرة.",
+    "h.bring.4": "نتيجة حاسبة المهلة – حتى لا تُنسى المهلة.",
+
+    disclaimer: "Amtsklar ليس استشارة قانونية. نراجع المحتوى بعناية، لكن القوانين تتغير وكل حالة مختلفة. في الأسئلة المهمة: استخدم الاستشارة المجانية (انظر „مساعدة“).",
+    "footer.privacy": "بدون تسجيل، بدون تتبّع، لا تغادر أي بيانات جهازك.",
+    "footer.source": "برنامج حر. الشيفرة المصدرية والمشاركة:",
+    "footer.updated": "الوضع القانوني: نوفمبر 2026.",
+  };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/* Amtsklar – Turkish interface (AI-assisted translation, review by native speakers welcome) */
+(function (root) {
+  "use strict";
+  const I = root.Amtsklar.i18n;
+  I.LANGS.tr = { name: "Türkçe", dir: "ltr", ai: true };
+  I.T.tr = {
+    tagline: "Resmi mektupları anlamak",
+    language: "Dil",
+    "lang.ai": "Çeviri yapay zekâ yardımıyla yapıldı. Resmi mektuplar her zaman Almancadır – Amtsklar Almanca kelimeleri yanında gösterir.",
+    "nav.frist": "Süre",
+    "nav.woerter": "Kelimeler",
+    "nav.vorlagen": "Mektuplar",
+    "nav.hilfe": "Yardım",
+
+    "frist.eyebrow": "Süre hesaplayıcı",
+    "frist.title": "Ne zamana kadar cevap vermeliyim?",
+    "frist.lede": "Resmi bir karara (Bescheid) itiraz edebilirsiniz – ama sadece belirli bir süre içinde. Mektubunuzda yazanları girin. Amtsklar son günü hesaplar ve her adımı açıklar.",
+    "frist.how": "Mektup size nasıl ulaştı?",
+    "frist.how.post": "Normal mektup, e-posta veya çevrimiçi portalda mesaj",
+    "frist.how.post.hint": "Mektup, gönderildikten sonraki 4. günde teslim edilmiş sayılır.",
+    "frist.how.formal": "Sarı zarf (resmi tebliğ)",
+    "frist.how.formal.hint": "Tebliğ tarihi zarfın üzerinde yazılıdır.",
+    "frist.how.known": "Bana elden verildi",
+    "frist.how.known.hint": "Mektubu hangi gün aldığınızı tam olarak biliyorsunuz.",
+    "frist.date.post": "Mektubun tarihi",
+    "frist.date.post.hint": "Genellikle sağ üstte. Mektupta gönderim tarihi yazıyorsa onu kullanın.",
+    "frist.date.formal": "Sarı zarftaki tarih",
+    "frist.date.formal.hint": "Postacı bunu zarfa yazar. Zarfı saklayın!",
+    "frist.date.known": "Teslim aldığınız gün",
+    "frist.date.known.hint": "Mektubun elinize geçtiği gün.",
+    "frist.period": "Süre ne kadar?",
+    "frist.period.hint": "Mektubun sonunda „Rechtsbehelfsbelehrung“ başlığına bakın. Çoğunlukla: bir ay.",
+    "frist.period.1w": "1 hafta",
+    "frist.period.2w": "2 hafta (ör. para cezası, ceza kararnamesi)",
+    "frist.period.1m": "1 ay (itiraz, dava)",
+    "frist.period.3m": "3 ay",
+    "frist.period.1y": "1 yıl (kanun yolu bilgisi eksik veya yanlışsa)",
+    "frist.state": "Dairenin bulunduğu eyalet",
+    "frist.state.hint": "Resmi tatiller nedeniyle önemlidir. Oturduğunuz yer değil, dairenin yeri.",
+    "frist.result.label": "Süre bitiyor",
+    "frist.result.end": "İtirazınız en geç {date} saat 23:59'a kadar daireye ulaşmış olmalı.",
+    "frist.daysLeft": "{n} gün kaldı",
+    "frist.daysLeft.1": "1 gün kaldı – bugün harekete geçin!",
+    "frist.daysLeft.0": "Bugün son gün!",
+    "frist.daysLeft.past": "Bu süre {n} gün önce doldu.",
+    "frist.past.help": "Süre dolmuş olsa da her şey kaybedilmiş değildir: Kendi kusurunuz olmadan geç kaldıysanız (ör. hastane, seyahat), 2 hafta içinde „Wiedereinsetzung in den vorigen Stand“ (eski hale getirme) talep edebilirsiniz. Jobcenter ve sosyal yardım dairesi için ayrıca „Überprüfungsantrag“ (yeniden inceleme başvurusu) vardır. Hemen danışmanlık alın.",
+    "frist.steps": "Nasıl hesaplandı",
+    "frist.step.fiction": "Mektup {from} tarihinde gönderildi. {days} gün sonra teslim edilmiş sayılır: {to}.",
+    "frist.step.formal": "{to} tarihinde tebliğ edildi (sarı zarftaki tarih).",
+    "frist.step.known": "{to} tarihinde teslim edildi.",
+    "frist.step.period": "Süre ertesi gün başlar. {from} tarihinden {period} sonrası {to}.",
+    "frist.step.monthEnd": "Bu gün hedef ayda yok. Bu nedenle süre ayın son günü biter: {to}.",
+    "frist.step.shift": "{list} – bu günde süre bitemez. Bir sonraki iş gününe kayar: {to}.",
+    "frist.law.fiction": "§ 41 Abs. 2 VwVfG · § 37 Abs. 2 SGB X · § 122 Abs. 2 AO",
+    "frist.law.period": "§ 187 Abs. 1, § 188 Abs. 2 BGB",
+    "frist.law.monthEnd": "§ 188 Abs. 3 BGB",
+    "frist.law.shift": "§ 193 BGB · § 31 Abs. 3 VwVfG · § 26 Abs. 3 SGB X · § 108 Abs. 3 AO",
+    "frist.warn.received": "Mektup gönderildikten 4 günden daha geç mi geldi? O zaman süre daha geç bitebilir – ama anlaşmazlık durumunda bunu daire kanıtlamak zorundadır. Kesin olan: Yukarıdaki tarihe kadar harekete geçerseniz zamanında olursunuz.",
+    "frist.warn.partial": "{date} tarihinde „{name}“ var. Bu, eyaletin her yerinde tatil değildir; Amtsklar güvenlik için onu saymaz.",
+    "frist.tips": "Süreyi güvenle yakalamak için",
+    "frist.tip.1": "Son güne kadar beklemeyin. Önemli olan itirazınızın ne zaman ulaştığıdır, ne zaman gönderdiğiniz değil.",
+    "frist.tip.2": "Güvenli ve ücretsiz: Mektubu kendiniz dairenin posta kutusuna atın (yanınıza tanık alın) veya elden verip alındı belgesi (Eingangsbestätigung) isteyin.",
+    "frist.tip.3": "İtiraz için normal e-posta çoğu zaman YETMEZ! Mektup, faks, dairenin çevrimiçi portalı (ör. jobcenter.digital, ELSTER) kullanın veya bizzat gidin.",
+    "frist.tip.4": "Süreyi korumak için gerekçe gerekmez. Şunu yazın: „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“ (İtiraz ediyorum. Gerekçeyi sonra göndereceğim.)",
+    "frist.toTemplate": "İtirazı şimdi yaz",
+    "frist.copy": "Sonucu kopyala",
+    "frist.copied": "Kopyalandı",
+    "frist.invalid": "Lütfen geçerli bir tarih girin.",
+
+    "weekday.0": "Pazar", "weekday.1": "Pazartesi", "weekday.2": "Salı", "weekday.3": "Çarşamba",
+    "weekday.4": "Perşembe", "weekday.5": "Cuma", "weekday.6": "Cumartesi",
+    "period.1w": "Bir hafta", "period.2w": "İki hafta", "period.1m": "Bir ay", "period.3m": "Üç ay", "period.1y": "Bir yıl",
+
+    "w.eyebrow": "Resmi Almanca sözlüğü",
+    "w.title": "Bu kelime ne demek?",
+    "w.lede": "Daireler karmaşık bir Almanca yazar. Burada en önemli kelimeler sade bir dille – ne yapabileceğinize dair bir ipucuyla.",
+    "w.search": "Kelime ara",
+    "w.placeholder": "ör. Bescheid, Frist, Mahnung",
+    "w.filter": "Konu",
+    "w.all": "Tümü",
+    "w.count": "{n} kelime",
+    "w.none": "Sonuç yok. Daha kısa bir kelime veya kelimenin bir kısmını deneyin.",
+    "w.also": "Ayrıca",
+    "w.inGerman": "Almanca oku",
+
+    "v.eyebrow": "Örnek mektuplar",
+    "v.title": "Doğru mektubu yazın",
+    "v.lede": "Bir örnek seçin ve alanları doldurun. Mektup hemen Almanca oluşur – dairenin ihtiyaç duyduğu şekilde.",
+    "v.choose": "Örnek seçin",
+    "v.you": "Bilgileriniz",
+    "v.privacy": "Bilgileriniz bu cihazda kalır. Amtsklar bir sonraki mektup için adınızı ve adresinizi hatırlar.",
+    "v.letter": "Mektubunuz",
+    "v.copy": "Mektubu kopyala",
+    "v.print": "Yazdır",
+    "v.download": "Metin dosyası olarak kaydet",
+    "v.missing": "Köşeli parantez [ ] içinde {n} boşluk kaldı. Yukarıdaki alanları doldurun.",
+    "v.complete": "Mektup tamam. Yazdırın, imzalayın, bir kopyasını saklayın.",
+    "v.notes": "Bilmekte fayda var",
+
+    "h.eyebrow": "Ücretsiz yardım",
+    "h.title": "Bununla tek başınıza uğraşmak zorunda değilsiniz",
+    "h.lede": "Bu kuruluşlar mektuplar, başvurular ve dairelerle sorunlarda ücretsiz yardım eder. Birçoğu başka dillerde de danışmanlık verir.",
+    "h.emergency": "Acil durum: Polis 110 · İtfaiye ve ambulans 112",
+    "h.phone": "Telefon (ücretsiz)",
+    "h.bring": "Danışmanlığa yanınızda getirmeniz gerekenler",
+    "h.bring.1": "Dairenin mektubu – tüm sayfaları ve zarfıyla.",
+    "h.bring.2": "Kimlik veya pasaport ve varsa oturum izni.",
+    "h.bring.3": "Önceki kararlar ve daireye yazdığınız mektuplar.",
+    "h.bring.4": "Süre hesaplayıcının sonucu – süre unutulmasın diye.",
+
+    disclaimer: "Amtsklar hukuki danışmanlık değildir. İçeriği dikkatle kontrol ediyoruz, ancak yasalar değişir ve her durum farklıdır. Önemli sorularda ücretsiz danışmanlıktan yararlanın („Yardım“ bölümüne bakın).",
+    "footer.privacy": "Kayıt yok, takip yok, hiçbir veri cihazınızdan çıkmaz.",
+    "footer.source": "Özgür yazılım. Kaynak kodu ve katkı:",
+    "footer.updated": "Hukuki durum: Kasım 2026.",
+  };
 })(typeof self !== "undefined" ? self : this);
 
 </script>
@@ -1968,6 +2329,9 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
         return a;
       })
     );
+    const note = document.querySelector("#lang-note");
+    note.hidden = !lang.ai;
+    note.textContent = lang.ai ? t("lang.ai") : "";
     document.querySelector("#disclaimer").textContent = t("disclaimer");
     document.querySelector("#privacy").textContent = t("footer.privacy");
     document.querySelector("#source-label").textContent = t("footer.source");

@@ -115,6 +115,7 @@ p { margin: 0; }
 .tab:hover { color: var(--ink); }
 
 main { padding-block: 28px 64px; }
+#lang-note { margin: 0 0 24px; }
 .view { display: grid; gap: 24px; }
 .lede { color: var(--muted); max-width: 62ch; }
 .eyebrow { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.95rem; color: var(--muted); font-weight: 600; }

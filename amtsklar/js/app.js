@@ -290,6 +290,9 @@
         return a;
       })
     );
+    const note = document.querySelector("#lang-note");
+    note.hidden = !lang.ai;
+    note.textContent = lang.ai ? t("lang.ai") : "";
     document.querySelector("#disclaimer").textContent = t("disclaimer");
     document.querySelector("#privacy").textContent = t("footer.privacy");
     document.querySelector("#source-label").textContent = t("footer.source");

@@ -14,6 +14,7 @@
     de: {
       tagline: "Behördenbriefe verstehen",
       language: "Sprache",
+      "lang.ai": "",
       "nav.frist": "Frist",
       "nav.woerter": "Wörter",
       "nav.vorlagen": "Vorlagen",
@@ -123,6 +124,7 @@
     en: {
       tagline: "Understand German official letters",
       language: "Language",
+      "lang.ai": "",
       "nav.frist": "Deadline",
       "nav.woerter": "Words",
       "nav.vorlagen": "Letters",
