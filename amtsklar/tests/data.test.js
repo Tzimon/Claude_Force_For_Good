@@ -46,6 +46,7 @@ test("every translation covers all interface strings", () => {
   require("../js/i18n/ar.js");
   require("../js/i18n/tr.js");
   require("../js/i18n/ru.js");
+  require("../js/i18n/fa.js");
   const en = Object.keys(T.en);
   for (const lang of Object.keys(global.Amtsklar.i18n.LANGS)) {
     const keys = Object.keys(T[lang]);
@@ -59,9 +60,9 @@ test("every translation covers all interface strings", () => {
 });
 
 test("glossary translations cover every term", () => {
-  for (const l of ["uk", "ar", "tr", "ru"]) require(`../js/data/glossary-${l}.js`);
+  for (const l of ["uk", "ar", "tr", "ru", "fa"]) require(`../js/data/glossary-${l}.js`);
   const tr = global.Amtsklar.glossaryI18n;
-  for (const l of ["uk", "ar", "tr", "ru"]) {
+  for (const l of ["uk", "ar", "tr", "ru", "fa"]) {
     const keys = Object.keys(tr[l]);
     assert.deepEqual(TERMS.map((x) => x.w).filter((w) => !tr[l][w]), [], `${l} missing`);
     assert.deepEqual(keys.filter((k) => !TERMS.some((x) => x.w === k)), [], `${l} unknown`);
@@ -97,7 +98,7 @@ test("guides are complete and link to existing content", () => {
 
 test("guide translations match the German structure", () => {
   const { GUIDES } = global.Amtsklar.guides;
-  for (const l of ["uk", "ar", "tr", "ru"]) {
+  for (const l of ["uk", "ar", "tr", "ru", "fa"]) {
     require(`../js/data/guides-${l}.js`);
     const tr = global.Amtsklar.guidesI18n[l];
     assert.deepEqual(Object.keys(tr).sort(), GUIDES.map((g) => g.id).sort(), `${l} guide ids`);

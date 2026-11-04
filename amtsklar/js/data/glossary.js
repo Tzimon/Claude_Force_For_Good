@@ -7,12 +7,12 @@
 (function (root) {
   "use strict";
   const CATS = {
-    brief: { de: "Brief", en: "Letter", uk: "Лист", ar: "الرسالة", tr: "Mektup", ru: "Письмо" },
-    recht: { de: "Wehren", en: "Challenge", uk: "Оскарження", ar: "الاعتراض", tr: "İtiraz", ru: "Обжалование" },
-    geld: { de: "Geld", en: "Money", uk: "Гроші", ar: "المال", tr: "Para", ru: "Деньги" },
-    sozial: { de: "Jobcenter & Soziales", en: "Benefits", uk: "Соцвиплати", ar: "المساعدات", tr: "Sosyal yardım", ru: "Соцвыплаты" },
-    aufenthalt: { de: "Aufenthalt", en: "Residence", uk: "Проживання", ar: "الإقامة", tr: "Oturum", ru: "Проживание" },
-    alltag: { de: "Alltag", en: "Everyday", uk: "Повсякдення", ar: "الحياة اليومية", tr: "Günlük hayat", ru: "Повседневность" },
+    brief: { de: "Brief", en: "Letter", uk: "Лист", ar: "الرسالة", tr: "Mektup", ru: "Письмо", fa: "نامه" },
+    recht: { de: "Wehren", en: "Challenge", uk: "Оскарження", ar: "الاعتراض", tr: "İtiraz", ru: "Обжалование", fa: "اعتراض" },
+    geld: { de: "Geld", en: "Money", uk: "Гроші", ar: "المال", tr: "Para", ru: "Деньги", fa: "پول" },
+    sozial: { de: "Jobcenter & Soziales", en: "Benefits", uk: "Соцвиплати", ar: "المساعدات", tr: "Sosyal yardım", ru: "Соцвыплаты", fa: "کمک‌های اجتماعی" },
+    aufenthalt: { de: "Aufenthalt", en: "Residence", uk: "Проживання", ar: "الإقامة", tr: "Oturum", ru: "Проживание", fa: "اقامت" },
+    alltag: { de: "Alltag", en: "Everyday", uk: "Повсякдення", ar: "الحياة اليومية", tr: "Günlük hayat", ru: "Повседневность", fa: "زندگی روزمره" },
   };
 
   const G = [

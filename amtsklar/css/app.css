@@ -266,9 +266,9 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
 .guides { display: grid; gap: 10px; }
 .guide { background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius); }
 .guide[open] { border-color: var(--stamp); }
-.guide summary { cursor: pointer; padding: 14px 16px; display: grid; gap: 2px; list-style: none; }
+.guide summary { cursor: pointer; padding: 14px 16px; padding-inline-end: 44px; display: grid; gap: 2px; list-style: none; position: relative; }
 .guide summary::-webkit-details-marker { display: none; }
-.guide summary::before { content: "+"; float: inline-end; font: 600 1.3rem/1 var(--font-mono); color: var(--stamp); }
+.guide summary::before { content: "+"; position: absolute; inset-inline-end: 16px; top: 16px; font: 600 1.3rem/1 var(--font-mono); color: var(--stamp); }
 .guide[open] summary::before { content: "–"; }
 .guide-title { font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; }
 .guide-body { padding: 4px 16px 18px; display: grid; gap: 16px; }
