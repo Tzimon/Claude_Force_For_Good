@@ -10,7 +10,7 @@
   const { LANGS, t: tr } = A.i18n;
   const D = A.deadline;
 
-  const ROUTES = ["frist", "woerter", "vorlagen", "hilfe"];
+  const ROUTES = ["frist", "brief", "woerter", "vorlagen", "hilfe"];
   const state = {
     lang: "de",
     route: "frist",

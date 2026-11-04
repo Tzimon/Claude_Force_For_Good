@@ -246,6 +246,34 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
   .letter { border: 0; padding: 0; font-size: 11pt; }
 }
 
+/* Annotated letter (Brief verstehen) */
+.anatomy { display: grid; gap: 20px; }
+@media (min-width: 900px) { .anatomy { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: start; } }
+.anatomy-letter { display: grid; gap: 8px; min-width: 0; }
+.bescheid {
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: 2px; padding: 22px 20px 26px;
+  font-family: "Arial", "Helvetica", sans-serif; font-size: 0.9rem; line-height: 1.5; display: grid; gap: 12px;
+  box-shadow: 0 1px 0 var(--rule), 0 8px 24px -16px rgba(0,0,0,.35);
+}
+.b-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.b-right { text-align: end; }
+.b-addr { color: var(--muted); }
+.b-small { font-size: 0.8rem; color: var(--muted); }
+.b-part { position: relative; border-radius: 4px; padding: 4px 6px 4px 34px; margin: 0 -6px; transition: background-color .15s; }
+[dir="rtl"] .b-part { padding: 4px 34px 4px 6px; }
+.b-part.active { background: var(--yellow-soft); color: var(--yellow-ink); }
+.anno {
+  position: absolute; inset-inline-start: 4px; top: 4px; width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid var(--stamp); background: var(--sheet); color: var(--stamp); font: 600 0.75rem/1 var(--font-mono);
+  display: grid; place-items: center; cursor: pointer; padding: 0;
+}
+.anno.static { position: static; flex: none; cursor: default; }
+.anatomy-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; min-width: 0; }
+.anatomy-list li { display: flex; gap: 12px; padding: 12px 8px; border-top: 1px solid var(--rule); cursor: pointer; border-radius: 4px; }
+.anatomy-list li.active { background: var(--yellow-soft); color: var(--yellow-ink); }
+.anatomy-list li.active .anno { background: var(--stamp); color: var(--sheet); }
+.anatomy-list p { color: inherit; }
+
 </style>
 <meta name="theme-color" content="#f7c800">
 </head>
@@ -722,6 +750,18 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
       "weekday.4": "Donnerstag", "weekday.5": "Freitag", "weekday.6": "Samstag",
       "period.1w": "Eine Woche", "period.2w": "Zwei Wochen", "period.1m": "Ein Monat", "period.3m": "Drei Monate", "period.1y": "Ein Jahr",
 
+      "nav.brief": "Brief",
+      "b.eyebrow": "Bescheid lesen",
+      "b.title": "So ist ein Bescheid aufgebaut",
+      "b.lede": "Fast alle Bescheide haben dieselben Teile. Tippen Sie auf eine Nummer im Brief – daneben steht, was der Teil bedeutet und worauf Sie achten müssen.",
+      "b.sample": "Beispiel mit erfundenen Namen und Zahlen.",
+      "b.order": "In dieser Reihenfolge lesen",
+      "b.order.1": "Datum (2) und Rechtsbehelfsbelehrung (8): Wie viel Zeit habe ich?",
+      "b.order.2": "Die Entscheidung (5): Was genau wurde entschieden?",
+      "b.order.3": "Betrag (6): Muss ich etwas zahlen oder bekomme ich etwas?",
+      "b.order.4": "Begründung (7): Stimmen die Zahlen und Fakten? Wenn nicht: Widerspruch.",
+      "b.toFrist": "Frist ausrechnen",
+
       "w.eyebrow": "Amtsdeutsch-Wörterbuch",
       "w.title": "Was heißt das auf Deutsch?",
       "w.lede": "Behörden schreiben kompliziert. Hier stehen die wichtigsten Wörter in einfacher Sprache – mit einem Tipp, was Sie tun können.",
@@ -833,6 +873,18 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
       "weekday.0": "Sunday", "weekday.1": "Monday", "weekday.2": "Tuesday", "weekday.3": "Wednesday",
       "weekday.4": "Thursday", "weekday.5": "Friday", "weekday.6": "Saturday",
       "period.1w": "One week", "period.2w": "Two weeks", "period.1m": "One month", "period.3m": "Three months", "period.1y": "One year",
+
+      "nav.brief": "Letter",
+      "b.eyebrow": "Reading a decision",
+      "b.title": "How a Bescheid is structured",
+      "b.lede": "Almost all decisions have the same parts. Tap a number in the letter – the explanation next to it says what the part means and what to watch out for.",
+      "b.sample": "Example with made-up names and figures.",
+      "b.order": "Read it in this order",
+      "b.order.1": "Date (2) and legal remedies (8): how much time do I have?",
+      "b.order.2": "The decision (5): what exactly was decided?",
+      "b.order.3": "Amount (6): do I have to pay or do I receive something?",
+      "b.order.4": "Reasons (7): are the figures and facts right? If not: object.",
+      "b.toFrist": "Calculate the deadline",
 
       "w.eyebrow": "Bureaucratic German decoder",
       "w.title": "What does this word mean?",
@@ -965,6 +1017,18 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     "weekday.4": "четвер", "weekday.5": "п'ятниця", "weekday.6": "субота",
     "period.1w": "Один тиждень", "period.2w": "Два тижні", "period.1m": "Один місяць", "period.3m": "Три місяці", "period.1y": "Один рік",
 
+    "nav.brief": "Лист",
+    "b.eyebrow": "Читаємо рішення",
+    "b.title": "Як побудоване рішення (Bescheid)",
+    "b.lede": "Майже всі рішення мають однакові частини. Натисніть на номер у листі – поруч пояснення, що означає ця частина і на що звернути увагу.",
+    "b.sample": "Приклад з вигаданими іменами та цифрами.",
+    "b.order": "Читайте в такому порядку",
+    "b.order.1": "Дата (2) та роз'яснення про оскарження (8): скільки в мене часу?",
+    "b.order.2": "Рішення (5): що саме вирішено?",
+    "b.order.3": "Сума (6): я маю платити чи отримаю гроші?",
+    "b.order.4": "Обґрунтування (7): чи правильні цифри та факти? Якщо ні – заперечення.",
+    "b.toFrist": "Обчислити строк",
+
     "w.eyebrow": "Словник канцелярської німецької",
     "w.title": "Що означає це слово?",
     "w.lede": "Установи пишуть складною німецькою. Тут найважливіші слова простою мовою – з порадою, що робити.",
@@ -1085,6 +1149,18 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     "weekday.0": "الأحد", "weekday.1": "الاثنين", "weekday.2": "الثلاثاء", "weekday.3": "الأربعاء",
     "weekday.4": "الخميس", "weekday.5": "الجمعة", "weekday.6": "السبت",
     "period.1w": "أسبوع واحد", "period.2w": "أسبوعان", "period.1m": "شهر واحد", "period.3m": "ثلاثة أشهر", "period.1y": "سنة واحدة",
+
+    "nav.brief": "الرسالة",
+    "b.eyebrow": "قراءة القرار",
+    "b.title": "كيف يُبنى القرار الرسمي (Bescheid)",
+    "b.lede": "تقريباً كل القرارات لها الأجزاء نفسها. اضغط على رقم في الرسالة – بجانبه شرح لمعنى هذا الجزء وما يجب الانتباه إليه.",
+    "b.sample": "مثال بأسماء وأرقام مُختلَقة.",
+    "b.order": "اقرأ بهذا الترتيب",
+    "b.order.1": "التاريخ (2) وبيان طرق الطعن (8): كم لدي من الوقت؟",
+    "b.order.2": "القرار (5): ما الذي تقرر بالضبط؟",
+    "b.order.3": "المبلغ (6): هل يجب أن أدفع أم سأحصل على شيء؟",
+    "b.order.4": "الأسباب (7): هل الأرقام والوقائع صحيحة؟ إذا لا: اعتراض.",
+    "b.toFrist": "احسب المهلة",
 
     "w.eyebrow": "قاموس لغة الدوائر الرسمية",
     "w.title": "ماذا تعني هذه الكلمة؟",
@@ -1207,6 +1283,18 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     "weekday.4": "Perşembe", "weekday.5": "Cuma", "weekday.6": "Cumartesi",
     "period.1w": "Bir hafta", "period.2w": "İki hafta", "period.1m": "Bir ay", "period.3m": "Üç ay", "period.1y": "Bir yıl",
 
+    "nav.brief": "Mektup",
+    "b.eyebrow": "Kararı okumak",
+    "b.title": "Bir karar (Bescheid) nasıl yapılandırılır",
+    "b.lede": "Neredeyse tüm kararlar aynı bölümlerden oluşur. Mektuptaki bir numaraya dokunun – yanında bu bölümün ne anlama geldiği ve nelere dikkat etmeniz gerektiği yazar.",
+    "b.sample": "Uydurma isim ve rakamlarla örnek.",
+    "b.order": "Bu sırayla okuyun",
+    "b.order.1": "Tarih (2) ve kanun yolu bilgisi (8): Ne kadar zamanım var?",
+    "b.order.2": "Karar (5): Tam olarak ne karar verildi?",
+    "b.order.3": "Tutar (6): Ödeme mi yapmalıyım yoksa bir şey mi alacağım?",
+    "b.order.4": "Gerekçe (7): Rakamlar ve bilgiler doğru mu? Değilse: itiraz.",
+    "b.toFrist": "Süreyi hesapla",
+
     "w.eyebrow": "Resmi Almanca sözlüğü",
     "w.title": "Bu kelime ne demek?",
     "w.lede": "Daireler karmaşık bir Almanca yazar. Burada en önemli kelimeler sade bir dille – ne yapabileceğinize dair bir ipucuyla.",
@@ -1250,6 +1338,95 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     "footer.updated": "Hukuki durum: Kasım 2026.",
   };
 })(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/* Amtsklar – "How to read a Bescheid": annotated sample letter (fictional names) */
+(function () {
+  "use strict";
+  const A = (window.Amtsklar = window.Amtsklar || {});
+  A.views = A.views || {};
+
+  // Parts of the sample letter. n = marker number shown in the letter.
+  const PARTS = [
+    { n: 1, de: { t: "Absender", p: "Welche Behörde hat geschrieben? Dorthin schicken Sie auch Ihre Antwort." },
+             en: { t: "Sender", p: "Which authority wrote to you? This is also where you send your reply." } },
+    { n: 2, de: { t: "Datum des Bescheids", p: "Wichtig für die Frist. Bei normaler Post gilt der Brief 4 Tage später als zugestellt. Geben Sie dieses Datum im Fristenrechner ein." },
+             en: { t: "Date of the decision", p: "Important for the deadline. With normal post the letter counts as delivered 4 days later. Enter this date in the deadline calculator." } },
+    { n: 3, de: { t: "Aktenzeichen / Nummer", p: "Ihre Fallnummer. Schreiben Sie sie auf jeden Brief an die Behörde." },
+             en: { t: "Reference number", p: "Your case number. Write it on every letter to the authority." } },
+    { n: 4, de: { t: "Betreff: Was für ein Brief?", p: "„Aufhebung“ heißt: Eine frühere Bewilligung wird zurückgenommen. „Erstattung“ heißt: Sie sollen Geld zurückzahlen." },
+             en: { t: "Subject: what kind of letter?", p: "„Aufhebung“ means an earlier approval is cancelled. „Erstattung“ means you are asked to pay money back." } },
+    { n: 5, de: { t: "Die Entscheidung", p: "Das ist der Kern: Was hat die Behörde entschieden? Für welchen Zeitraum? Lesen Sie diesen Teil zuerst." },
+             en: { t: "The decision", p: "This is the core: what did the authority decide, and for which period? Read this part first." } },
+    { n: 6, de: { t: "Betrag und Zahlungsfrist", p: "Wie viel, bis wann, auf welches Konto. Wenn Sie widersprechen, müssen Sie oft trotzdem zahlen – Sie können aber Ratenzahlung oder Stundung beantragen." },
+             en: { t: "Amount and payment deadline", p: "How much, by when, to which account. Even if you object you often still have to pay – but you can ask for instalments or a deferral." } },
+    { n: 7, de: { t: "Begründung", p: "Warum hat die Behörde so entschieden? Prüfen Sie die Zahlen und Daten. Stimmt alles? Fehler hier sind ein guter Grund für einen Widerspruch." },
+             en: { t: "Reasons", p: "Why did the authority decide this? Check the figures and dates. Is everything correct? Mistakes here are a good reason to object." } },
+    { n: 8, de: { t: "Rechtsbehelfsbelehrung", p: "Hier steht, wie Sie sich wehren: Widerspruch, Frist (meist 1 Monat), Adresse. Fehlt dieser Teil, haben Sie meist 1 Jahr Zeit." },
+             en: { t: "Information on legal remedies", p: "This tells you how to challenge the decision: objection, deadline (usually 1 month), address. If this part is missing, you usually have 1 year." } },
+    { n: 9, de: { t: "Keine Unterschrift?", p: "Normal. Maschinell erstellte Bescheide gelten auch ohne Unterschrift." },
+             en: { t: "No signature?", p: "Normal. Computer-generated decisions are valid without a signature." } },
+  ];
+
+  const m = (n) => `<button type="button" class="anno" data-n="${n}" aria-label="${n}">${n}</button>`;
+
+  // Fictional sample letter (German, as people receive it)
+  const LETTER = `
+<div class="bescheid" lang="de">
+  <div class="b-head">
+    <div class="b-part" data-n="1">${m(1)}<strong>Jobcenter Musterstadt</strong><br>Agenturstraße 5 · 12345 Musterstadt</div>
+    <div class="b-part b-right" data-n="2">${m(2)}Datum: <span class="mono">20.10.2026</span></div>
+  </div>
+  <p class="b-addr">Frau<br>Maria Muster<br>Musterstraße 1<br>12345 Musterstadt</p>
+  <p class="b-part" data-n="3">${m(3)}BG-Nummer: <span class="mono">12345BG0006789</span></p>
+  <p class="b-part b-subject" data-n="4">${m(4)}<strong>Aufhebungs- und Erstattungsbescheid</strong></p>
+  <p>Sehr geehrte Frau Muster,</p>
+  <p class="b-part" data-n="5">${m(5)}die Entscheidung vom 15.05.2026 über die Bewilligung von Leistungen zur Sicherung des Lebensunterhalts wird für die Zeit vom 01.08.2026 bis 31.08.2026 teilweise in Höhe von 312,40 EUR aufgehoben.</p>
+  <p class="b-part" data-n="6">${m(6)}Die überzahlte Leistung in Höhe von <strong>312,40 EUR</strong> ist nach § 50 SGB X zu erstatten. Bitte überweisen Sie den Betrag bis zum 20.11.2026 an die Bundesagentur für Arbeit – Regionaldirektion …</p>
+  <p class="b-part" data-n="7">${m(7)}<strong>Begründung:</strong> Sie haben im August 2026 Einkommen aus einer Beschäftigung erzielt. Das Einkommen ist nach § 11 SGB II zu berücksichtigen …</p>
+  <p class="b-part" data-n="8">${m(8)}<strong>Rechtsbehelfsbelehrung:</strong> Gegen diesen Bescheid kann innerhalb eines Monats nach Bekanntgabe Widerspruch erhoben werden. Der Widerspruch ist schriftlich, in elektronischer Form oder zur Niederschrift beim Jobcenter Musterstadt, Agenturstraße 5, 12345 Musterstadt einzulegen.</p>
+  <p class="b-part b-small" data-n="9">${m(9)}Dieses Schreiben wurde maschinell erstellt und ist ohne Unterschrift gültig.</p>
+</div>`;
+
+  function render(el) {
+    const { esc, h, t, state } = A.util;
+    const lang = state.lang;
+    const tx = (p) => p[lang] || p.en || p.de;
+    el.replaceChildren(
+      h(`
+      <section class="view" aria-labelledby="b-title">
+        <header style="display:grid;gap:10px">
+          <p class="eyebrow">${esc(t("b.eyebrow"))}</p>
+          <h2 id="b-title">${esc(t("b.title"))}</h2>
+          <p class="lede">${esc(t("b.lede"))}</p>
+        </header>
+        <div class="anatomy">
+          <div class="anatomy-letter">${LETTER}<p class="small">${esc(t("b.sample"))}</p></div>
+          <ol class="anatomy-list" id="b-list">
+            ${PARTS.map((p) => `<li data-n="${p.n}" tabindex="-1"><span class="anno static" aria-hidden="true">${p.n}</span><div><strong>${esc(tx(p).t)}</strong><p>${esc(tx(p).p)}</p></div></li>`).join("")}
+          </ol>
+        </div>
+        <section class="sheet">
+          <h3>${esc(t("b.order"))}</h3>
+          <ol style="margin:0;padding-inline-start:1.3em;display:grid;gap:6px">
+            <li>${esc(t("b.order.1"))}</li><li>${esc(t("b.order.2"))}</li><li>${esc(t("b.order.3"))}</li><li>${esc(t("b.order.4"))}</li>
+          </ol>
+          <div class="btn-row"><a class="btn" href="#frist" style="text-decoration:none">${esc(t("b.toFrist"))}</a></div>
+        </section>
+      </section>`)
+    );
+    const select = (n) => {
+      el.querySelectorAll("[data-n]").forEach((x) => x.classList.toggle("active", x.dataset.n === String(n)));
+      const item = el.querySelector(`#b-list li[data-n="${n}"]`);
+      if (item && window.matchMedia("(max-width: 899px)").matches) item.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+    el.querySelectorAll(".anno:not(.static)").forEach((b) => b.addEventListener("click", () => select(b.dataset.n)));
+    el.querySelectorAll("#b-list li").forEach((li) => li.addEventListener("click", () => select(li.dataset.n)));
+  }
+
+  A.views.brief = { render };
+})();
 
 </script>
 <script>
@@ -2123,7 +2300,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
   const { LANGS, t: tr } = A.i18n;
   const D = A.deadline;
 
-  const ROUTES = ["frist", "woerter", "vorlagen", "hilfe"];
+  const ROUTES = ["frist", "brief", "woerter", "vorlagen", "hilfe"];
   const state = {
     lang: "de",
     route: "frist",

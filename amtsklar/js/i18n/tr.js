@@ -73,6 +73,18 @@
     "weekday.4": "Perşembe", "weekday.5": "Cuma", "weekday.6": "Cumartesi",
     "period.1w": "Bir hafta", "period.2w": "İki hafta", "period.1m": "Bir ay", "period.3m": "Üç ay", "period.1y": "Bir yıl",
 
+    "nav.brief": "Mektup",
+    "b.eyebrow": "Kararı okumak",
+    "b.title": "Bir karar (Bescheid) nasıl yapılandırılır",
+    "b.lede": "Neredeyse tüm kararlar aynı bölümlerden oluşur. Mektuptaki bir numaraya dokunun – yanında bu bölümün ne anlama geldiği ve nelere dikkat etmeniz gerektiği yazar.",
+    "b.sample": "Uydurma isim ve rakamlarla örnek.",
+    "b.order": "Bu sırayla okuyun",
+    "b.order.1": "Tarih (2) ve kanun yolu bilgisi (8): Ne kadar zamanım var?",
+    "b.order.2": "Karar (5): Tam olarak ne karar verildi?",
+    "b.order.3": "Tutar (6): Ödeme mi yapmalıyım yoksa bir şey mi alacağım?",
+    "b.order.4": "Gerekçe (7): Rakamlar ve bilgiler doğru mu? Değilse: itiraz.",
+    "b.toFrist": "Süreyi hesapla",
+
     "w.eyebrow": "Resmi Almanca sözlüğü",
     "w.title": "Bu kelime ne demek?",
     "w.lede": "Daireler karmaşık bir Almanca yazar. Burada en önemli kelimeler sade bir dille – ne yapabileceğinize dair bir ipucuyla.",

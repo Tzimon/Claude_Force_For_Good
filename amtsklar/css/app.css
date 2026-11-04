@@ -233,3 +233,31 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
   body { background: #fff; color: #000; }
   .letter { border: 0; padding: 0; font-size: 11pt; }
 }
+
+/* Annotated letter (Brief verstehen) */
+.anatomy { display: grid; gap: 20px; }
+@media (min-width: 900px) { .anatomy { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: start; } }
+.anatomy-letter { display: grid; gap: 8px; min-width: 0; }
+.bescheid {
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: 2px; padding: 22px 20px 26px;
+  font-family: "Arial", "Helvetica", sans-serif; font-size: 0.9rem; line-height: 1.5; display: grid; gap: 12px;
+  box-shadow: 0 1px 0 var(--rule), 0 8px 24px -16px rgba(0,0,0,.35);
+}
+.b-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.b-right { text-align: end; }
+.b-addr { color: var(--muted); }
+.b-small { font-size: 0.8rem; color: var(--muted); }
+.b-part { position: relative; border-radius: 4px; padding: 4px 6px 4px 34px; margin: 0 -6px; transition: background-color .15s; }
+[dir="rtl"] .b-part { padding: 4px 34px 4px 6px; }
+.b-part.active { background: var(--yellow-soft); color: var(--yellow-ink); }
+.anno {
+  position: absolute; inset-inline-start: 4px; top: 4px; width: 22px; height: 22px; border-radius: 50%;
+  border: 1.5px solid var(--stamp); background: var(--sheet); color: var(--stamp); font: 600 0.75rem/1 var(--font-mono);
+  display: grid; place-items: center; cursor: pointer; padding: 0;
+}
+.anno.static { position: static; flex: none; cursor: default; }
+.anatomy-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; min-width: 0; }
+.anatomy-list li { display: flex; gap: 12px; padding: 12px 8px; border-top: 1px solid var(--rule); cursor: pointer; border-radius: 4px; }
+.anatomy-list li.active { background: var(--yellow-soft); color: var(--yellow-ink); }
+.anatomy-list li.active .anno { background: var(--stamp); color: var(--sheet); }
+.anatomy-list p { color: inherit; }
