@@ -7,12 +7,12 @@
 (function (root) {
   "use strict";
   const CATS = {
-    brief: { de: "Brief", en: "Letter" },
-    recht: { de: "Wehren", en: "Challenge" },
-    geld: { de: "Geld", en: "Money" },
-    sozial: { de: "Jobcenter & Soziales", en: "Benefits" },
-    aufenthalt: { de: "Aufenthalt", en: "Residence" },
-    alltag: { de: "Alltag", en: "Everyday" },
+    brief: { de: "Brief", en: "Letter", uk: "Лист", ar: "الرسالة", tr: "Mektup" },
+    recht: { de: "Wehren", en: "Challenge", uk: "Оскарження", ar: "الاعتراض", tr: "İtiraz" },
+    geld: { de: "Geld", en: "Money", uk: "Гроші", ar: "المال", tr: "Para" },
+    sozial: { de: "Jobcenter & Soziales", en: "Benefits", uk: "Соцвиплати", ar: "المساعدات", tr: "Sosyal yardım" },
+    aufenthalt: { de: "Aufenthalt", en: "Residence", uk: "Проживання", ar: "الإقامة", tr: "Oturum" },
+    alltag: { de: "Alltag", en: "Everyday", uk: "Повсякдення", ar: "الحياة اليومية", tr: "Günlük hayat" },
   };
 
   const G = [

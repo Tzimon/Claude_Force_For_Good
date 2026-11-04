@@ -1439,12 +1439,12 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
 (function (root) {
   "use strict";
   const CATS = {
-    brief: { de: "Brief", en: "Letter" },
-    recht: { de: "Wehren", en: "Challenge" },
-    geld: { de: "Geld", en: "Money" },
-    sozial: { de: "Jobcenter & Soziales", en: "Benefits" },
-    aufenthalt: { de: "Aufenthalt", en: "Residence" },
-    alltag: { de: "Alltag", en: "Everyday" },
+    brief: { de: "Brief", en: "Letter", uk: "Лист", ar: "الرسالة", tr: "Mektup" },
+    recht: { de: "Wehren", en: "Challenge", uk: "Оскарження", ar: "الاعتراض", tr: "İtiraz" },
+    geld: { de: "Geld", en: "Money", uk: "Гроші", ar: "المال", tr: "Para" },
+    sozial: { de: "Jobcenter & Soziales", en: "Benefits", uk: "Соцвиплати", ar: "المساعدات", tr: "Sosyal yardım" },
+    aufenthalt: { de: "Aufenthalt", en: "Residence", uk: "Проживання", ar: "الإقامة", tr: "Oturum" },
+    alltag: { de: "Alltag", en: "Everyday", uk: "Повсякдення", ar: "الحياة اليومية", tr: "Günlük hayat" },
   };
 
   const G = [
@@ -1662,6 +1662,231 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
 
 </script>
 <script>
+/* Amtsklar – glossary meanings in Ukrainian (AI-assisted, review welcome). Keyed by German term. */
+(function (root) {
+  "use strict";
+  root.Amtsklar.glossaryI18n = root.Amtsklar.glossaryI18n || {};
+  root.Amtsklar.glossaryI18n.uk = {
+    "Bescheid": "Офіційне рішення установи у вашій справі, напр. чи отримаєте ви гроші або маєте заплатити.",
+    "Rechtsbehelfsbelehrung": "Абзац у кінці рішення: як, куди і до якого дня можна його оскаржити.",
+    "Aktenzeichen": "Номер вашої справи в установі.",
+    "Anhörung": "Установа планує рішення проти вас (напр. повернути гроші) і спершу питає вашу думку.",
+    "Mitwirkungspflicht": "Ви зобов'язані надати установі потрібну інформацію та документи.",
+    "Zustellung": "Лист офіційно вручено вам, часто в жовтому конверті з датою.",
+    "Bekanntgabe": "День, з якого рішення діє для вас. Для звичайної пошти: 4 дні після відправлення.",
+    "Frist": "Час, до якого ви маєте щось зробити.",
+    "unverzüglich": "Якомога швидше, без зайвих зволікань. Зазвичай: протягом кількох днів.",
+    "Vollmacht": "Письмовий дозвіл, щоб інша людина могла діяти чи отримувати листи від вашого імені.",
+    "Formular": "Бланк з полями для заповнення. „Anlage“ – додатковий аркуш до заяви.",
+    "Nachweis": "Документ, що щось доводить, напр. розрахунковий лист, договір оренди, виписка з рахунку.",
+    "Antrag": "Письмове прохання до установи, напр. про гроші чи дозвіл.",
+    "vorläufig": "Рішення діє поки що, але може змінитися, коли будуть точні цифри.",
+    "Ermessen": "Установа може обирати між кількома варіантами, але має враховувати вашу ситуацію.",
+    "Widerspruch": "Ви повідомляєте установі: „Я не згоден з рішенням. Перегляньте його.“ Безкоштовно.",
+    "Einspruch": "Як заперечення – так називається у податковій, при штрафах і судових наказах.",
+    "Widerspruchsbescheid": "Відповідь на ваше заперечення. Установа вирішила ще раз.",
+    "Klage": "Ви просите суд перевірити рішення установи.",
+    "Überprüfungsantrag": "Заява про перегляд старого рішення щодо соцвиплат – навіть якщо строк для заперечення минув.",
+    "Wiedereinsetzung in den vorigen Stand": "Ви пропустили строк не з власної вини і просите вважати, що встигли вчасно.",
+    "Akteneinsicht": "Ви маєте право прочитати справу, яку установа веде про вас.",
+    "aufschiebende Wirkung": "Поки ваше заперечення розглядається, рішення зазвичай ще не виконується. При „sofortige Vollziehung“ – виконується одразу.",
+    "Eilantrag": "Термінова заява до суду, коли ви не можете чекати (напр. немає грошей на їжу чи оренду).",
+    "Beratungshilfe": "Якщо у вас мало грошей, держава майже повністю оплачує юридичну консультацію. Ви платите максимум 15 євро.",
+    "bestandskräftig": "Рішення остаточне, бо строк для заперечення чи позову минув.",
+    "Rückforderung": "Установа вимагає повернути гроші, які, на її думку, ви отримали зайве.",
+    "Aufhebungsbescheid": "Попереднє рішення скасовано повністю або частково. Часто після цього вимагають повернути гроші.",
+    "Säumniszuschlag": "Штраф за запізнілу оплату. У податковій: 1 % за кожен розпочатий місяць.",
+    "Mahnung": "Нагадування, що оплата прострочена. Часто з платою.",
+    "Vollstreckung": "Установа примусово стягує гроші, напр. з рахунку чи зарплати.",
+    "Pfändung": "Частину ваших грошей утримують для погашення боргів.",
+    "P-Konto": "Банківський рахунок, з якого не можна стягнути базову суму на місяць.",
+    "Ratenzahlung": "Ви сплачуєте борг невеликими щомісячними частинами.",
+    "Stundung": "Вам дозволено заплатити пізніше.",
+    "Nachzahlung": "Гроші, виплачені пізніше, бо вам належало більше – або ви маєте доплатити (напр. комунальні, податки).",
+    "Gebühr": "Плата, яку установа бере за свою роботу.",
+    "Rundfunkbeitrag": "Щомісячний внесок з кожного житла за суспільне радіо й телебачення.",
+    "Steuer-ID": "Ваш особистий 11-значний податковий номер на все життя. Надходить поштою після реєстрації адреси.",
+    "Bürgergeld": "Гроші від Jobcenter на життя для людей, які можуть працювати, але мають замало грошей.",
+    "Bedarfsgemeinschaft": "Усі люди в домогосподарстві, чиї гроші рахують разом, напр. пара з дітьми.",
+    "Kosten der Unterkunft": "Оренда та опалення, які оплачує Jobcenter або соцслужба.",
+    "Leistungsminderung": "Jobcenter зменшує виплату, бо ви не виконали обов'язок (напр. пропустили зустріч).",
+    "Meldeversäumnis": "Ви не прийшли на зустріч у Jobcenter без поважної причини.",
+    "Kooperationsplan": "Спільний план з Jobcenter: що робите ви і що робить Jobcenter, щоб знайти роботу.",
+    "Weiterbewilligungsantrag": "Заява, щоб Bürgergeld виплачували й після закінчення періоду призначення.",
+    "Wohngeld": "Доплата на оренду для людей з низьким доходом, які не отримують Bürgergeld.",
+    "Kinderzuschlag": "Додаткові гроші від Familienkasse для сімей з невеликим доходом.",
+    "Kindergeld": "Щомісячні гроші на кожну дитину від Familienkasse.",
+    "Bildung und Teilhabe": "Додаткові виплати для дітей: шкільне приладдя, екскурсії, обіди, репетитор, спортклуб.",
+    "Mehrbedarf": "Додаткові гроші в особливих ситуаціях, напр. вагітність, самотній батько/мати, інвалідність.",
+    "Ausländerbehörde": "Установа з питань дозволів на проживання, продовження віз і іноді громадянства.",
+    "Fiktionsbescheinigung": "Документ, що ваше перебування залишається законним, поки розглядають вашу заяву.",
+    "Aufenthaltserlaubnis": "Дозвіл жити в Німеччині на певний час і з певною метою.",
+    "Duldung": "Не дозвіл на проживання, а підтвердження, що депортацію тимчасово призупинено.",
+    "Wohnsitzauflage": "Ви зобов'язані жити в певному місці або федеральній землі.",
+    "Anmeldung": "Реєстрація адреси в Bürgeramt. Обов'язково протягом 2 тижнів після переїзду.",
+    "Einbürgerung": "Отримання німецького громадянства.",
+    "Verpflichtungserklärung": "Людина обіцяє оплатити всі витрати на перебування гостя – включно з витратами установ.",
+    "Arbeitsunfähigkeitsbescheinigung": "Довідка від лікаря, що ви хворі й не можете працювати.",
+    "Schufa": "Компанія, що зберігає дані про те, чи ви платите рахунки. Її перевіряють орендодавці й банки.",
+    "Kündigung": "Розірвання договору (житло, робота, мобільний).",
+    "Nebenkostenabrechnung": "Щорічний рахунок від орендодавця за воду, сміття, опалення тощо.",
+    "Bußgeldbescheid": "Грошовий штраф за адміністративне порушення, напр. перевищення швидкості.",
+    "Strafbefehl": "Покарання від суду без засідання. Стає як вирок, якщо ви нічого не робите.",
+  };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/* Amtsklar – glossary meanings in Arabic (AI-assisted, review welcome). Keyed by German term. */
+(function (root) {
+  "use strict";
+  root.Amtsklar.glossaryI18n = root.Amtsklar.glossaryI18n || {};
+  root.Amtsklar.glossaryI18n.ar = {
+    "Bescheid": "قرار رسمي من الدائرة بشأن حالتك، مثلاً هل ستحصل على مال أو يجب أن تدفع.",
+    "Rechtsbehelfsbelehrung": "الفقرة في نهاية القرار التي تخبرك كيف وأين وحتى متى يمكنك الاعتراض.",
+    "Aktenzeichen": "رقم ملفك لدى الدائرة.",
+    "Anhörung": "الدائرة تخطط لقرار ضدك (مثلاً استرداد مال) وتسألك عن رأيك أولاً.",
+    "Mitwirkungspflicht": "يجب أن تقدم للدائرة المعلومات والوثائق اللازمة.",
+    "Zustellung": "سُلِّمت لك الرسالة رسمياً، غالباً في ظرف أصفر مكتوب عليه التاريخ.",
+    "Bekanntgabe": "اليوم الذي يبدأ فيه سريان القرار عليك. بالبريد العادي: بعد 4 أيام من الإرسال.",
+    "Frist": "الوقت الذي يجب أن تفعل فيه شيئاً قبل انتهائه.",
+    "unverzüglich": "بأسرع ما يمكن ودون تأخير غير ضروري. عادةً: خلال أيام قليلة.",
+    "Vollmacht": "إذن مكتوب يسمح لشخص آخر بالتعامل مع الدائرة أو استلام الرسائل نيابة عنك.",
+    "Formular": "استمارة فيها حقول يجب ملؤها. „Anlage“ تعني ورقة إضافية للطلب.",
+    "Nachweis": "وثيقة تثبت شيئاً، مثل كشف الراتب أو عقد الإيجار أو كشف الحساب.",
+    "Antrag": "طلب مكتوب إلى الدائرة، مثلاً للحصول على مال أو تصريح.",
+    "vorläufig": "القرار ساري حالياً لكنه قد يتغير لاحقاً عندما تتوفر الأرقام الدقيقة.",
+    "Ermessen": "يحق للدائرة الاختيار بين عدة إمكانيات، لكن يجب أن تراعي وضعك.",
+    "Widerspruch": "تقول للدائرة: „لست موافقاً على القرار. أعيدوا النظر فيه.“ مجاناً.",
+    "Einspruch": "مثل الاعتراض – هكذا يُسمى لدى مكتب الضرائب وفي الغرامات والأوامر الجزائية.",
+    "Widerspruchsbescheid": "الرد على اعتراضك. قررت الدائرة مرة أخرى.",
+    "Klage": "تطلب من المحكمة مراجعة قرار الدائرة.",
+    "Überprüfungsantrag": "طلب إعادة النظر في قرار قديم بشأن المساعدات الاجتماعية – حتى لو انتهت مهلة الاعتراض.",
+    "Wiedereinsetzung in den vorigen Stand": "فاتتك مهلة دون ذنب منك وتطلب أن تُعامَل كأنك التزمت بالموعد.",
+    "Akteneinsicht": "يحق لك قراءة الملف الذي تحتفظ به الدائرة عنك.",
+    "aufschiebende Wirkung": "طالما لم يُبت في اعتراضك، لا يُنفَّذ القرار عادةً بعد. مع „sofortige Vollziehung“ يُنفَّذ فوراً.",
+    "Eilantrag": "طلب عاجل إلى المحكمة عندما لا يمكنك الانتظار (مثلاً لا مال للطعام أو الإيجار).",
+    "Beratungshilfe": "إذا كان دخلك قليلاً تدفع الدولة تقريباً كل تكاليف الاستشارة القانونية. تدفع أنت 15 يورو كحد أقصى.",
+    "bestandskräftig": "القرار نهائي لأن مهلة الاعتراض أو الدعوى انتهت.",
+    "Rückforderung": "الدائرة تطلب استرداد مال ترى أنك حصلت عليه زيادة.",
+    "Aufhebungsbescheid": "إلغاء قرار سابق كلياً أو جزئياً. غالباً يتبعه طلب استرداد مال.",
+    "Säumniszuschlag": "رسم تأخير لأنك دفعت متأخراً. لدى مكتب الضرائب: 1 % عن كل شهر بدأ.",
+    "Mahnung": "تذكير بأن دفعة متأخرة. غالباً مع رسوم.",
+    "Vollstreckung": "الدائرة تأخذ المال بالقوة، مثلاً من الحساب البنكي أو الراتب.",
+    "Pfändung": "يُحجز جزء من مالك لسداد ديون.",
+    "P-Konto": "حساب بنكي لا يجوز الحجز على مبلغ أساسي منه كل شهر.",
+    "Ratenzahlung": "تسدد ديناً على دفعات شهرية صغيرة.",
+    "Stundung": "يُسمح لك بالدفع لاحقاً.",
+    "Nachzahlung": "مال تحصل عليه لاحقاً لأنه كان يحق لك أكثر – أو يجب أن تدفع فرقاً (مثل التكاليف الإضافية أو الضرائب).",
+    "Gebühr": "مال تطلبه الدائرة مقابل عملها.",
+    "Rundfunkbeitrag": "رسم شهري عن كل مسكن للإذاعة والتلفزيون العام.",
+    "Steuer-ID": "رقمك الضريبي الشخصي المكون من 11 رقماً مدى الحياة. يصلك بالبريد بعد تسجيل العنوان.",
+    "Bürgergeld": "مال من الجوب سنتر للمعيشة للأشخاص القادرين على العمل لكن دخلهم غير كافٍ.",
+    "Bedarfsgemeinschaft": "كل الأشخاص في الأسرة الذين يُحسب مالهم معاً، مثل زوجين وأطفالهما.",
+    "Kosten der Unterkunft": "الإيجار وتكاليف التدفئة التي يدفعها الجوب سنتر أو مكتب الشؤون الاجتماعية.",
+    "Leistungsminderung": "الجوب سنتر يخفّض مالك لأنك لم تلتزم بواجب (مثلاً فاتك موعد).",
+    "Meldeversäumnis": "لم تحضر موعداً في الجوب سنتر دون سبب مهم.",
+    "Kooperationsplan": "خطة مشتركة مع الجوب سنتر: ماذا تفعل أنت وماذا يفعل الجوب سنتر لإيجاد عمل.",
+    "Weiterbewilligungsantrag": "طلب لاستمرار صرف Bürgergeld بعد انتهاء فترة الموافقة.",
+    "Wohngeld": "دعم للإيجار لأصحاب الدخل المنخفض الذين لا يحصلون على Bürgergeld.",
+    "Kinderzuschlag": "مال إضافي من صندوق الأسرة للعائلات ذات الدخل المحدود.",
+    "Kindergeld": "مال شهري عن كل طفل من صندوق الأسرة (Familienkasse).",
+    "Bildung und Teilhabe": "مساعدات إضافية للأطفال: لوازم مدرسية، رحلات مدرسية، وجبة غداء، دروس تقوية، نادٍ رياضي.",
+    "Mehrbedarf": "مال إضافي لحالات خاصة، مثل الحمل أو تربية الأطفال وحيداً أو الإعاقة.",
+    "Ausländerbehörde": "دائرة تصاريح الإقامة وتمديد التأشيرات وأحياناً التجنيس.",
+    "Fiktionsbescheinigung": "ورقة تُثبت أن إقامتك مستمرة طالما لم يُبت في طلبك.",
+    "Aufenthaltserlaubnis": "تصريح للعيش في ألمانيا لمدة معينة ولغرض معين.",
+    "Duldung": "ليست تصريح إقامة، بل تأكيد بأن الترحيل معلّق مؤقتاً.",
+    "Wohnsitzauflage": "يجب أن تسكن في مكان معين أو ولاية معينة.",
+    "Anmeldung": "تسجيل عنوانك في مكتب المواطنين. إلزامي خلال أسبوعين من الانتقال.",
+    "Einbürgerung": "الحصول على الجنسية الألمانية.",
+    "Verpflichtungserklärung": "شخص يتعهد بدفع كل تكاليف إقامة ضيف – بما فيها تكاليف الدوائر.",
+    "Arbeitsunfähigkeitsbescheinigung": "شهادة من الطبيب بأنك مريض ولا تستطيع العمل.",
+    "Schufa": "شركة تسجّل هل تدفع فواتيرك. يسألها المؤجرون والبنوك.",
+    "Kündigung": "إنهاء عقد (سكن، عمل، هاتف).",
+    "Nebenkostenabrechnung": "فاتورة سنوية من المؤجر للماء والنفايات والتدفئة وغيرها.",
+    "Bußgeldbescheid": "غرامة مالية على مخالفة، مثل السرعة الزائدة.",
+    "Strafbefehl": "عقوبة من المحكمة دون جلسة. تصبح كالحكم إذا لم تفعل شيئاً.",
+  };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/* Amtsklar – glossary meanings in Turkish (AI-assisted, review welcome). Keyed by German term. */
+(function (root) {
+  "use strict";
+  root.Amtsklar.glossaryI18n = root.Amtsklar.glossaryI18n || {};
+  root.Amtsklar.glossaryI18n.tr = {
+    "Bescheid": "Dairenin durumunuz hakkındaki resmi kararı, ör. para alıp almayacağınız veya ödemeniz gerekip gerekmediği.",
+    "Rechtsbehelfsbelehrung": "Kararın sonundaki paragraf: nasıl, nereye ve ne zamana kadar itiraz edebileceğiniz.",
+    "Aktenzeichen": "Dairedeki dosya numaranız.",
+    "Anhörung": "Daire aleyhinize bir karar planlıyor (ör. para geri istemek) ve önce sizin görüşünüzü soruyor.",
+    "Mitwirkungspflicht": "Daireye gerekli bilgi ve belgeleri vermek zorundasınız.",
+    "Zustellung": "Mektup size resmi olarak teslim edildi, çoğu zaman üzerinde tarih olan sarı zarfla.",
+    "Bekanntgabe": "Kararın sizin için geçerli olduğu gün. Normal postada: gönderimden 4 gün sonra.",
+    "Frist": "Bir şeyi yapmanız gereken son zaman.",
+    "unverzüglich": "Mümkün olan en kısa sürede, gereksiz beklemeden. Genellikle: birkaç gün içinde.",
+    "Vollmacht": "Başka birinin sizin adınıza daireyle görüşmesine veya mektup almasına yazılı izin.",
+    "Formular": "Doldurmanız gereken alanları olan form. „Anlage“: başvuruya ek sayfa.",
+    "Nachweis": "Bir şeyi kanıtlayan belge, ör. maaş bordrosu, kira sözleşmesi, hesap dökümü.",
+    "Antrag": "Daireye yazılı talep, ör. para veya izin için.",
+    "vorläufig": "Karar şimdilik geçerli, ama kesin rakamlar belli olunca değişebilir.",
+    "Ermessen": "Daire birkaç seçenek arasından seçim yapabilir, ama durumunuzu dikkate almak zorundadır.",
+    "Widerspruch": "Daireye „Karara katılmıyorum. Lütfen yeniden inceleyin.“ demeniz. Ücretsiz.",
+    "Einspruch": "İtiraz gibi – vergi dairesinde, para cezalarında ve ceza kararnamelerinde bu ad kullanılır.",
+    "Widerspruchsbescheid": "İtirazınıza verilen cevap. Daire yeniden karar verdi.",
+    "Klage": "Dairenin kararını incelemesi için mahkemeye başvurmanız.",
+    "Überprüfungsantrag": "Eski bir sosyal yardım kararının yeniden incelenmesi başvurusu – itiraz süresi geçmiş olsa bile.",
+    "Wiedereinsetzung in den vorigen Stand": "Kendi kusurunuz olmadan bir süreyi kaçırdınız ve zamanında yapmış gibi sayılmayı istiyorsunuz.",
+    "Akteneinsicht": "Dairenin sizin hakkınızda tuttuğu dosyayı okuma hakkınız.",
+    "aufschiebende Wirkung": "İtirazınız karara bağlanana kadar karar genellikle henüz uygulanmaz. „sofortige Vollziehung“ varsa hemen uygulanır.",
+    "Eilantrag": "Bekleyemeyeceğiniz durumlarda mahkemeye acil başvuru (ör. yiyecek veya kira için para yok).",
+    "Beratungshilfe": "Geliriniz azsa hukuki danışmanlığın neredeyse tamamını devlet öder. En fazla 15 euro ödersiniz.",
+    "bestandskräftig": "Karar kesinleşti, çünkü itiraz veya dava süresi doldu.",
+    "Rückforderung": "Dairenin, fazla aldığınızı düşündüğü parayı geri istemesi.",
+    "Aufhebungsbescheid": "Önceki bir karar tamamen veya kısmen iptal edildi. Çoğu zaman ardından geri ödeme talebi gelir.",
+    "Säumniszuschlag": "Geç ödeme cezası. Vergi dairesinde: başlayan her ay için %1.",
+    "Mahnung": "Bir ödemenin geciktiğine dair hatırlatma. Çoğu zaman ücretli.",
+    "Vollstreckung": "Dairenin parayı zorla alması, ör. banka hesabından veya maaştan.",
+    "Pfändung": "Paranızın bir kısmına borç için el konulması.",
+    "P-Konto": "Her ay belirli bir temel tutara haciz konulamayan banka hesabı.",
+    "Ratenzahlung": "Bir borcu küçük aylık taksitlerle ödemeniz.",
+    "Stundung": "Daha sonra ödemenize izin verilmesi.",
+    "Nachzahlung": "Size daha fazlası ödenmesi gerektiği için sonradan ödenen para – ya da sizin ek ödeme yapmanız (ör. yan giderler, vergi).",
+    "Gebühr": "Dairenin yaptığı iş için istediği ücret.",
+    "Rundfunkbeitrag": "Kamu radyo ve televizyonu için her konut başına aylık katkı payı.",
+    "Steuer-ID": "Ömür boyu geçerli 11 haneli kişisel vergi numaranız. Adres kaydından sonra postayla gelir.",
+    "Bürgergeld": "Çalışabilen ama yeterli parası olmayan kişilere Jobcenter'ın verdiği geçim parası.",
+    "Bedarfsgemeinschaft": "Parası birlikte hesaplanan hanedeki tüm kişiler, ör. çift ve çocukları.",
+    "Kosten der Unterkunft": "Jobcenter veya sosyal yardım dairesinin ödediği kira ve ısınma giderleri.",
+    "Leistungsminderung": "Bir yükümlülüğü yerine getirmediğiniz için (ör. randevuyu kaçırdınız) Jobcenter'ın paranızı kesmesi.",
+    "Meldeversäumnis": "Önemli bir sebep olmadan Jobcenter randevusuna gitmemeniz.",
+    "Kooperationsplan": "Jobcenter ile ortak plan: iş bulmak için sizin ve Jobcenter'ın ne yapacağı.",
+    "Weiterbewilligungsantrag": "Onay süresi bittikten sonra Bürgergeld ödemesinin devam etmesi için başvuru.",
+    "Wohngeld": "Bürgergeld almayan düşük gelirli kişilere kira yardımı.",
+    "Kinderzuschlag": "Düşük gelirli ailelere Familienkasse'den ek para.",
+    "Kindergeld": "Familienkasse'den her çocuk için aylık para.",
+    "Bildung und Teilhabe": "Çocuklar için ek yardımlar: okul malzemesi, sınıf gezileri, öğle yemeği, özel ders, spor kulübü.",
+    "Mehrbedarf": "Özel durumlar için ek para, ör. hamilelik, tek ebeveynlik, engellilik.",
+    "Ausländerbehörde": "Oturum izinleri, vize uzatmaları ve bazen vatandaşlık işlerine bakan daire.",
+    "Fiktionsbescheinigung": "Başvurunuz karara bağlanana kadar oturumunuzun geçerli olduğunu gösteren belge.",
+    "Aufenthaltserlaubnis": "Almanya'da belirli bir süre ve amaçla yaşama izni.",
+    "Duldung": "Oturum izni değil; sınır dışı etmenin geçici olarak durdurulduğunun onayı.",
+    "Wohnsitzauflage": "Belirli bir yerde veya eyalette oturmak zorundasınız.",
+    "Anmeldung": "Adresinizi Bürgeramt'a kaydettirmeniz. Taşındıktan sonra 2 hafta içinde zorunlu.",
+    "Einbürgerung": "Alman vatandaşı olmanız.",
+    "Verpflichtungserklärung": "Bir kişinin, bir misafirin kalış masraflarının tamamını – dairelerin masrafları dahil – ödemeyi taahhüt etmesi.",
+    "Arbeitsunfähigkeitsbescheinigung": "Hasta olduğunuzu ve çalışamayacağınızı gösteren doktor raporu.",
+    "Schufa": "Faturalarınızı ödeyip ödemediğinizi kaydeden şirket. Ev sahipleri ve bankalar buna bakar.",
+    "Kündigung": "Bir sözleşmenin (ev, iş, cep telefonu) feshedilmesi.",
+    "Nebenkostenabrechnung": "Ev sahibinin su, çöp, ısınma vb. için yıllık hesabı.",
+    "Bußgeldbescheid": "Bir kabahat için para cezası, ör. hız sınırını aşmak.",
+    "Strafbefehl": "Duruşma olmadan mahkemeden verilen ceza. Bir şey yapmazsanız hüküm gibi kesinleşir.",
+  };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
 /* Amtsklar – glossary view (Amtsdeutsch decoder) */
 (function () {
   "use strict";
@@ -1676,7 +1901,11 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
   }
 
   function texts(term, lang) {
-    return term[lang] || term.en || term.de;
+    if (term[lang]) return term[lang];
+    const extra = A.glossaryI18n && A.glossaryI18n[lang] && A.glossaryI18n[lang][term.w];
+    // Translated meaning; the practical tip falls back to English and is marked as such
+    if (extra) return { p: extra, tip: term.en.tip, tipLang: "en" };
+    return term.en || term.de;
   }
 
   function render(el) {
@@ -1712,7 +1941,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
         if (cat && x.cat !== cat) return false;
         if (!q) return true;
         const tx = texts(x, lang);
-        return [x.w, x.alt, tx.p, x.de.p].some((s) => norm(s).includes(q));
+        return [x.w, x.alt, tx.p, x.de.p, x.en.p].some((s) => norm(s).includes(q));
       }).sort((a, b) => {
         // exact/prefix matches on the term first, then alphabetical
         const qa = q && norm(a.w).startsWith(q) ? 0 : 1;
@@ -1729,11 +1958,11 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
           hits
             .map((x) => {
               const tx = texts(x, lang);
-              const showDe = lang !== "de" && tx !== x.de;
+              const showDe = lang !== "de";
               return `<article class="term" id="term-${esc(norm(x.w).replace(/[^a-z0-9]+/g, "-"))}">
                 <div class="term-head"><span class="term-word" lang="de">${esc(x.w)}</span><span class="term-cat">${esc(catLabel(x.cat))}</span></div>
                 <p class="term-plain">${esc(tx.p)}</p>
-                ${tx.tip ? `<p class="term-tip">→ ${esc(tx.tip)}</p>` : ""}
+                ${tx.tip ? `<p class="term-tip"${tx.tipLang ? ` lang="${tx.tipLang}" dir="ltr"` : ""}>→ ${esc(tx.tip)}</p>` : ""}
                 ${showDe ? `<details class="small"><summary>${esc(t("w.inGerman"))}</summary><p lang="de">${esc(x.de.p)} ${esc(x.de.tip || "")}</p></details>` : ""}
                 ${x.alt ? `<p class="small" lang="de">${esc(t("w.also"))}: ${esc(x.alt)}</p>` : ""}
               </article>`;

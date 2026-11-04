@@ -12,7 +12,11 @@
   }
 
   function texts(term, lang) {
-    return term[lang] || term.en || term.de;
+    if (term[lang]) return term[lang];
+    const extra = A.glossaryI18n && A.glossaryI18n[lang] && A.glossaryI18n[lang][term.w];
+    // Translated meaning; the practical tip falls back to English and is marked as such
+    if (extra) return { p: extra, tip: term.en.tip, tipLang: "en" };
+    return term.en || term.de;
   }
 
   function render(el) {
@@ -48,7 +52,7 @@
         if (cat && x.cat !== cat) return false;
         if (!q) return true;
         const tx = texts(x, lang);
-        return [x.w, x.alt, tx.p, x.de.p].some((s) => norm(s).includes(q));
+        return [x.w, x.alt, tx.p, x.de.p, x.en.p].some((s) => norm(s).includes(q));
       }).sort((a, b) => {
         // exact/prefix matches on the term first, then alphabetical
         const qa = q && norm(a.w).startsWith(q) ? 0 : 1;
@@ -65,11 +69,11 @@
           hits
             .map((x) => {
               const tx = texts(x, lang);
-              const showDe = lang !== "de" && tx !== x.de;
+              const showDe = lang !== "de";
               return `<article class="term" id="term-${esc(norm(x.w).replace(/[^a-z0-9]+/g, "-"))}">
                 <div class="term-head"><span class="term-word" lang="de">${esc(x.w)}</span><span class="term-cat">${esc(catLabel(x.cat))}</span></div>
                 <p class="term-plain">${esc(tx.p)}</p>
-                ${tx.tip ? `<p class="term-tip">→ ${esc(tx.tip)}</p>` : ""}
+                ${tx.tip ? `<p class="term-tip"${tx.tipLang ? ` lang="${tx.tipLang}" dir="ltr"` : ""}>→ ${esc(tx.tip)}</p>` : ""}
                 ${showDe ? `<details class="small"><summary>${esc(t("w.inGerman"))}</summary><p lang="de">${esc(x.de.p)} ${esc(x.de.tip || "")}</p></details>` : ""}
                 ${x.alt ? `<p class="small" lang="de">${esc(t("w.also"))}: ${esc(x.alt)}</p>` : ""}
               </article>`;

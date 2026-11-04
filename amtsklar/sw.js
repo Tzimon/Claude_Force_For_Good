@@ -1,9 +1,9 @@
 /* Amtsklar service worker: cache-first for the app files so it works offline. */
-const CACHE = "amtsklar-v2";
+const CACHE = "amtsklar-v3";
 const FILES = [
   "./", "index.html", "css/app.css", "manifest.webmanifest", "icon.svg",
   "js/deadline.js", "js/i18n.js", "js/i18n/uk.js", "js/i18n/ar.js", "js/i18n/tr.js",
-  "js/data/glossary.js", "js/data/templates.js", "js/data/help.js",
+  "js/data/glossary.js", "js/data/glossary-uk.js", "js/data/glossary-ar.js", "js/data/glossary-tr.js", "js/data/templates.js", "js/data/help.js",
   "js/views/brief.js", "js/views/woerter.js", "js/views/vorlagen.js", "js/views/hilfe.js", "js/app.js",
 ];
 self.addEventListener("install", (e) => {

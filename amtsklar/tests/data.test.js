@@ -56,3 +56,22 @@ test("every translation covers all interface strings", () => {
     }
   }
 });
+
+test("glossary translations cover every term", () => {
+  for (const l of ["uk", "ar", "tr"]) require(`../js/data/glossary-${l}.js`);
+  const tr = global.Amtsklar.glossaryI18n;
+  for (const l of ["uk", "ar", "tr"]) {
+    const keys = Object.keys(tr[l]);
+    assert.deepEqual(TERMS.map((x) => x.w).filter((w) => !tr[l][w]), [], `${l} missing`);
+    assert.deepEqual(keys.filter((k) => !TERMS.some((x) => x.w === k)), [], `${l} unknown`);
+    for (const c of Object.keys(CATS)) assert.ok(CATS[c][l], `${l} category ${c}`);
+  }
+});
+
+test("service worker caches every script the page loads", () => {
+  const fs = require("fs");
+  const path = require("path");
+  const html = fs.readFileSync(path.join(__dirname, "../index.html"), "utf8");
+  const sw = fs.readFileSync(path.join(__dirname, "../sw.js"), "utf8");
+  for (const [, src] of html.matchAll(/<script src="([^"]+)"/g)) assert.ok(sw.includes(`"${src}"`), `sw.js misses ${src}`);
+});
