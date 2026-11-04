@@ -24,3 +24,19 @@ test("glossary entries are complete and unique", () => {
   }
   assert.ok(TERMS.length >= 60);
 });
+
+test("letter templates build complete German letters", () => {
+  require("../js/data/templates.js");
+  const { TEMPLATES, COMMON, buildLetter } = global.Amtsklar.templates;
+  for (const tpl of TEMPLATES) {
+    assert.ok(tpl.de.title && tpl.en.title && tpl.notes.de.length && tpl.notes.en.length, tpl.id);
+    const empty = buildLetter(tpl, {}, "2026-11-04");
+    assert.match(empty, /\[Ihr Vor- und Nachname\]/, tpl.id + " shows placeholders");
+    const values = {};
+    for (const f of [...COMMON, ...tpl.fields]) values[f.id] = f.type === "date" ? "2026-10-20" : f.type === "check" ? true : "X";
+    const full = buildLetter(tpl, values, "2026-11-04");
+    assert.doesNotMatch(full, /\[[^\]]+\]/, tpl.id + " has no gaps when filled");
+    assert.match(full, /Sehr geehrte Damen und Herren,/);
+    assert.match(full, /04\.11\.2026/);
+  }
+});

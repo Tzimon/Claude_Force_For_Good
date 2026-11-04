@@ -174,6 +174,7 @@
       return;
     }
     state.shared.deadline = r;
+    if (fristForm.delivery === "post") state.shared.letterDate = fristForm.date;
 
     const stepText = (s) => {
       if (s.key === "fiction") return { text: t("frist.step.fiction", { from: fmtDate(s.from), days: s.days, to: fmtDate(s.to) }), law: t("frist.law.fiction") };
