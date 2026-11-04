@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Amtsklar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Amtsklar hilft, Behördenbriefe zu verstehen: Fristenrechner, Amtsdeutsch-Wörterbuch, Musterbriefe und kostenlose Beratung. Kostenlos, ohne Anmeldung, ohne Tracking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="top-row">
+      <a class="brand" href="#frist">
+        <span class="brand-name">Amts<span>klar</span></span>
+        <span class="brand-tag" id="tagline">Behördenbriefe verstehen</span>
+      </a>
+      <label class="lang">
+        <span id="lang-label">Sprache</span>
+        <select id="lang" aria-label="Sprache / Language"></select>
+      </label>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Amtsklar"></nav>
+  </div>
+</header>
+<main class="wrap">
+  <div id="view"></div>
+</main>
+<footer class="wrap">
+  <p id="disclaimer"></p>
+  <p id="privacy"></p>
+  <p><span id="source-label"></span> <a href="https://github.com/Tzimon/Claude_Force_For_Good">github.com/Tzimon/Claude_Force_For_Good</a></p>
+  <p id="updated"></p>
+</footer>
+<script src="js/deadline.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

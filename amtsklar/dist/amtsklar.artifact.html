@@ -1,0 +1,1078 @@
+<title>Amtsklar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Amtsklar hilft, Behördenbriefe zu verstehen: Fristenrechner, Amtsdeutsch-Wörterbuch, Musterbriefe und kostenlose Beratung. Kostenlos, ohne Anmeldung, ohne Tracking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one narrow column like a letter page; a sticky "envelope window" header with the tabs.
+   Palette: recycled office paper, ink blue-black, rubber-stamp violet, delivery-envelope yellow. */
+:root {
+  --paper: #eef0ec;
+  --sheet: #fbfcfa;
+  --ink: #1d2433;
+  --muted: #5b6474;
+  --rule: #d3d8d2;
+  --stamp: #3a3a9e;
+  --yellow: #f7c800;
+  --yellow-soft: #fff1a8;
+  --yellow-ink: #3d3200;
+  --danger: #b3261e;
+  --ok: #1f6f43;
+  --focus: #3a3a9e;
+  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: 1.6rem;
+  --step-3: 2.2rem;
+  --radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #161a22;
+    --sheet: #1e2330;
+    --ink: #e7e9ee;
+    --muted: #a3aab8;
+    --rule: #333a4a;
+    --stamp: #a9a9ff;
+    --yellow: #f7c800;
+    --yellow-soft: #3d3609;
+    --yellow-ink: #fff1a8;
+    --danger: #ff8a80;
+    --ok: #7fd6a3;
+    --focus: #a9a9ff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #161a22;
+  --sheet: #1e2330;
+  --ink: #e7e9ee;
+  --muted: #a3aab8;
+  --rule: #333a4a;
+  --stamp: #a9a9ff;
+  --yellow: #f7c800;
+  --yellow-soft: #3d3609;
+  --yellow-ink: #fff1a8;
+  --danger: #ff8a80;
+  --ok: #7fd6a3;
+  --focus: #a9a9ff;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.55;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--sheet);
+}
+a { color: var(--stamp); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.15; }
+h2 { font-family: var(--font-display); font-weight: 600; font-size: var(--step-3); letter-spacing: 0.01em; margin: 0; }
+h3 { font-size: var(--step-1); margin: 0; }
+p { margin: 0; }
+.wrap {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Header */
+.top {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  background: var(--sheet);
+  border-bottom: 1px solid var(--rule);
+}
+.top-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px; flex-wrap: wrap; }
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand-name { font-family: var(--font-display); font-weight: 700; font-size: 1.7rem; letter-spacing: 0.02em; text-transform: uppercase; }
+.brand-name span { background: var(--yellow); color: #1d2433; padding: 0 4px; }
+.brand-tag { color: var(--muted); font-size: var(--step--1); }
+.lang { display: flex; align-items: center; gap: 6px; font-size: var(--step--1); color: var(--muted); }
+.lang select {
+  font: inherit; color: var(--ink); background: var(--sheet);
+  border: 1px solid var(--rule); border-radius: var(--radius); padding: 6px 8px;
+}
+.tabs { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; padding: 8px 12px 10px; border-bottom: 3px solid transparent; white-space: nowrap;
+}
+.tab[aria-current="page"] { color: var(--ink); border-bottom-color: var(--yellow); }
+.tab:hover { color: var(--ink); }
+
+main { padding-block: 28px 64px; }
+.view { display: grid; gap: 24px; }
+.lede { color: var(--muted); max-width: 62ch; }
+.eyebrow { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.95rem; color: var(--muted); font-weight: 600; }
+
+/* Sheet = a sheet of paper */
+.sheet { background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius); padding: 20px; display: grid; gap: 18px; }
+@media (min-width: 640px) { .sheet { padding: 28px; } }
+
+/* Forms */
+.field { display: grid; gap: 6px; }
+.field > label, .field > .label { font-weight: 700; }
+.hint { color: var(--muted); font-size: var(--step--1); }
+input[type="date"], input[type="text"], input[type="search"], select, textarea {
+  font: inherit; color: var(--ink); background: var(--sheet); border: 1.5px solid var(--rule);
+  border-radius: var(--radius); padding: 10px 12px; width: 100%; min-width: 0;
+}
+textarea { min-height: 7rem; resize: vertical; }
+input:focus, select:focus, textarea:focus { border-color: var(--focus); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 25%, transparent); }
+.choices { display: grid; gap: 8px; }
+.choice {
+  display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; align-items: start;
+  border: 1.5px solid var(--rule); border-radius: var(--radius); padding: 12px; cursor: pointer;
+}
+.choice:has(input:checked) { border-color: var(--stamp); background: color-mix(in srgb, var(--stamp) 7%, var(--sheet)); }
+.choice input { margin-top: 5px; accent-color: var(--stamp); width: 18px; height: 18px; }
+.choice .hint { grid-column: 2; }
+.row-2 { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 560px) { .row-2 { grid-template-columns: 1fr 1fr; } }
+.btn {
+  font: inherit; font-weight: 700; cursor: pointer; border-radius: var(--radius); padding: 10px 16px;
+  border: 1.5px solid var(--ink); background: var(--ink); color: var(--sheet);
+}
+.btn.secondary { background: transparent; color: var(--ink); }
+.btn:hover { filter: brightness(1.1); }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Result: rubber date stamp */
+.result { display: grid; gap: 18px; }
+.stamp-wrap { display: flex; justify-content: center; padding-block: 8px; }
+.stamp {
+  display: inline-grid; justify-items: center; gap: 2px;
+  border: 4px double var(--stamp); color: var(--stamp); border-radius: 10px;
+  padding: 10px 22px 12px; transform: rotate(-3deg);
+  font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.08em;
+  mix-blend-mode: normal;
+}
+.stamp-label { font-size: 1rem; font-weight: 600; }
+.stamp-date { font-family: var(--font-mono); font-size: clamp(1.8rem, 7vw, 2.6rem); font-weight: 600; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.stamp-day { font-size: 1.05rem; font-weight: 600; }
+.countdown { text-align: center; font-weight: 700; }
+.countdown.urgent { color: var(--danger); }
+.countdown.past { color: var(--danger); }
+.mark { background: var(--yellow-soft); color: var(--yellow-ink); padding: 0 3px; border-radius: 2px; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: step; }
+.steps li { display: grid; grid-template-columns: 2rem 1fr; gap: 10px; padding-block: 10px; border-top: 1px dashed var(--rule); counter-increment: step; }
+.steps li::before {
+  content: counter(step); font-family: var(--font-mono); font-weight: 600; color: var(--stamp);
+  border: 1.5px solid var(--stamp); border-radius: 50%; width: 1.7rem; height: 1.7rem; display: grid; place-items: center; font-size: 0.85rem;
+}
+.law { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.callout { border-left: 4px solid var(--yellow); background: var(--yellow-soft); color: var(--yellow-ink); padding: 12px 14px; border-radius: 0 var(--radius) var(--radius) 0; }
+.callout strong { display: block; }
+.callout.warn { border-left-color: var(--danger); background: color-mix(in srgb, var(--danger) 10%, var(--sheet)); color: var(--ink); }
+.small { font-size: var(--step--1); color: var(--muted); }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* Glossary */
+.search { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 104px); z-index: 2; }
+.terms { display: grid; gap: 0; }
+.term { padding-block: 16px; border-top: 1px solid var(--rule); display: grid; gap: 6px; }
+.term-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px; }
+.term-word { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; }
+.term-cat { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); border: 1px solid var(--rule); border-radius: 99px; padding: 1px 8px; }
+.term-plain { font-weight: 700; }
+.term-tip { color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font: inherit; font-size: var(--step--1); cursor: pointer; border: 1px solid var(--rule); background: var(--sheet); color: var(--ink);
+  border-radius: 99px; padding: 4px 12px;
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
+.empty { color: var(--muted); padding-block: 24px; }
+
+/* Templates */
+.tpl-list { display: grid; gap: 10px; }
+@media (min-width: 640px) { .tpl-list { grid-template-columns: 1fr 1fr; } }
+.tpl-card {
+  text-align: left; font: inherit; color: var(--ink); background: var(--sheet); cursor: pointer;
+  border: 1.5px solid var(--rule); border-radius: var(--radius); padding: 14px; display: grid; gap: 4px;
+}
+.tpl-card[aria-pressed="true"] { border-color: var(--stamp); box-shadow: inset 0 0 0 1px var(--stamp); }
+.tpl-card strong { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; }
+.letter {
+  font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere;
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius); padding: 20px; color: var(--ink);
+}
+
+/* Help */
+.help-list { display: grid; gap: 0; }
+.help-item { padding-block: 16px; border-top: 1px solid var(--rule); display: grid; gap: 4px; }
+.help-item h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; }
+.phone { font-family: var(--font-mono); font-weight: 600; }
+
+footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var(--muted); font-size: var(--step--1); display: grid; gap: 8px; }
+
+[dir="rtl"] .steps li { direction: rtl; }
+[dir="rtl"] .callout { border-left: 0; border-right: 4px solid var(--yellow); border-radius: var(--radius) 0 0 var(--radius); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .stamp.fresh { animation: stampin 380ms cubic-bezier(.2,.9,.3,1.3); }
+  @keyframes stampin { from { transform: rotate(-3deg) scale(1.35); opacity: 0.2; } to { transform: rotate(-3deg) scale(1); opacity: 1; } }
+}
+@media print {
+  .top, footer, .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+  .letter { border: 0; padding: 0; font-size: 11pt; }
+}
+
+</style>
+<header class="top">
+  <div class="wrap">
+    <div class="top-row">
+      <a class="brand" href="#frist">
+        <span class="brand-name">Amts<span>klar</span></span>
+        <span class="brand-tag" id="tagline">Behördenbriefe verstehen</span>
+      </a>
+      <label class="lang">
+        <span id="lang-label">Sprache</span>
+        <select id="lang" aria-label="Sprache / Language"></select>
+      </label>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Amtsklar"></nav>
+  </div>
+</header>
+<main class="wrap">
+  <div id="view"></div>
+</main>
+<footer class="wrap">
+  <p id="disclaimer"></p>
+  <p id="privacy"></p>
+  <p><span id="source-label"></span> <a href="https://github.com/Tzimon/Claude_Force_For_Good">github.com/Tzimon/Claude_Force_For_Good</a></p>
+  <p id="updated"></p>
+</footer>
+<script>
+/*
+ * Amtsklar – deadline engine (Fristenrechner)
+ *
+ * Pure functions, no DOM. Works in the browser (window.Amtsklar.deadline)
+ * and in Node (module.exports) so it can be unit-tested.
+ *
+ * Legal basis (German administrative law, as of 2025):
+ *  - Bekanntgabe-Fiktion: a letter sent by post or electronically counts as
+ *    delivered on the 4th day after it was sent (§ 41 Abs. 2 VwVfG,
+ *    § 37 Abs. 2 SGB X, § 122 Abs. 2 AO; 3 days before 1 Jan 2025,
+ *    changed by the Postrechtsmodernisierungsgesetz).
+ *  - Start of the deadline: the day of delivery is not counted (§ 187 Abs. 1 BGB).
+ *  - End of a deadline in weeks/months/years: § 188 Abs. 2 and 3 BGB.
+ *  - If the last day is a Saturday, Sunday or public holiday, the deadline ends
+ *    on the next working day (§ 193 BGB, § 31 Abs. 3 VwVfG, § 26 Abs. 3 SGB X,
+ *    § 108 Abs. 3 AO, § 222 Abs. 2 ZPO, § 57 VwGO, § 64 Abs. 3 SGG).
+ *
+ * Deliberately conservative: the engine does NOT postpone the fictional
+ * delivery day when it falls on a weekend/holiday (courts disagree on this),
+ * so the recommended deadline is never later than the legally correct one.
+ */
+(function (root, factory) {
+  const api = factory();
+  if (typeof module === "object" && module.exports) {
+    module.exports = api;
+  } else {
+    root.Amtsklar = root.Amtsklar || {};
+    root.Amtsklar.deadline = api;
+  }
+})(typeof self !== "undefined" ? self : this, function () {
+  "use strict";
+
+  // ---------------------------------------------------------------------------
+  // Date helpers. All dates are plain calendar dates handled in UTC to avoid
+  // daylight-saving surprises.
+  // ---------------------------------------------------------------------------
+
+  function makeDate(year, month, day) {
+    // month: 1-12
+    return new Date(Date.UTC(year, month - 1, day));
+  }
+
+  function parseISO(str) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(str || "").trim());
+    if (!m) return null;
+    const d = makeDate(+m[1], +m[2], +m[3]);
+    // Reject impossible dates like 2025-02-31
+    if (d.getUTCMonth() !== +m[2] - 1 || d.getUTCDate() !== +m[3]) return null;
+    return d;
+  }
+
+  function toISO(date) {
+    return date.toISOString().slice(0, 10);
+  }
+
+  function addDays(date, days) {
+    return new Date(date.getTime() + days * 86400000);
+  }
+
+  function daysInMonth(year, monthIndex0) {
+    return new Date(Date.UTC(year, monthIndex0 + 1, 0)).getUTCDate();
+  }
+
+  /**
+   * Add calendar months according to § 188 Abs. 2, 3 BGB:
+   * the deadline ends on the day of the target month with the same number;
+   * if that day does not exist, on the last day of the target month.
+   */
+  function addMonths(date, months) {
+    const y = date.getUTCFullYear();
+    const m = date.getUTCMonth() + months;
+    const targetYear = y + Math.floor(m / 12);
+    const targetMonth = ((m % 12) + 12) % 12;
+    const day = Math.min(date.getUTCDate(), daysInMonth(targetYear, targetMonth));
+    return new Date(Date.UTC(targetYear, targetMonth, day));
+  }
+
+  function isWeekend(date) {
+    const wd = date.getUTCDay();
+    return wd === 0 || wd === 6;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Public holidays (gesetzliche Feiertage) per federal state
+  // ---------------------------------------------------------------------------
+
+  const STATES = {
+    BW: "Baden-Württemberg",
+    BY: "Bayern",
+    BE: "Berlin",
+    BB: "Brandenburg",
+    HB: "Bremen",
+    HH: "Hamburg",
+    HE: "Hessen",
+    MV: "Mecklenburg-Vorpommern",
+    NI: "Niedersachsen",
+    NW: "Nordrhein-Westfalen",
+    RP: "Rheinland-Pfalz",
+    SL: "Saarland",
+    SN: "Sachsen",
+    ST: "Sachsen-Anhalt",
+    SH: "Schleswig-Holstein",
+    TH: "Thüringen",
+  };
+
+  /** Easter Sunday (Gregorian calendar, anonymous Gregorian algorithm). */
+  function easterSunday(year) {
+    const a = year % 19;
+    const b = Math.floor(year / 100);
+    const c = year % 100;
+    const d = Math.floor(b / 4);
+    const e = b % 4;
+    const f = Math.floor((b + 8) / 25);
+    const g = Math.floor((b - f + 1) / 3);
+    const h = (19 * a + b - d - g + 15) % 30;
+    const i = Math.floor(c / 4);
+    const k = c % 4;
+    const l = (32 + 2 * e + 2 * i - h - k) % 7;
+    const m = Math.floor((a + 11 * h + 22 * l) / 451);
+    const month = Math.floor((h + l - 7 * m + 114) / 31);
+    const day = ((h + l - 7 * m + 114) % 31) + 1;
+    return makeDate(year, month, day);
+  }
+
+  /**
+   * Returns a Map of ISO date -> holiday name for the given year and state.
+   * Holidays that only apply in parts of a state (Fronleichnam in some
+   * communities of Sachsen/Thüringen, Mariä Himmelfahrt in parts of Bayern,
+   * Augsburger Friedensfest) are included with "partial: true" so the UI
+   * can warn about them; they are treated as holidays (conservative choice
+   * would be to NOT treat them as holidays, see isHoliday()).
+   */
+  function holidays(year, state) {
+    const list = [];
+    const add = (date, name, opts) => list.push({ date: toISO(date), name, partial: !!(opts && opts.partial) });
+    const easter = easterSunday(year);
+    const has = (states) => states.includes(state);
+
+    // Nationwide
+    add(makeDate(year, 1, 1), "Neujahr");
+    add(addDays(easter, -2), "Karfreitag");
+    add(addDays(easter, 1), "Ostermontag");
+    add(makeDate(year, 5, 1), "Tag der Arbeit");
+    add(addDays(easter, 39), "Christi Himmelfahrt");
+    add(addDays(easter, 50), "Pfingstmontag");
+    add(makeDate(year, 10, 3), "Tag der Deutschen Einheit");
+    add(makeDate(year, 12, 25), "1. Weihnachtstag");
+    add(makeDate(year, 12, 26), "2. Weihnachtstag");
+
+    // State-specific
+    if (has(["BW", "BY", "ST"])) add(makeDate(year, 1, 6), "Heilige Drei Könige");
+    if ((state === "BE" && year >= 2019) || (state === "MV" && year >= 2023)) {
+      add(makeDate(year, 3, 8), "Internationaler Frauentag");
+    }
+    if (state === "BE" && (year === 2020 || year === 2025)) {
+      add(makeDate(year, 5, 8), "Tag der Befreiung (einmalig)");
+    }
+    if (state === "BB") {
+      add(easter, "Ostersonntag");
+      add(addDays(easter, 49), "Pfingstsonntag");
+    }
+    if (has(["BW", "BY", "HE", "NW", "RP", "SL"])) add(addDays(easter, 60), "Fronleichnam");
+    if (has(["SN", "TH"])) add(addDays(easter, 60), "Fronleichnam (nur in einigen Gemeinden)", { partial: true });
+    if (state === "SL") add(makeDate(year, 8, 15), "Mariä Himmelfahrt");
+    if (state === "BY") {
+      add(makeDate(year, 8, 15), "Mariä Himmelfahrt (nur in Gemeinden mit überwiegend katholischer Bevölkerung)", { partial: true });
+      add(makeDate(year, 8, 8), "Augsburger Friedensfest (nur Stadt Augsburg)", { partial: true });
+    }
+    if (state === "TH" && year >= 2019) add(makeDate(year, 9, 20), "Weltkindertag");
+    if (has(["BB", "MV", "SN", "ST", "TH"]) || (has(["HB", "HH", "NI", "SH"]) && year >= 2018) || year === 2017) {
+      add(makeDate(year, 10, 31), "Reformationstag");
+    }
+    if (has(["BW", "BY", "NW", "RP", "SL"])) add(makeDate(year, 11, 1), "Allerheiligen");
+    if (state === "SN") {
+      // Wednesday before 23 November
+      let d = makeDate(year, 11, 22);
+      while (d.getUTCDay() !== 3) d = addDays(d, -1);
+      add(d, "Buß- und Bettag");
+    }
+
+    return list.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+  }
+
+  /**
+   * Is the date a non-working day for deadline purposes?
+   * Partial holidays are NOT treated as holidays here (conservative: the
+   * deadline is not extended because of a holiday that might not apply).
+   */
+  function nonWorkingReason(date, state) {
+    const wd = date.getUTCDay();
+    if (wd === 6) return { type: "saturday", name: "Samstag" };
+    if (wd === 0) return { type: "sunday", name: "Sonntag" };
+    const iso = toISO(date);
+    const h = holidays(date.getUTCFullYear(), state).find((x) => x.date === iso && !x.partial);
+    if (h) return { type: "holiday", name: h.name };
+    return null;
+  }
+
+  function partialHolidayOn(date, state) {
+    const iso = toISO(date);
+    return holidays(date.getUTCFullYear(), state).find((x) => x.date === iso && x.partial) || null;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Deadline computation
+  // ---------------------------------------------------------------------------
+
+  /** Number of days of the delivery fiction for a letter sent on `sentDate`. */
+  function fictionDays(sentDate) {
+    return sentDate.getTime() >= makeDate(2025, 1, 1).getTime() ? 4 : 3;
+  }
+
+  /**
+   * Compute a deadline.
+   *
+   * @param {object} input
+   * @param {string} input.delivery  "post"      – normal letter / e-mail / portal message, `date` = date it was sent
+   *                                               (if unknown: the date printed on the letter)
+   *                                 "formal"    – formal delivery (Zustellung, e.g. yellow envelope), `date` = date
+   *                                               written on the envelope
+   *                                 "known"     – the exact day the letter was received/handed over, `date` = that day
+   * @param {string} input.date      ISO date (YYYY-MM-DD)
+   * @param {string} input.period    "1w" | "2w" | "1m" | "3m" | "1y"
+   * @param {string} input.state     two-letter state code (see STATES) of the authority/court
+   * @returns {object} result with the deadline and a step-by-step explanation
+   */
+  function compute(input) {
+    const steps = [];
+    const warnings = [];
+    const start = parseISO(input && input.date);
+    if (!start) throw new Error("invalid-date");
+    if (!STATES[input.state]) throw new Error("invalid-state");
+    const period = input.period;
+
+    // 1. Day of delivery (Bekanntgabe / Zustellung)
+    let delivered;
+    if (input.delivery === "post") {
+      const n = fictionDays(start);
+      delivered = addDays(start, n);
+      steps.push({ key: "fiction", days: n, from: toISO(start), to: toISO(delivered) });
+    } else if (input.delivery === "formal" || input.delivery === "known") {
+      delivered = start;
+      steps.push({ key: input.delivery === "formal" ? "formal" : "known", to: toISO(delivered) });
+    } else {
+      throw new Error("invalid-delivery");
+    }
+
+    // 2. Raw end of deadline (§ 187 Abs. 1, § 188 BGB)
+    let rawEnd;
+    if (period === "1w") rawEnd = addDays(delivered, 7);
+    else if (period === "2w") rawEnd = addDays(delivered, 14);
+    else if (period === "1m") rawEnd = addMonths(delivered, 1);
+    else if (period === "3m") rawEnd = addMonths(delivered, 3);
+    else if (period === "1y") rawEnd = addMonths(delivered, 12);
+    else throw new Error("invalid-period");
+    steps.push({ key: "period", period, from: toISO(delivered), to: toISO(rawEnd) });
+    if ((period === "1m" || period === "3m" || period === "1y") && rawEnd.getUTCDate() !== delivered.getUTCDate()) {
+      steps.push({ key: "monthEnd", to: toISO(rawEnd) });
+    }
+
+    // 3. Shift to next working day (§ 193 BGB etc.)
+    let end = rawEnd;
+    const skipped = [];
+    let reason = nonWorkingReason(end, input.state);
+    while (reason) {
+      skipped.push({ date: toISO(end), reason });
+      end = addDays(end, 1);
+      reason = nonWorkingReason(end, input.state);
+    }
+    if (skipped.length) steps.push({ key: "shift", skipped, to: toISO(end) });
+
+    // Warnings
+    const partial = partialHolidayOn(rawEnd, input.state);
+    if (partial) warnings.push({ key: "partialHoliday", name: partial.name, date: toISO(rawEnd) });
+    if (input.delivery === "post") warnings.push({ key: "receivedLater" });
+
+    const today = input.today ? parseISO(input.today) : null;
+    let daysLeft = null;
+    if (today) daysLeft = Math.round((end.getTime() - today.getTime()) / 86400000);
+
+    return {
+      delivered: toISO(delivered),
+      rawEnd: toISO(rawEnd),
+      deadline: toISO(end),
+      weekday: end.getUTCDay(),
+      daysLeft,
+      steps,
+      warnings,
+    };
+  }
+
+  return {
+    STATES,
+    compute,
+    holidays,
+    easterSunday,
+    addMonths,
+    parseISO,
+    toISO,
+    isWeekend,
+    nonWorkingReason,
+    fictionDays,
+  };
+});
+
+</script>
+<script>
+/*
+ * Amtsklar – interface strings.
+ * German ("de") is the reference. Other languages may fall back to German or
+ * English per key. Placeholders: {name}.
+ */
+(function (root) {
+  "use strict";
+  const LANGS = {
+    de: { name: "Deutsch", dir: "ltr" },
+    en: { name: "English", dir: "ltr" },
+  };
+
+  const T = {
+    de: {
+      tagline: "Behördenbriefe verstehen",
+      language: "Sprache",
+      "nav.frist": "Frist",
+      "nav.woerter": "Wörter",
+      "nav.vorlagen": "Vorlagen",
+      "nav.hilfe": "Hilfe",
+
+      "frist.eyebrow": "Fristenrechner",
+      "frist.title": "Bis wann muss ich reagieren?",
+      "frist.lede": "Gegen einen Bescheid können Sie sich wehren – aber nur innerhalb einer Frist. Geben Sie ein, was auf Ihrem Brief steht. Amtsklar rechnet den letzten Tag aus und erklärt jeden Schritt.",
+      "frist.how": "Wie kam der Brief zu Ihnen?",
+      "frist.how.post": "Normaler Brief, E-Mail oder Nachricht im Online-Portal",
+      "frist.how.post.hint": "Der Brief gilt am 4. Tag nach dem Absenden als zugestellt.",
+      "frist.how.formal": "Gelber Briefumschlag (förmliche Zustellung)",
+      "frist.how.formal.hint": "Auf dem Umschlag steht das Datum der Zustellung.",
+      "frist.how.known": "Persönlich übergeben bekommen",
+      "frist.how.known.hint": "Sie wissen genau, an welchem Tag Sie den Brief bekommen haben.",
+      "frist.date.post": "Datum des Briefes",
+      "frist.date.post.hint": "Steht meist oben rechts. Wenn der Brief ein „Absendedatum“ nennt, nehmen Sie dieses.",
+      "frist.date.formal": "Datum auf dem gelben Umschlag",
+      "frist.date.formal.hint": "Der Zusteller schreibt es auf den Umschlag. Heben Sie den Umschlag auf!",
+      "frist.date.known": "Tag der Übergabe",
+      "frist.date.known.hint": "Der Tag, an dem Sie den Brief in der Hand hatten.",
+      "frist.period": "Wie lang ist die Frist?",
+      "frist.period.hint": "Steht am Ende des Briefes unter „Rechtsbehelfsbelehrung“. Meistens: ein Monat.",
+      "frist.period.1w": "1 Woche",
+      "frist.period.2w": "2 Wochen (z. B. Bußgeldbescheid, Strafbefehl)",
+      "frist.period.1m": "1 Monat (Widerspruch, Einspruch, Klage)",
+      "frist.period.3m": "3 Monate",
+      "frist.period.1y": "1 Jahr (wenn die Rechtsbehelfsbelehrung fehlt oder falsch ist)",
+      "frist.state": "Bundesland der Behörde",
+      "frist.state.hint": "Wichtig wegen der Feiertage. Gemeint ist der Ort der Behörde, nicht Ihr Wohnort.",
+      "frist.result.label": "Frist endet am",
+      "frist.result.end": "Ihr Widerspruch muss bis {date} um 23:59 Uhr bei der Behörde angekommen sein.",
+      "frist.daysLeft": "Noch {n} Tage",
+      "frist.daysLeft.1": "Noch 1 Tag – handeln Sie heute!",
+      "frist.daysLeft.0": "Heute ist der letzte Tag!",
+      "frist.daysLeft.past": "Diese Frist ist seit {n} Tagen abgelaufen.",
+      "frist.past.help": "Abgelaufen heißt nicht immer verloren: Wenn Sie ohne eigene Schuld zu spät sind (z. B. Krankenhaus, Urlaub), können Sie „Wiedereinsetzung in den vorigen Stand“ beantragen – innerhalb von 2 Wochen. Bei Jobcenter und Sozialamt gibt es außerdem den „Überprüfungsantrag“. Holen Sie sich schnell Beratung.",
+      "frist.steps": "So wurde gerechnet",
+      "frist.step.fiction": "Brief abgeschickt am {from}. Er gilt {days} Tage später als zugestellt: am {to}.",
+      "frist.step.formal": "Zugestellt am {to} (Datum auf dem gelben Umschlag).",
+      "frist.step.known": "Übergeben am {to}.",
+      "frist.step.period": "Die Frist beginnt am Tag danach. {period} nach dem {from} ist der {to}.",
+      "frist.step.monthEnd": "Diesen Tag gibt es im Zielmonat nicht. Darum endet die Frist am letzten Tag des Monats: {to}.",
+      "frist.step.shift": "{list} – an diesem Tag endet keine Frist. Sie verschiebt sich auf den nächsten Werktag: {to}.",
+      "frist.law.fiction": "§ 41 Abs. 2 VwVfG · § 37 Abs. 2 SGB X · § 122 Abs. 2 AO",
+      "frist.law.period": "§ 187 Abs. 1, § 188 Abs. 2 BGB",
+      "frist.law.monthEnd": "§ 188 Abs. 3 BGB",
+      "frist.law.shift": "§ 193 BGB · § 31 Abs. 3 VwVfG · § 26 Abs. 3 SGB X · § 108 Abs. 3 AO",
+      "frist.warn.received": "Kam der Brief bei Ihnen später an als 4 Tage nach dem Absenden? Dann kann die Frist später enden – das muss im Streitfall aber die Behörde beweisen. Sicher ist: Wenn Sie bis zum oben genannten Datum handeln, sind Sie rechtzeitig.",
+      "frist.warn.partial": "Am {date} ist „{name}“. Das ist nicht überall im Bundesland ein Feiertag. Amtsklar zählt ihn sicherheitshalber nicht mit.",
+      "frist.tips": "So schaffen Sie die Frist sicher",
+      "frist.tip.1": "Schicken Sie Ihren Widerspruch nicht erst am letzten Tag. Entscheidend ist, wann er ankommt – nicht, wann Sie ihn abschicken.",
+      "frist.tip.2": "Sicher und kostenlos: Brief selbst in den Briefkasten der Behörde werfen (Zeugen mitnehmen) oder vor Ort abgeben und eine Eingangsbestätigung geben lassen.",
+      "frist.tip.3": "Ein Widerspruch per normaler E-Mail reicht oft nicht! Nutzen Sie Brief, Fax, das Online-Portal der Behörde (z. B. jobcenter.digital, ELSTER) oder gehen Sie hin.",
+      "frist.tip.4": "Sie brauchen keine Begründung, um die Frist zu wahren. Schreiben Sie „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“",
+      "frist.toTemplate": "Widerspruch jetzt schreiben",
+      "frist.copy": "Ergebnis kopieren",
+      "frist.copied": "Kopiert",
+      "frist.invalid": "Bitte geben Sie ein gültiges Datum ein.",
+
+      "weekday.0": "Sonntag", "weekday.1": "Montag", "weekday.2": "Dienstag", "weekday.3": "Mittwoch",
+      "weekday.4": "Donnerstag", "weekday.5": "Freitag", "weekday.6": "Samstag",
+      "period.1w": "Eine Woche", "period.2w": "Zwei Wochen", "period.1m": "Ein Monat", "period.3m": "Drei Monate", "period.1y": "Ein Jahr",
+
+      "disclaimer": "Amtsklar ist keine Rechtsberatung. Wir prüfen die Inhalte sorgfältig, aber Gesetze ändern sich und jeder Fall ist anders. Bei wichtigen Fragen: kostenlose Beratung nutzen (siehe „Hilfe“).",
+      "footer.privacy": "Keine Anmeldung, kein Tracking, keine Daten verlassen Ihr Gerät.",
+      "footer.source": "Freie Software. Quellcode und Mitmachen:",
+      "footer.updated": "Rechtsstand: November 2026.",
+    },
+    en: {
+      tagline: "Understand German official letters",
+      language: "Language",
+      "nav.frist": "Deadline",
+      "nav.woerter": "Words",
+      "nav.vorlagen": "Letters",
+      "nav.hilfe": "Help",
+
+      "frist.eyebrow": "Deadline calculator",
+      "frist.title": "By when do I have to respond?",
+      "frist.lede": "You can challenge an official decision (Bescheid), but only within a deadline. Enter what your letter says. Amtsklar calculates the last day and explains every step.",
+      "frist.how": "How did you receive the letter?",
+      "frist.how.post": "Normal letter, e-mail or message in an online portal",
+      "frist.how.post.hint": "The letter counts as delivered on the 4th day after it was sent.",
+      "frist.how.formal": "Yellow envelope (formal delivery)",
+      "frist.how.formal.hint": "The delivery date is written on the envelope.",
+      "frist.how.known": "Handed to me in person",
+      "frist.how.known.hint": "You know exactly on which day you received the letter.",
+      "frist.date.post": "Date of the letter",
+      "frist.date.post.hint": "Usually at the top right. If the letter states a date of sending, use that one.",
+      "frist.date.formal": "Date on the yellow envelope",
+      "frist.date.formal.hint": "The postal worker writes it on the envelope. Keep the envelope!",
+      "frist.date.known": "Day you received it",
+      "frist.date.known.hint": "The day you had the letter in your hands.",
+      "frist.period": "How long is the deadline?",
+      "frist.period.hint": "Look at the end of the letter under „Rechtsbehelfsbelehrung“. Usually: one month.",
+      "frist.period.1w": "1 week",
+      "frist.period.2w": "2 weeks (e.g. fine notice, penalty order)",
+      "frist.period.1m": "1 month (objection, appeal, lawsuit)",
+      "frist.period.3m": "3 months",
+      "frist.period.1y": "1 year (if the Rechtsbehelfsbelehrung is missing or wrong)",
+      "frist.state": "Federal state of the authority",
+      "frist.state.hint": "Matters because of public holidays. Use the location of the authority, not where you live.",
+      "frist.result.label": "Deadline ends",
+      "frist.result.end": "Your objection must reach the authority by {date}, 11:59 pm.",
+      "frist.daysLeft": "{n} days left",
+      "frist.daysLeft.1": "1 day left – act today!",
+      "frist.daysLeft.0": "Today is the last day!",
+      "frist.daysLeft.past": "This deadline expired {n} days ago.",
+      "frist.past.help": "Expired does not always mean lost: if you were late through no fault of your own (e.g. hospital, holiday), you can apply for „Wiedereinsetzung in den vorigen Stand“ (reinstatement) within 2 weeks. For Jobcenter and social welfare decisions there is also the „Überprüfungsantrag“ (request for review). Get advice quickly.",
+      "frist.steps": "How it was calculated",
+      "frist.step.fiction": "Letter sent on {from}. It counts as delivered {days} days later: on {to}.",
+      "frist.step.formal": "Delivered on {to} (date on the yellow envelope).",
+      "frist.step.known": "Handed over on {to}.",
+      "frist.step.period": "The deadline starts the next day. {period} after {from} is {to}.",
+      "frist.step.monthEnd": "That day does not exist in the target month, so the deadline ends on the last day of the month: {to}.",
+      "frist.step.shift": "{list} – no deadline can end on this day. It moves to the next working day: {to}.",
+      "frist.law.fiction": "§ 41 (2) VwVfG · § 37 (2) SGB X · § 122 (2) AO",
+      "frist.law.period": "§ 187 (1), § 188 (2) BGB",
+      "frist.law.monthEnd": "§ 188 (3) BGB",
+      "frist.law.shift": "§ 193 BGB · § 31 (3) VwVfG · § 26 (3) SGB X · § 108 (3) AO",
+      "frist.warn.received": "Did the letter arrive later than 4 days after it was sent? Then the deadline may end later – but in a dispute the authority has to prove it. What is certain: if you act by the date above, you are on time.",
+      "frist.warn.partial": "{date} is „{name}“. This is not a holiday everywhere in the state, so Amtsklar does not count it, to be safe.",
+      "frist.tips": "How to meet the deadline safely",
+      "frist.tip.1": "Do not wait until the last day. What counts is when your objection arrives, not when you send it.",
+      "frist.tip.2": "Safe and free: put the letter into the authority's mailbox yourself (bring a witness) or hand it in and ask for a receipt (Eingangsbestätigung).",
+      "frist.tip.3": "A normal e-mail is often NOT enough for an objection! Use a letter, fax, the authority's online portal (e.g. jobcenter.digital, ELSTER) or go there in person.",
+      "frist.tip.4": "You do not need reasons to meet the deadline. Write: „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“ (I object. I will send the reasons later.)",
+      "frist.toTemplate": "Write the objection now",
+      "frist.copy": "Copy result",
+      "frist.copied": "Copied",
+      "frist.invalid": "Please enter a valid date.",
+
+      "weekday.0": "Sunday", "weekday.1": "Monday", "weekday.2": "Tuesday", "weekday.3": "Wednesday",
+      "weekday.4": "Thursday", "weekday.5": "Friday", "weekday.6": "Saturday",
+      "period.1w": "One week", "period.2w": "Two weeks", "period.1m": "One month", "period.3m": "Three months", "period.1y": "One year",
+
+      "disclaimer": "Amtsklar is not legal advice. We check the content carefully, but laws change and every case is different. For important questions, use free counselling (see „Help“).",
+      "footer.privacy": "No sign-up, no tracking, no data leaves your device.",
+      "footer.source": "Free software. Source code and how to contribute:",
+      "footer.updated": "Legal status: November 2026.",
+    },
+  };
+
+  function t(lang, key, vars) {
+    let s = (T[lang] && T[lang][key]) ?? T.en[key] ?? T.de[key] ?? key;
+    if (vars) s = s.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m));
+    return s;
+  }
+
+  root.Amtsklar = root.Amtsklar || {};
+  root.Amtsklar.i18n = { LANGS, T, t };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/*
+ * Amtsklar – app shell: routing, language, deadline calculator view.
+ * Other views register themselves on Amtsklar.views before this file runs
+ * or after (rendering happens on DOMContentLoaded).
+ */
+(function () {
+  "use strict";
+  const A = (window.Amtsklar = window.Amtsklar || {});
+  A.views = A.views || {};
+  const { LANGS, t: tr } = A.i18n;
+  const D = A.deadline;
+
+  const ROUTES = ["frist", "woerter", "vorlagen", "hilfe"];
+  const state = {
+    lang: "de",
+    route: "frist",
+    shared: {}, // data passed between views, e.g. deadline -> template
+  };
+
+  // ---------------------------------------------------------------- helpers
+  function store(key, value) {
+    try {
+      if (value === undefined) return localStorage.getItem("amtsklar." + key);
+      localStorage.setItem("amtsklar." + key, value);
+    } catch (e) {
+      return null;
+    }
+    return null;
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  }
+
+  function t(key, vars) {
+    return tr(state.lang, key, vars);
+  }
+
+  function fmtDate(iso) {
+    const [y, m, d] = iso.split("-");
+    return `${d}.${m}.${y}`;
+  }
+
+  function todayISO() {
+    const now = new Date();
+    const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+    return local.toISOString().slice(0, 10);
+  }
+
+  function h(html) {
+    const tpl = document.createElement("template");
+    tpl.innerHTML = html.trim();
+    return tpl.content;
+  }
+
+  async function copyText(text, button, doneLabel) {
+    try {
+      await navigator.clipboard.writeText(text);
+      if (button) {
+        const old = button.textContent;
+        button.textContent = doneLabel || "✓";
+        setTimeout(() => (button.textContent = old), 1600);
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  A.util = { esc, fmtDate, todayISO, h, copyText, store, t: (k, v) => t(k, v), state };
+
+  // ---------------------------------------------------------------- deadline view
+  const fristForm = {
+    delivery: "post",
+    date: "",
+    period: "1m",
+    state: "BY",
+  };
+
+  function renderFrist(el) {
+    const savedState = store("state");
+    if (savedState && D.STATES[savedState]) fristForm.state = savedState;
+    if (!fristForm.date) {
+      // Example: a letter dated ten days ago, so the first view shows a real result
+      const d = new Date();
+      d.setDate(d.getDate() - 10);
+      fristForm.date = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    }
+
+    const stateOptions = Object.entries(D.STATES)
+      .map(([code, name]) => `<option value="${code}"${code === fristForm.state ? " selected" : ""}>${esc(name)}</option>`)
+      .join("");
+    const periodOptions = ["1w", "2w", "1m", "3m", "1y"]
+      .map((p) => `<option value="${p}"${p === fristForm.period ? " selected" : ""}>${esc(t("frist.period." + p))}</option>`)
+      .join("");
+    const how = ["post", "formal", "known"]
+      .map(
+        (k) => `
+        <label class="choice">
+          <input type="radio" name="delivery" id="delivery-${k}" value="${k}"${fristForm.delivery === k ? " checked" : ""}>
+          <span>${esc(t("frist.how." + k))}</span>
+          <span class="hint">${esc(t("frist.how." + k + ".hint"))}</span>
+        </label>`
+      )
+      .join("");
+
+    el.replaceChildren(
+      h(`
+      <section class="view" aria-labelledby="frist-title">
+        <header style="display:grid;gap:10px">
+          <p class="eyebrow">${esc(t("frist.eyebrow"))}</p>
+          <h2 id="frist-title">${esc(t("frist.title"))}</h2>
+          <p class="lede">${esc(t("frist.lede"))}</p>
+        </header>
+        <form class="sheet" id="frist-form" novalidate>
+          <fieldset class="field" style="border:0;padding:0;margin:0">
+            <legend class="label" style="font-weight:700;margin-bottom:6px">${esc(t("frist.how"))}</legend>
+            <div class="choices">${how}</div>
+          </fieldset>
+          <div class="row-2">
+            <div class="field">
+              <label for="frist-date" id="frist-date-label"></label>
+              <input type="date" id="frist-date" value="${esc(fristForm.date)}" required>
+              <span class="hint" id="frist-date-hint"></span>
+            </div>
+            <div class="field">
+              <label for="frist-period">${esc(t("frist.period"))}</label>
+              <select id="frist-period">${periodOptions}</select>
+              <span class="hint">${esc(t("frist.period.hint"))}</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="frist-state">${esc(t("frist.state"))}</label>
+            <select id="frist-state">${stateOptions}</select>
+            <span class="hint">${esc(t("frist.state.hint"))}</span>
+          </div>
+        </form>
+        <section class="sheet result" id="frist-result" aria-live="polite"></section>
+        <section class="sheet">
+          <h3>${esc(t("frist.tips"))}</h3>
+          <ul style="margin:0;padding-inline-start:1.2em;display:grid;gap:8px">
+            <li>${esc(t("frist.tip.1"))}</li>
+            <li>${esc(t("frist.tip.2"))}</li>
+            <li>${esc(t("frist.tip.3"))}</li>
+            <li>${esc(t("frist.tip.4"))}</li>
+          </ul>
+        </section>
+      </section>`)
+    );
+
+    const form = el.querySelector("#frist-form");
+    const update = (animate) => {
+      fristForm.delivery = form.querySelector('input[name="delivery"]:checked').value;
+      fristForm.date = form.querySelector("#frist-date").value;
+      fristForm.period = form.querySelector("#frist-period").value;
+      fristForm.state = form.querySelector("#frist-state").value;
+      store("state", fristForm.state);
+      form.querySelector("#frist-date-label").textContent = t("frist.date." + fristForm.delivery);
+      form.querySelector("#frist-date-hint").textContent = t("frist.date." + fristForm.delivery + ".hint");
+      renderFristResult(el.querySelector("#frist-result"), animate);
+    };
+    form.addEventListener("input", () => update(true));
+    form.addEventListener("change", () => update(true));
+    form.addEventListener("submit", (e) => e.preventDefault());
+    update(false);
+  }
+
+  function renderFristResult(box, animate) {
+    let r;
+    try {
+      r = D.compute({ ...fristForm, today: todayISO() });
+    } catch (e) {
+      box.replaceChildren(h(`<p class="callout warn">${esc(t("frist.invalid"))}</p>`));
+      return;
+    }
+    state.shared.deadline = r;
+
+    const stepText = (s) => {
+      if (s.key === "fiction") return { text: t("frist.step.fiction", { from: fmtDate(s.from), days: s.days, to: fmtDate(s.to) }), law: t("frist.law.fiction") };
+      if (s.key === "formal" || s.key === "known") return { text: t("frist.step." + s.key, { to: fmtDate(s.to) }), law: "" };
+      if (s.key === "period")
+        return { text: t("frist.step.period", { period: t("period." + s.period), from: fmtDate(s.from), to: fmtDate(s.to) }), law: t("frist.law.period") };
+      if (s.key === "monthEnd") return { text: t("frist.step.monthEnd", { to: fmtDate(s.to) }), law: t("frist.law.monthEnd") };
+      if (s.key === "shift") {
+        const list = s.skipped
+          .map((x) => `${fmtDate(x.date)}: ${x.reason.type === "holiday" ? x.reason.name : t("weekday." + D.parseISO(x.date).getUTCDay())}`)
+          .join(", ");
+        return { text: t("frist.step.shift", { list, to: fmtDate(s.to) }), law: t("frist.law.shift") };
+      }
+      return { text: "", law: "" };
+    };
+
+    let countdown = "";
+    let cls = "countdown";
+    if (r.daysLeft !== null) {
+      if (r.daysLeft < 0) {
+        countdown = t("frist.daysLeft.past", { n: -r.daysLeft });
+        cls += " past";
+      } else if (r.daysLeft === 0) {
+        countdown = t("frist.daysLeft.0");
+        cls += " urgent";
+      } else if (r.daysLeft === 1) {
+        countdown = t("frist.daysLeft.1");
+        cls += " urgent";
+      } else {
+        countdown = t("frist.daysLeft", { n: r.daysLeft });
+        if (r.daysLeft <= 7) cls += " urgent";
+      }
+    }
+
+    const warnings = r.warnings
+      .map((w) =>
+        w.key === "partialHoliday"
+          ? `<p class="callout">${esc(t("frist.warn.partial", { date: fmtDate(w.date), name: w.name }))}</p>`
+          : `<p class="small">${esc(t("frist.warn.received"))}</p>`
+      )
+      .join("");
+
+    const deadlineText = `${t("weekday." + r.weekday)}, ${fmtDate(r.deadline)}`;
+    box.replaceChildren(
+      h(`
+      <div class="stamp-wrap">
+        <div class="stamp${animate ? " fresh" : ""}" role="img" aria-label="${esc(t("frist.result.label") + " " + deadlineText)}">
+          <span class="stamp-label">${esc(t("frist.result.label"))}</span>
+          <span class="stamp-date">${esc(fmtDate(r.deadline))}</span>
+          <span class="stamp-day">${esc(t("weekday." + r.weekday))}</span>
+        </div>
+      </div>
+      ${countdown ? `<p class="${cls}">${esc(countdown)}</p>` : ""}
+      <p>${t("frist.result.end", { date: `<span class="mark">${esc(deadlineText)}</span>` })}</p>
+      ${r.daysLeft !== null && r.daysLeft < 0 ? `<p class="callout warn">${esc(t("frist.past.help"))}</p>` : ""}
+      <div style="display:grid;gap:4px">
+        <h3>${esc(t("frist.steps"))}</h3>
+        <ol class="steps">
+          ${r.steps
+            .map((s) => {
+              const x = stepText(s);
+              return `<li><div><p>${esc(x.text)}</p>${x.law ? `<p class="law">${esc(x.law)}</p>` : ""}</div></li>`;
+            })
+            .join("")}
+        </ol>
+      </div>
+      ${warnings}
+      <div class="btn-row no-print">
+        <a class="btn" href="#vorlagen" id="to-template" style="text-decoration:none">${esc(t("frist.toTemplate"))}</a>
+        <button class="btn secondary" type="button" id="copy-result">${esc(t("frist.copy"))}</button>
+      </div>
+    `)
+    );
+    box.querySelector("#copy-result").addEventListener("click", (e) => {
+      const lines = [
+        `${t("frist.result.label")}: ${deadlineText}`,
+        ...r.steps.map((s) => "- " + stepText(s).text),
+        "",
+        "Amtsklar – " + t("disclaimer"),
+      ];
+      copyText(lines.join("\n"), e.currentTarget, t("frist.copied"));
+    });
+  }
+
+  A.views.frist = { render: renderFrist };
+
+  // ---------------------------------------------------------------- shell
+  function renderShell() {
+    const lang = LANGS[state.lang];
+    document.documentElement.lang = state.lang;
+    document.documentElement.dir = lang.dir;
+
+    document.querySelector("#tagline").textContent = t("tagline");
+    document.querySelector("#lang-label").textContent = t("language");
+    const select = document.querySelector("#lang");
+    select.replaceChildren(
+      ...Object.entries(LANGS).map(([code, l]) => {
+        const o = document.createElement("option");
+        o.value = code;
+        o.textContent = l.name;
+        o.selected = code === state.lang;
+        return o;
+      })
+    );
+    const nav = document.querySelector("#tabs");
+    nav.replaceChildren(
+      ...ROUTES.filter((r) => A.views[r]).map((r) => {
+        const a = document.createElement("a");
+        a.className = "tab";
+        a.href = "#" + r;
+        a.textContent = t("nav." + r);
+        if (r === state.route) a.setAttribute("aria-current", "page");
+        return a;
+      })
+    );
+    document.querySelector("#disclaimer").textContent = t("disclaimer");
+    document.querySelector("#privacy").textContent = t("footer.privacy");
+    document.querySelector("#source-label").textContent = t("footer.source");
+    document.querySelector("#updated").textContent = t("footer.updated");
+  }
+
+  function render() {
+    renderShell();
+    const view = A.views[state.route] || A.views.frist;
+    view.render(document.querySelector("#view"), { t, state });
+  }
+
+  function routeFromHash() {
+    const name = location.hash.replace(/^#/, "");
+    return ROUTES.includes(name) && A.views[name] ? name : "frist";
+  }
+
+  function init() {
+    const saved = store("lang");
+    const browser = (navigator.language || "de").slice(0, 2);
+    state.lang = LANGS[saved] ? saved : LANGS[browser] ? browser : "de";
+    state.route = routeFromHash();
+    document.querySelector("#lang").addEventListener("change", (e) => {
+      state.lang = e.target.value;
+      store("lang", state.lang);
+      render();
+    });
+    window.addEventListener("hashchange", () => {
+      state.route = routeFromHash();
+      render();
+      window.scrollTo(0, 0);
+    });
+    render();
+  }
+
+  A.rerender = render;
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+
+</script>
