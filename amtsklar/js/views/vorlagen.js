@@ -29,8 +29,18 @@
     A.util.store("letter", JSON.stringify(keep));
   }
 
-  function inputHtml(f, lang, esc) {
-    const label = f[lang] || f.en || f.de;
+  // Translated labels from templatesI18n (uk, ar, tr, ru, fa), else the label on the field (de, en)
+  function labelFor(f, lang, tplId) {
+    const L = A.templatesI18n && A.templatesI18n[lang];
+    if (L) {
+      const own = tplId ? L.tpl[tplId] && L.tpl[tplId].fields[f.id] : L.common[f.id];
+      if (own) return own;
+    }
+    return f[lang] || f.en || f.de;
+  }
+
+  function inputHtml(f, lang, esc, tplId) {
+    const label = labelFor(f, lang, tplId);
     const id = "f-" + f.id;
     const val = values[f.id] ?? "";
     if (f.type === "check") {
@@ -57,7 +67,8 @@
     if (state.shared.letterDate && !values.letterDate) values.letterDate = state.shared.letterDate;
 
     const tpl = TEMPLATES.find((x) => x.id === current) || TEMPLATES[0];
-    const tx = (o) => o[lang] || o.en || o.de;
+    const L = A.templatesI18n && A.templatesI18n[lang];
+    const tx = (x) => x[lang] || (L && L.tpl[x.id]) || x.en || x.de;
     const inFrame = window.self !== window.top;
 
     el.replaceChildren(
@@ -75,7 +86,7 @@
           <h3>${esc(t("v.you"))}</h3>
           <div class="row-2">${COMMON.map((f) => inputHtml(f, lang, esc)).join("")}</div>
           <h3>${esc(tx(tpl).title)}</h3>
-          <div class="row-2">${tpl.fields.map((f) => inputHtml(f, lang, esc)).join("")}</div>
+          <div class="row-2">${tpl.fields.map((f) => inputHtml(f, lang, esc, tpl.id)).join("")}</div>
           <p class="small">${esc(t("v.privacy"))}</p>
         </form>
         <section class="sheet" aria-labelledby="v-letter-title">
@@ -89,7 +100,7 @@
           <pre class="letter" id="v-letter" lang="de"></pre>
           <p class="small" id="v-missing"></p>
           <div class="callout"><strong>${esc(t("v.notes"))}</strong>
-            <ul style="margin:6px 0 0;padding-inline-start:1.2em;display:grid;gap:4px">${(tpl.notes[lang] || tpl.notes.en || tpl.notes.de).map((n) => `<li>${esc(n)}</li>`).join("")}</ul>
+            <ul style="margin:6px 0 0;padding-inline-start:1.2em;display:grid;gap:4px">${(tpl.notes[lang] || (L && L.tpl[tpl.id] && L.tpl[tpl.id].notes) || tpl.notes.en || tpl.notes.de).map((n) => `<li>${esc(n)}</li>`).join("")}</ul>
           </div>
         </section>
       </section>`)

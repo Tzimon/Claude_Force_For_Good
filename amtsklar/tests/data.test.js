@@ -111,3 +111,22 @@ test("guide translations match the German structure", () => {
     }
   }
 });
+
+test("template translations cover every template, field and note", () => {
+  require("../js/data/templates-i18n.js");
+  const { TEMPLATES, COMMON } = global.Amtsklar.templates;
+  const TI = global.Amtsklar.templatesI18n;
+  for (const l of ["uk", "ar", "tr", "ru", "fa"]) {
+    const L = TI[l];
+    assert.ok(L, l);
+    for (const f of COMMON) assert.ok(L.common[f.id], `${l} common ${f.id}`);
+    assert.deepEqual(Object.keys(L.tpl).sort(), TEMPLATES.map((x) => x.id).sort(), `${l} template ids`);
+    for (const t of TEMPLATES) {
+      const x = L.tpl[t.id];
+      assert.ok(x.title && x.desc, `${l}.${t.id} title/desc`);
+      for (const f of t.fields) assert.ok(x.fields[f.id], `${l}.${t.id}.${f.id}`);
+      assert.deepEqual(Object.keys(x.fields).sort(), t.fields.map((f) => f.id).sort(), `${l}.${t.id} field ids`);
+      assert.equal(x.notes.length, t.notes.de.length, `${l}.${t.id} notes`);
+    }
+  }
+});

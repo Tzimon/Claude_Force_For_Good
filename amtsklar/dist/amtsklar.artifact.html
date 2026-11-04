@@ -3833,6 +3833,149 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
 
 </script>
 <script>
+/*
+ * Amtsklar – letter template labels in uk, ar, tr, ru, fa (AI-assisted, review welcome).
+ * The letters themselves stay German. Structure per language:
+ *   common: { fieldId: label }, tpl: { templateId: { title, desc, fields: { fieldId: label }, notes: [] } }
+ */
+(function (root) {
+  "use strict";
+  root.Amtsklar.templatesI18n = {
+    uk: {
+      common: { name: "Ваше ім'я та прізвище", address: "Ваша адреса", authority: "Установа та її адреса (вгорі листа)", ref: "Номер справи (Aktenzeichen, номер клієнта або BG)", place: "Ваше місто (для рядка з датою)" },
+      tpl: {
+        widerspruch: { title: "Заперечення (Widerspruch)", desc: "Ви не згодні з рішенням. Дотримує строку – обґрунтування можна надіслати пізніше.",
+          fields: { letterDate: "Дата рішення", subject: "Про що йдеться? (тема рішення)", reason: "Обґрунтування (необов'язково, можна надіслати пізніше)", files: "Також попросити доступ до моєї справи" },
+          notes: ["Надішліть заперечення так, щоб воно надійшло до кінця строку. Звичайного e-mail часто недостатньо.", "Збережіть копію або фото для себе.", "Для рішень Jobcenter можна також подати через jobcenter.digital."] },
+        ueberpruefung: { title: "Заява про перегляд", desc: "Старе рішення Jobcenter чи соцслужби було неправильним, але строк для заперечення минув (§ 44 SGB X).",
+          fields: { letterDate: "Дата рішення", subject: "Яке рішення? (напр. про призначення на січень–червень)", reason: "Що було неправильно? (необов'язково)" },
+          notes: ["Для Bürgergeld і соцдопомоги доплата можлива щонайбільше з 1 січня попереднього року (заява у 2026 році: доплата з січня 2025). Тому подавайте раніше.", "На відповідь можна знову подати заперечення."] },
+        akteneinsicht: { title: "Доступ до моєї справи", desc: "Ви хочете прочитати, що установа зберігає про вас – напр. перед запереченням.",
+          fields: { subject: "Про що йдеться? (необов'язково)" },
+          notes: ["Доступ до справи не продовжує строки. Подайте заперечення вчасно.", "Копія даних за GDPR безкоштовна і зазвичай має надійти протягом місяця."] },
+        raten: { title: "Оплата частинами", desc: "Ви маєте заплатити гроші, але не можете одразу всю суму. Ви пропонуєте щомісячні внески.",
+          fields: { letterDate: "Дата вимоги про оплату", amount: "Сума вимоги в євро", rate: "Внесок, який ви можете платити щомісяця (євро)", reason: "Чому ви не можете заплатити все? (коротко)", objection: "Я також подав(ла) / подам заперечення" },
+          notes: ["Пропонуйте лише такі внески, які справді зможете платити щомісяця.", "Якщо ви не згодні з вимогою: також подайте заперечення і поставте позначку."] },
+        fristverlaengerung: { title: "Більше часу на документи", desc: "Установа вимагає документи до певної дати. Вам потрібно більше часу.",
+          fields: { letterDate: "Дата листа установи", until: "До якого дня вам потрібен час?", docs: "Які документи?", reason: "Чому вам потрібно більше часу?" },
+          notes: ["Надішліть прохання ДО закінчення строку.", "Надішліть те, що вже маєте – це показує, що ви співпрацюєте."] },
+        wiedereinsetzung: { title: "Пропущений строк: поновлення", desc: "Ви пропустили строк не з власної вини, напр. лікарня чи поїздка. Зазвичай 2 тижні після того, як перешкода зникла.",
+          fields: { letterDate: "Дата рішення", subject: "Про що йдеться? (тема)", reason: "Чому ви не змогли дотриматися строку? (точно, з датами)", proof: "Підтвердження, яке ви додаєте" },
+          notes: ["Строк: зазвичай 2 тижні з дня, коли перешкода зникла (податкова і строки щодо соціального суду: 1 місяць). Через рік зазвичай уже запізно.", "Поясніть точно, чому ви не могли діяти, і додайте підтвердження.", "Для рішень Jobcenter і соцслужби можна також подати заяву про перегляд (Überprüfungsantrag)."] },
+        antrag: { title: "Заява в довільній формі", desc: "Ви хочете подати заяву на виплату, але ще не маєте всіх бланків. Заява фіксує дату.",
+          fields: { benefit: "На що ви подаєте заяву?", reason: "Коротке пояснення (необов'язково)" },
+          notes: ["Багато виплат (напр. Bürgergeld, Wohngeld, соцдопомога) надаються лише з місяця або дня подання заяви. Тому подайте заяву одразу.", "Попросіть підтвердження подання (штамп на вашій копії)."] },
+      },
+    },
+    ar: {
+      common: { name: "اسمك الكامل", address: "عنوانك", authority: "الدائرة وعنوانها (في أعلى الرسالة)", ref: "رقم الملف (Aktenzeichen أو رقم العميل أو رقم BG)", place: "مدينتك (لسطر التاريخ)" },
+      tpl: {
+        widerspruch: { title: "اعتراض (Widerspruch)", desc: "أنت غير موافق على قرار. يحفظ المهلة – ويمكنك إرسال الأسباب لاحقاً.",
+          fields: { letterDate: "تاريخ القرار", subject: "عن ماذا يدور؟ (موضوع القرار)", reason: "الأسباب (اختياري، يمكن إرسالها لاحقاً)", files: "اطلب أيضاً الاطلاع على ملفي" },
+          notes: ["أرسل الاعتراض بحيث يصل قبل انتهاء المهلة. البريد الإلكتروني العادي غالباً لا يكفي.", "احتفظ بنسخة أو صورة لنفسك.", "لقرارات الجوب سنتر يمكنك التقديم أيضاً عبر jobcenter.digital."] },
+        ueberpruefung: { title: "طلب المراجعة", desc: "قرار قديم من الجوب سنتر أو مكتب الشؤون الاجتماعية كان خاطئاً، لكن مهلة الاعتراض انتهت (§ 44 SGB X).",
+          fields: { letterDate: "تاريخ القرار", subject: "أي قرار؟ (مثلاً قرار الموافقة من يناير إلى يونيو)", reason: "ما الخطأ؟ (اختياري)" },
+          notes: ["في Bürgergeld والمساعدة الاجتماعية يُدفع الفرق بأثر رجعي حتى 1 يناير من السنة السابقة كحد أقصى (طلب في 2026: دفع من يناير 2025). لذلك قدّم مبكراً.", "يمكنك الاعتراض على الرد مرة أخرى."] },
+        akteneinsicht: { title: "الاطلاع على ملفي", desc: "تريد قراءة ما تحتفظ به الدائرة عنك – مثلاً قبل الاعتراض.",
+          fields: { subject: "عن ماذا يدور؟ (اختياري)" },
+          notes: ["الاطلاع على الملف لا يمدد المهل. قدّم الاعتراض في الوقت المحدد.", "نسخة البيانات وفق اللائحة العامة لحماية البيانات مجانية وعادةً يجب أن تصل خلال شهر."] },
+        raten: { title: "الدفع بالتقسيط", desc: "يجب أن تدفع مالاً لكنك لا تستطيع دفعه كله مرة واحدة. تعرض أقساطاً شهرية.",
+          fields: { letterDate: "تاريخ طلب الدفع", amount: "المبلغ المطلوب باليورو", rate: "القسط الذي تستطيع دفعه شهرياً (يورو)", reason: "لماذا لا تستطيع دفع المبلغ كله؟ (باختصار)", objection: "قدّمت أيضاً / سأقدّم اعتراضاً" },
+          notes: ["اعرض فقط أقساطاً تستطيع فعلاً دفعها كل شهر.", "إذا لم تكن موافقاً على المطالبة: قدّم اعتراضاً أيضاً وضع العلامة."] },
+        fristverlaengerung: { title: "وقت إضافي للوثائق", desc: "تطلب الدائرة وثائق حتى تاريخ معين. تحتاج إلى وقت أطول.",
+          fields: { letterDate: "تاريخ رسالة الدائرة", until: "حتى متى تحتاج إلى وقت؟", docs: "أي وثائق؟", reason: "لماذا تحتاج إلى وقت أطول؟" },
+          notes: ["أرسل الطلب قبل انتهاء المهلة.", "أرسل ما لديك بالفعل – هذا يُظهر أنك تتعاون."] },
+        wiedereinsetzung: { title: "فاتت المهلة: إعادة المهلة", desc: "فاتتك مهلة دون ذنب منك، مثلاً بسبب المستشفى أو السفر. عادةً أسبوعان من زوال العائق.",
+          fields: { letterDate: "تاريخ القرار", subject: "عن ماذا يدور؟ (الموضوع)", reason: "لماذا لم تستطع الالتزام بالمهلة؟ (بدقة ومع التواريخ)", proof: "الإثبات الذي ترفقه" },
+          notes: ["المهلة: عادةً أسبوعان من يوم زوال العائق (مكتب الضرائب والمهل أمام المحكمة الاجتماعية: شهر واحد). بعد سنة يكون الوقت قد فات غالباً.", "اشرح بدقة لماذا لم تستطع التصرف وأرفق الإثباتات.", "لقرارات الجوب سنتر ومكتب الشؤون الاجتماعية يمكنك أيضاً تقديم طلب مراجعة (Überprüfungsantrag)."] },
+        antrag: { title: "طلب غير رسمي", desc: "تريد التقدم بطلب للحصول على مساعدة لكن ليست لديك كل الاستمارات بعد. الطلب يثبّت التاريخ.",
+          fields: { benefit: "على ماذا تتقدم بالطلب؟", reason: "شرح قصير (اختياري)" },
+          notes: ["كثير من المساعدات (مثل Bürgergeld وWohngeld والمساعدة الاجتماعية) تُدفع فقط من شهر أو يوم الطلب. لذلك قدّم طلباً غير رسمي فوراً.", "اطلب تأكيداً بأنك سلّمت الطلب (ختم على نسختك)."] },
+      },
+    },
+    tr: {
+      common: { name: "Adınız ve soyadınız", address: "Adresiniz", authority: "Daire ve adresi (mektubun üstünde)", ref: "Dosya numarası (Aktenzeichen, müşteri veya BG numarası)", place: "Şehriniz (tarih satırı için)" },
+      tpl: {
+        widerspruch: { title: "İtiraz (Widerspruch)", desc: "Bir karara katılmıyorsunuz. Süreyi korur – gerekçeyi sonra gönderebilirsiniz.",
+          fields: { letterDate: "Kararın tarihi", subject: "Konu nedir? (kararın konu satırı)", reason: "Gerekçe (isteğe bağlı, sonra gönderilebilir)", files: "Dosyamı incelemeyi de talep et" },
+          notes: ["İtirazı süre bitmeden ulaşacak şekilde gönderin. Normal e-posta çoğu zaman yetmez.", "Kendiniz için bir kopya veya fotoğraf saklayın.", "Jobcenter kararları için jobcenter.digital üzerinden de başvurabilirsiniz."] },
+        ueberpruefung: { title: "Yeniden inceleme başvurusu", desc: "Jobcenter veya sosyal yardım dairesinin eski bir kararı yanlıştı, ama itiraz süresi geçti (§ 44 SGB X).",
+          fields: { letterDate: "Kararın tarihi", subject: "Hangi karar? (ör. Ocak–Haziran onay kararı)", reason: "Ne yanlıştı? (isteğe bağlı)" },
+          notes: ["Bürgergeld ve sosyal yardımda geriye dönük ödeme en fazla önceki yılın 1 Ocak'ına kadar yapılır (2026'da başvuru: Ocak 2025'ten itibaren ödeme). Bu yüzden erken başvurun.", "Cevaba yeniden itiraz edebilirsiniz."] },
+        akteneinsicht: { title: "Dosyamı inceleme", desc: "Dairenin sizin hakkınızda ne sakladığını okumak istiyorsunuz – ör. itirazdan önce.",
+          fields: { subject: "Konu nedir? (isteğe bağlı)" },
+          notes: ["Dosya incelemesi süreleri uzatmaz. Yine de zamanında itiraz edin.", "GDPR'ye göre veri kopyası ücretsizdir ve genellikle bir ay içinde gelmelidir."] },
+        raten: { title: "Taksitle ödeme", desc: "Para ödemeniz gerekiyor ama hepsini bir kerede ödeyemiyorsunuz. Aylık taksit teklif ediyorsunuz.",
+          fields: { letterDate: "Ödeme talebinin tarihi", amount: "İstenen tutar (euro)", rate: "Her ay ödeyebileceğiniz taksit (euro)", reason: "Neden hepsini ödeyemiyorsunuz? (kısaca)", objection: "Ayrıca itiraz ettim / edeceğim" },
+          notes: ["Yalnızca her ay gerçekten ödeyebileceğiniz taksitleri teklif edin.", "Talebe katılmıyorsanız: ayrıca itiraz edin ve kutuyu işaretleyin."] },
+        fristverlaengerung: { title: "Belgeler için ek süre", desc: "Daire belirli bir tarihe kadar belge istiyor. Daha fazla zamana ihtiyacınız var.",
+          fields: { letterDate: "Dairenin mektubunun tarihi", until: "Ne zamana kadar süreye ihtiyacınız var?", docs: "Hangi belgeler?", reason: "Neden daha fazla zamana ihtiyacınız var?" },
+          notes: ["Talebi süre bitmeden ÖNCE gönderin.", "Elinizde olanları hemen gönderin – bu, işbirliği yaptığınızı gösterir."] },
+        wiedereinsetzung: { title: "Kaçırılan süre: eski hale getirme", desc: "Kendi kusurunuz olmadan bir süreyi kaçırdınız, ör. hastane veya seyahat. Genellikle engel kalktıktan sonra 2 hafta.",
+          fields: { letterDate: "Kararın tarihi", subject: "Konu nedir? (konu satırı)", reason: "Süreye neden uyamadınız? (tarihlerle, açıkça)", proof: "Eklediğiniz kanıt" },
+          notes: ["Süre: genellikle engelin kalktığı günden itibaren 2 hafta (vergi dairesi ve sosyal mahkemeye karşı süreler: 1 ay). Bir yıl sonra genellikle çok geçtir.", "Neden harekete geçemediğinizi açıkça anlatın ve kanıt ekleyin.", "Jobcenter ve sosyal yardım kararları için ayrıca yeniden inceleme başvurusu (Überprüfungsantrag) yapabilirsiniz."] },
+        antrag: { title: "Serbest başvuru", desc: "Bir yardım için başvurmak istiyorsunuz ama henüz tüm formlar elinizde değil. Başvuru tarihi güvenceye alır.",
+          fields: { benefit: "Ne için başvuruyorsunuz?", reason: "Kısa açıklama (isteğe bağlı)" },
+          notes: ["Birçok yardım (ör. Bürgergeld, Wohngeld, sosyal yardım) ancak başvuru ayından veya gününden itibaren verilir. Bu yüzden hemen serbest başvuru yapın.", "Teslim ettiğinizi onaylatın (kopyanıza alındı damgası)."] },
+      },
+    },
+    ru: {
+      common: { name: "Ваши имя и фамилия", address: "Ваш адрес", authority: "Ведомство и его адрес (вверху письма)", ref: "Номер дела (Aktenzeichen, номер клиента или BG)", place: "Ваш город (для строки с датой)" },
+      tpl: {
+        widerspruch: { title: "Возражение (Widerspruch)", desc: "Вы не согласны с решением. Соблюдает срок – обоснование можно прислать позже.",
+          fields: { letterDate: "Дата решения", subject: "О чём речь? (тема решения)", reason: "Обоснование (необязательно, можно прислать позже)", files: "Также запросить доступ к моему делу" },
+          notes: ["Отправьте возражение так, чтобы оно поступило до конца срока. Обычного e-mail часто недостаточно.", "Сохраните копию или фото для себя.", "По решениям Jobcenter можно подать также через jobcenter.digital."] },
+        ueberpruefung: { title: "Заявление о пересмотре", desc: "Старое решение Jobcenter или соцслужбы было неверным, но срок для возражения прошёл (§ 44 SGB X).",
+          fields: { letterDate: "Дата решения", subject: "Какое решение? (напр. о назначении на январь–июнь)", reason: "Что было неверно? (необязательно)" },
+          notes: ["По Bürgergeld и соцпомощи доплата возможна самое раннее с 1 января предыдущего года (заявление в 2026 году: доплата с января 2025). Поэтому подавайте раньше.", "На ответ можно снова подать возражение."] },
+        akteneinsicht: { title: "Доступ к моему делу", desc: "Вы хотите прочитать, что ведомство хранит о вас – напр. перед возражением.",
+          fields: { subject: "О чём речь? (необязательно)" },
+          notes: ["Доступ к делу не продлевает сроки. Подайте возражение вовремя.", "Копия данных по GDPR бесплатна и обычно должна прийти в течение месяца."] },
+        raten: { title: "Оплата частями", desc: "Вы должны заплатить деньги, но не можете сразу всю сумму. Вы предлагаете ежемесячные взносы.",
+          fields: { letterDate: "Дата требования об оплате", amount: "Требуемая сумма в евро", rate: "Взнос, который вы можете платить в месяц (евро)", reason: "Почему вы не можете заплатить всё? (кратко)", objection: "Я также подал(а) / подам возражение" },
+          notes: ["Предлагайте только такие взносы, которые действительно сможете платить каждый месяц.", "Если вы не согласны с требованием: также подайте возражение и поставьте отметку."] },
+        fristverlaengerung: { title: "Больше времени на документы", desc: "Ведомство требует документы до определённой даты. Вам нужно больше времени.",
+          fields: { letterDate: "Дата письма ведомства", until: "До какого дня вам нужно время?", docs: "Какие документы?", reason: "Почему вам нужно больше времени?" },
+          notes: ["Отправьте просьбу ДО истечения срока.", "Отправьте то, что уже есть – это показывает, что вы сотрудничаете."] },
+        wiedereinsetzung: { title: "Пропущен срок: восстановление", desc: "Вы пропустили срок не по своей вине, напр. больница или поездка. Обычно 2 недели после того, как препятствие отпало.",
+          fields: { letterDate: "Дата решения", subject: "О чём речь? (тема)", reason: "Почему вы не смогли соблюсти срок? (точно, с датами)", proof: "Подтверждение, которое вы прилагаете" },
+          notes: ["Срок: обычно 2 недели со дня, когда препятствие отпало (налоговая и сроки в отношении социального суда: 1 месяц). Через год обычно уже поздно.", "Объясните точно, почему вы не могли действовать, и приложите подтверждения.", "По решениям Jobcenter и соцслужбы можно также подать заявление о пересмотре (Überprüfungsantrag)."] },
+        antrag: { title: "Заявление в свободной форме", desc: "Вы хотите подать заявление на выплату, но ещё не имеете всех бланков. Заявление фиксирует дату.",
+          fields: { benefit: "На что вы подаёте заявление?", reason: "Краткое пояснение (необязательно)" },
+          notes: ["Многие выплаты (напр. Bürgergeld, Wohngeld, соцпомощь) предоставляются только с месяца или дня подачи заявления. Поэтому подайте заявление сразу.", "Попросите подтверждение подачи (штамп на вашей копии)."] },
+      },
+    },
+    fa: {
+      common: { name: "نام و نام خانوادگی شما", address: "آدرس شما", authority: "اداره و آدرس آن (بالای نامه)", ref: "شماره پرونده (Aktenzeichen، شماره مشتری یا BG)", place: "شهر شما (برای سطر تاریخ)" },
+      tpl: {
+        widerspruch: { title: "اعتراض (Widerspruch)", desc: "با یک تصمیم موافق نیستید. مهلت را حفظ می‌کند – دلایل را می‌توانید بعداً بفرستید.",
+          fields: { letterDate: "تاریخ تصمیم", subject: "موضوع چیست؟ (عنوان تصمیم)", reason: "دلایل (اختیاری، بعداً هم می‌شود فرستاد)", files: "درخواست دیدن پرونده‌ام را هم اضافه کن" },
+          notes: ["اعتراض را طوری بفرستید که قبل از پایان مهلت برسد. ایمیل معمولی اغلب کافی نیست.", "یک کپی یا عکس برای خودتان نگه دارید.", "برای تصمیم‌های جاب‌سنتر می‌توانید از طریق jobcenter.digital هم اقدام کنید."] },
+        ueberpruefung: { title: "درخواست بازبینی", desc: "یک تصمیم قدیمی جاب‌سنتر یا اداره امور اجتماعی اشتباه بوده، اما مهلت اعتراض تمام شده است (§ 44 SGB X).",
+          fields: { letterDate: "تاریخ تصمیم", subject: "کدام تصمیم؟ (مثلاً تصمیم تأیید ژانویه تا ژوئن)", reason: "چه چیزی اشتباه بود؟ (اختیاری)" },
+          notes: ["در Bürgergeld و کمک اجتماعی، پرداخت معوقه حداکثر از ۱ ژانویه سال قبل انجام می‌شود (درخواست در ۲۰۲۶: پرداخت از ژانویه ۲۰۲۵). پس زودتر درخواست بدهید.", "به جواب می‌توانید دوباره اعتراض کنید."] },
+        akteneinsicht: { title: "دیدن پرونده‌ام", desc: "می‌خواهید بخوانید اداره درباره شما چه چیزی نگه داشته – مثلاً قبل از اعتراض.",
+          fields: { subject: "موضوع چیست؟ (اختیاری)" },
+          notes: ["دیدن پرونده مهلت‌ها را تمدید نمی‌کند. به موقع اعتراض کنید.", "کپی داده‌ها طبق GDPR رایگان است و معمولاً باید ظرف یک ماه برسد."] },
+        raten: { title: "پرداخت قسطی", desc: "باید پولی بپردازید اما نمی‌توانید همه را یکجا بدهید. قسط ماهانه پیشنهاد می‌کنید.",
+          fields: { letterDate: "تاریخ درخواست پرداخت", amount: "مبلغ درخواستی به یورو", rate: "قسطی که هر ماه می‌توانید بپردازید (یورو)", reason: "چرا نمی‌توانید همه را بپردازید؟ (کوتاه)", objection: "اعتراض هم داده‌ام / خواهم داد" },
+          notes: ["فقط قسطی پیشنهاد دهید که واقعاً بتوانید هر ماه بپردازید.", "اگر با مطالبه موافق نیستید: اعتراض هم بدهید و این گزینه را علامت بزنید."] },
+        fristverlaengerung: { title: "وقت بیشتر برای مدارک", desc: "اداره تا تاریخ مشخصی مدارک می‌خواهد. شما به وقت بیشتری نیاز دارید.",
+          fields: { letterDate: "تاریخ نامه اداره", until: "تا کی وقت لازم دارید؟", docs: "کدام مدارک؟", reason: "چرا به وقت بیشتری نیاز دارید؟" },
+          notes: ["درخواست را قبل از پایان مهلت بفرستید.", "آنچه را که دارید همین حالا بفرستید – این نشان می‌دهد همکاری می‌کنید."] },
+        wiedereinsetzung: { title: "مهلت از دست رفت: بازگرداندن مهلت", desc: "بدون تقصیر خودتان مهلتی را از دست داده‌اید، مثلاً بیمارستان یا سفر. معمولاً ۲ هفته پس از برطرف شدن مانع.",
+          fields: { letterDate: "تاریخ تصمیم", subject: "موضوع چیست؟ (عنوان)", reason: "چرا نتوانستید مهلت را رعایت کنید؟ (دقیق و با تاریخ)", proof: "مدرکی که ضمیمه می‌کنید" },
+          notes: ["مهلت: معمولاً ۲ هفته از روزی که مانع برطرف شد (اداره مالیات و مهلت‌ها در برابر دادگاه اجتماعی: ۱ ماه). پس از یک سال معمولاً دیر شده است.", "دقیق توضیح دهید چرا نمی‌توانستید اقدام کنید و مدرک ضمیمه کنید.", "برای تصمیم‌های جاب‌سنتر و اداره امور اجتماعی می‌توانید درخواست بازبینی (Überprüfungsantrag) هم بدهید."] },
+        antrag: { title: "درخواست غیررسمی", desc: "می‌خواهید برای کمکی درخواست بدهید اما هنوز همه فرم‌ها را ندارید. این درخواست تاریخ را ثبت می‌کند.",
+          fields: { benefit: "برای چه چیزی درخواست می‌دهید؟", reason: "توضیح کوتاه (اختیاری)" },
+          notes: ["بسیاری از کمک‌ها (مثلاً Bürgergeld، Wohngeld، کمک اجتماعی) فقط از ماه یا روز درخواست پرداخت می‌شوند. پس همین حالا درخواست غیررسمی بدهید.", "تأیید تحویل بگیرید (مهر دریافت روی کپی خودتان)."] },
+      },
+    },
+  };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
 /* Amtsklar – letter templates view */
 (function () {
   "use strict";
@@ -3864,8 +4007,18 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     A.util.store("letter", JSON.stringify(keep));
   }
 
-  function inputHtml(f, lang, esc) {
-    const label = f[lang] || f.en || f.de;
+  // Translated labels from templatesI18n (uk, ar, tr, ru, fa), else the label on the field (de, en)
+  function labelFor(f, lang, tplId) {
+    const L = A.templatesI18n && A.templatesI18n[lang];
+    if (L) {
+      const own = tplId ? L.tpl[tplId] && L.tpl[tplId].fields[f.id] : L.common[f.id];
+      if (own) return own;
+    }
+    return f[lang] || f.en || f.de;
+  }
+
+  function inputHtml(f, lang, esc, tplId) {
+    const label = labelFor(f, lang, tplId);
     const id = "f-" + f.id;
     const val = values[f.id] ?? "";
     if (f.type === "check") {
@@ -3892,7 +4045,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     if (state.shared.letterDate && !values.letterDate) values.letterDate = state.shared.letterDate;
 
     const tpl = TEMPLATES.find((x) => x.id === current) || TEMPLATES[0];
-    const tx = (o) => o[lang] || o.en || o.de;
+    const L = A.templatesI18n && A.templatesI18n[lang];
+    const tx = (x) => x[lang] || (L && L.tpl[x.id]) || x.en || x.de;
     const inFrame = window.self !== window.top;
 
     el.replaceChildren(
@@ -3910,7 +4064,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
           <h3>${esc(t("v.you"))}</h3>
           <div class="row-2">${COMMON.map((f) => inputHtml(f, lang, esc)).join("")}</div>
           <h3>${esc(tx(tpl).title)}</h3>
-          <div class="row-2">${tpl.fields.map((f) => inputHtml(f, lang, esc)).join("")}</div>
+          <div class="row-2">${tpl.fields.map((f) => inputHtml(f, lang, esc, tpl.id)).join("")}</div>
           <p class="small">${esc(t("v.privacy"))}</p>
         </form>
         <section class="sheet" aria-labelledby="v-letter-title">
@@ -3924,7 +4078,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
           <pre class="letter" id="v-letter" lang="de"></pre>
           <p class="small" id="v-missing"></p>
           <div class="callout"><strong>${esc(t("v.notes"))}</strong>
-            <ul style="margin:6px 0 0;padding-inline-start:1.2em;display:grid;gap:4px">${(tpl.notes[lang] || tpl.notes.en || tpl.notes.de).map((n) => `<li>${esc(n)}</li>`).join("")}</ul>
+            <ul style="margin:6px 0 0;padding-inline-start:1.2em;display:grid;gap:4px">${(tpl.notes[lang] || (L && L.tpl[tpl.id] && L.tpl[tpl.id].notes) || tpl.notes.en || tpl.notes.de).map((n) => `<li>${esc(n)}</li>`).join("")}</ul>
           </div>
         </section>
       </section>`)
