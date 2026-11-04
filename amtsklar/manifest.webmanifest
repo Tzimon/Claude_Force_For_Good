@@ -1,0 +1,14 @@
+{
+  "name": "Amtsklar – Behördenbriefe verstehen",
+  "short_name": "Amtsklar",
+  "description": "Fristenrechner, Amtsdeutsch-Wörterbuch, Musterbriefe und kostenlose Hilfe.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef0ec",
+  "theme_color": "#f7c800",
+  "lang": "de",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

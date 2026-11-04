@@ -16,6 +16,8 @@ let html = read("index.html");
 html = html.replace(/<link rel="stylesheet" href="(css\/[^"]+)">/g, (m, href) => `<style>\n${read(href)}\n</style>`);
 html = html.replace(/<script src="(js\/[^"]+)"><\/script>/g, (m, src) => `<script>\n${read(src).replace(/<\/script/gi, "<\\/script")}\n</script>`);
 
+html = html.replace(/<link rel="manifest"[^>]*>\s*/, "").replace(/<link rel="icon"[^>]*>\s*/, "");
+
 fs.mkdirSync(path.join(root, "dist"), { recursive: true });
 fs.writeFileSync(path.join(root, "dist/amtsklar.html"), html);
 

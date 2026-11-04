@@ -242,6 +242,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
 }
 
 </style>
+<meta name="theme-color" content="#f7c800">
 <header class="top">
   <div class="wrap">
     <div class="top-row">
@@ -573,6 +574,62 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
   };
 });
 
+/*
+ * Calendar export (iCalendar, RFC 5545) for a computed deadline.
+ * All-day event on the deadline with reminders 3 days and 1 day before.
+ */
+(function (root) {
+  "use strict";
+  function icsEscape(s) {
+    return String(s).replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+  }
+  function fold(line) {
+    // Lines longer than 75 octets must be folded; folding by characters is a safe approximation.
+    const out = [];
+    let rest = line;
+    while (rest.length > 70) {
+      out.push(rest.slice(0, 70));
+      rest = " " + rest.slice(70);
+    }
+    out.push(rest);
+    return out.join("\r\n");
+  }
+  function toICS(deadlineISO, summary, description, nowDate) {
+    const d = deadlineISO.replace(/-/g, "");
+    const next = new Date(Date.UTC(+deadlineISO.slice(0, 4), +deadlineISO.slice(5, 7) - 1, +deadlineISO.slice(8, 10) + 1));
+    const dEnd = next.toISOString().slice(0, 10).replace(/-/g, "");
+    const stamp = (nowDate || new Date()).toISOString().replace(/[-:]/g, "").replace(/\.\d+Z$/, "Z");
+    const lines = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Amtsklar//Fristenrechner//DE",
+      "CALSCALE:GREGORIAN",
+      "BEGIN:VEVENT",
+      `UID:amtsklar-${d}-${stamp}@amtsklar`,
+      `DTSTAMP:${stamp}`,
+      `DTSTART;VALUE=DATE:${d}`,
+      `DTEND;VALUE=DATE:${dEnd}`,
+      `SUMMARY:${icsEscape(summary)}`,
+      `DESCRIPTION:${icsEscape(description)}`,
+      "BEGIN:VALARM",
+      "ACTION:DISPLAY",
+      `DESCRIPTION:${icsEscape(summary)}`,
+      "TRIGGER:-P3D",
+      "END:VALARM",
+      "BEGIN:VALARM",
+      "ACTION:DISPLAY",
+      `DESCRIPTION:${icsEscape(summary)}`,
+      "TRIGGER:-P1D",
+      "END:VALARM",
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ];
+    return lines.map(fold).join("\r\n") + "\r\n";
+  }
+  if (typeof module === "object" && module.exports) module.exports.toICS = toICS;
+  else root.Amtsklar.deadline.toICS = toICS;
+})(typeof self !== "undefined" ? self : this);
+
 </script>
 <script>
 /*
@@ -648,6 +705,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
       "frist.tip.3": "Ein Widerspruch per normaler E-Mail reicht oft nicht! Nutzen Sie Brief, Fax, das Online-Portal der Behörde (z. B. jobcenter.digital, ELSTER) oder gehen Sie hin.",
       "frist.tip.4": "Sie brauchen keine Begründung, um die Frist zu wahren. Schreiben Sie „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“",
       "frist.toTemplate": "Widerspruch jetzt schreiben",
+      "frist.calendar": "In Kalender eintragen",
+      "frist.cal.summary": "Letzter Tag: Antwort an die Behörde (Amtsklar)",
       "frist.copy": "Ergebnis kopieren",
       "frist.copied": "Kopiert",
       "frist.invalid": "Bitte geben Sie ein gültiges Datum ein.",
@@ -758,6 +817,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
       "frist.tip.3": "A normal e-mail is often NOT enough for an objection! Use a letter, fax, the authority's online portal (e.g. jobcenter.digital, ELSTER) or go there in person.",
       "frist.tip.4": "You do not need reasons to meet the deadline. Write: „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“ (I object. I will send the reasons later.)",
       "frist.toTemplate": "Write the objection now",
+      "frist.calendar": "Add to calendar",
+      "frist.cal.summary": "Last day: reply to the authority (Amtsklar)",
       "frist.copy": "Copy result",
       "frist.copied": "Copied",
       "frist.invalid": "Please enter a valid date.",
@@ -887,6 +948,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     "frist.tip.3": "Звичайного e-mail для заперечення часто НЕ достатньо! Використовуйте лист, факс, онлайн-портал установи (напр. jobcenter.digital, ELSTER) або прийдіть особисто.",
     "frist.tip.4": "Щоб дотриматися строку, обґрунтування не потрібне. Напишіть: „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“ (Я подаю заперечення. Обґрунтування надішлю пізніше.)",
     "frist.toTemplate": "Написати заперечення",
+    "frist.calendar": "Додати в календар",
+    "frist.cal.summary": "Останній день: відповідь установі (Amtsklar)",
     "frist.copy": "Копіювати результат",
     "frist.copied": "Скопійовано",
     "frist.invalid": "Будь ласка, введіть правильну дату.",
@@ -1006,6 +1069,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     "frist.tip.3": "البريد الإلكتروني العادي غالباً لا يكفي للاعتراض! استخدم رسالة أو فاكس أو البوابة الإلكترونية للدائرة (مثل jobcenter.digital أو ELSTER) أو اذهب بنفسك.",
     "frist.tip.4": "لا تحتاج إلى تبرير للالتزام بالمهلة. اكتب: „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“ (أعترض. سأرسل الأسباب لاحقاً.)",
     "frist.toTemplate": "اكتب الاعتراض الآن",
+    "frist.calendar": "إضافة إلى التقويم",
+    "frist.cal.summary": "آخر يوم: الرد على الدائرة (Amtsklar)",
     "frist.copy": "نسخ النتيجة",
     "frist.copied": "تم النسخ",
     "frist.invalid": "يرجى إدخال تاريخ صحيح.",
@@ -1125,6 +1190,8 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     "frist.tip.3": "İtiraz için normal e-posta çoğu zaman YETMEZ! Mektup, faks, dairenin çevrimiçi portalı (ör. jobcenter.digital, ELSTER) kullanın veya bizzat gidin.",
     "frist.tip.4": "Süreyi korumak için gerekçe gerekmez. Şunu yazın: „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“ (İtiraz ediyorum. Gerekçeyi sonra göndereceğim.)",
     "frist.toTemplate": "İtirazı şimdi yaz",
+    "frist.calendar": "Takvime ekle",
+    "frist.cal.summary": "Son gün: daireye cevap (Amtsklar)",
     "frist.copy": "Sonucu kopyala",
     "frist.copied": "Kopyalandı",
     "frist.invalid": "Lütfen geçerli bir tarih girin.",
@@ -2284,9 +2351,25 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
       <div class="btn-row no-print">
         <a class="btn" href="#vorlagen" id="to-template" style="text-decoration:none">${esc(t("frist.toTemplate"))}</a>
         <button class="btn secondary" type="button" id="copy-result">${esc(t("frist.copy"))}</button>
+        ${window.self === window.top ? `<button class="btn secondary" type="button" id="cal-result">${esc(t("frist.calendar"))}</button>` : ""}
       </div>
     `)
     );
+    const calBtn = box.querySelector("#cal-result");
+    if (calBtn)
+      calBtn.addEventListener("click", () => {
+        const desc = [deadlineText, ...r.steps.map((s) => "- " + stepText(s).text), "", t("frist.tip.1")].join("\n");
+        const ics = D.toICS(r.deadline, t("frist.cal.summary"), desc);
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
+        a.download = `frist-${r.deadline}.ics`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          URL.revokeObjectURL(a.href);
+          a.remove();
+        }, 500);
+      });
     box.querySelector("#copy-result").addEventListener("click", (e) => {
       const lines = [
         `${t("frist.result.label")}: ${deadlineText}`,
@@ -2365,6 +2448,11 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
       window.scrollTo(0, 0);
     });
     render();
+  }
+
+  // Offline support when served over HTTPS (e.g. GitHub Pages), not inside embeds
+  if ("serviceWorker" in navigator && location.protocol === "https:" && window.self === window.top) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
   }
 
   A.rerender = render;

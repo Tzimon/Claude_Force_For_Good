@@ -302,3 +302,59 @@
     fictionDays,
   };
 });
+
+/*
+ * Calendar export (iCalendar, RFC 5545) for a computed deadline.
+ * All-day event on the deadline with reminders 3 days and 1 day before.
+ */
+(function (root) {
+  "use strict";
+  function icsEscape(s) {
+    return String(s).replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+  }
+  function fold(line) {
+    // Lines longer than 75 octets must be folded; folding by characters is a safe approximation.
+    const out = [];
+    let rest = line;
+    while (rest.length > 70) {
+      out.push(rest.slice(0, 70));
+      rest = " " + rest.slice(70);
+    }
+    out.push(rest);
+    return out.join("\r\n");
+  }
+  function toICS(deadlineISO, summary, description, nowDate) {
+    const d = deadlineISO.replace(/-/g, "");
+    const next = new Date(Date.UTC(+deadlineISO.slice(0, 4), +deadlineISO.slice(5, 7) - 1, +deadlineISO.slice(8, 10) + 1));
+    const dEnd = next.toISOString().slice(0, 10).replace(/-/g, "");
+    const stamp = (nowDate || new Date()).toISOString().replace(/[-:]/g, "").replace(/\.\d+Z$/, "Z");
+    const lines = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Amtsklar//Fristenrechner//DE",
+      "CALSCALE:GREGORIAN",
+      "BEGIN:VEVENT",
+      `UID:amtsklar-${d}-${stamp}@amtsklar`,
+      `DTSTAMP:${stamp}`,
+      `DTSTART;VALUE=DATE:${d}`,
+      `DTEND;VALUE=DATE:${dEnd}`,
+      `SUMMARY:${icsEscape(summary)}`,
+      `DESCRIPTION:${icsEscape(description)}`,
+      "BEGIN:VALARM",
+      "ACTION:DISPLAY",
+      `DESCRIPTION:${icsEscape(summary)}`,
+      "TRIGGER:-P3D",
+      "END:VALARM",
+      "BEGIN:VALARM",
+      "ACTION:DISPLAY",
+      `DESCRIPTION:${icsEscape(summary)}`,
+      "TRIGGER:-P1D",
+      "END:VALARM",
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ];
+    return lines.map(fold).join("\r\n") + "\r\n";
+  }
+  if (typeof module === "object" && module.exports) module.exports.toICS = toICS;
+  else root.Amtsklar.deadline.toICS = toICS;
+})(typeof self !== "undefined" ? self : this);

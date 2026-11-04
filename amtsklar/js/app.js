@@ -245,9 +245,25 @@
       <div class="btn-row no-print">
         <a class="btn" href="#vorlagen" id="to-template" style="text-decoration:none">${esc(t("frist.toTemplate"))}</a>
         <button class="btn secondary" type="button" id="copy-result">${esc(t("frist.copy"))}</button>
+        ${window.self === window.top ? `<button class="btn secondary" type="button" id="cal-result">${esc(t("frist.calendar"))}</button>` : ""}
       </div>
     `)
     );
+    const calBtn = box.querySelector("#cal-result");
+    if (calBtn)
+      calBtn.addEventListener("click", () => {
+        const desc = [deadlineText, ...r.steps.map((s) => "- " + stepText(s).text), "", t("frist.tip.1")].join("\n");
+        const ics = D.toICS(r.deadline, t("frist.cal.summary"), desc);
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
+        a.download = `frist-${r.deadline}.ics`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          URL.revokeObjectURL(a.href);
+          a.remove();
+        }, 500);
+      });
     box.querySelector("#copy-result").addEventListener("click", (e) => {
       const lines = [
         `${t("frist.result.label")}: ${deadlineText}`,
@@ -326,6 +342,11 @@
       window.scrollTo(0, 0);
     });
     render();
+  }
+
+  // Offline support when served over HTTPS (e.g. GitHub Pages), not inside embeds
+  if ("serviceWorker" in navigator && location.protocol === "https:" && window.self === window.top) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
   }
 
   A.rerender = render;

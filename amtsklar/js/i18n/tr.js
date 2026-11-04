@@ -63,6 +63,8 @@
     "frist.tip.3": "İtiraz için normal e-posta çoğu zaman YETMEZ! Mektup, faks, dairenin çevrimiçi portalı (ör. jobcenter.digital, ELSTER) kullanın veya bizzat gidin.",
     "frist.tip.4": "Süreyi korumak için gerekçe gerekmez. Şunu yazın: „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“ (İtiraz ediyorum. Gerekçeyi sonra göndereceğim.)",
     "frist.toTemplate": "İtirazı şimdi yaz",
+    "frist.calendar": "Takvime ekle",
+    "frist.cal.summary": "Son gün: daireye cevap (Amtsklar)",
     "frist.copy": "Sonucu kopyala",
     "frist.copied": "Kopyalandı",
     "frist.invalid": "Lütfen geçerli bir tarih girin.",

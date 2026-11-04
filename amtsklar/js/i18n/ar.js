@@ -63,6 +63,8 @@
     "frist.tip.3": "البريد الإلكتروني العادي غالباً لا يكفي للاعتراض! استخدم رسالة أو فاكس أو البوابة الإلكترونية للدائرة (مثل jobcenter.digital أو ELSTER) أو اذهب بنفسك.",
     "frist.tip.4": "لا تحتاج إلى تبرير للالتزام بالمهلة. اكتب: „Ich lege Widerspruch ein. Die Begründung reiche ich nach.“ (أعترض. سأرسل الأسباب لاحقاً.)",
     "frist.toTemplate": "اكتب الاعتراض الآن",
+    "frist.calendar": "إضافة إلى التقويم",
+    "frist.cal.summary": "آخر يوم: الرد على الدائرة (Amtsklar)",
     "frist.copy": "نسخ النتيجة",
     "frist.copied": "تم النسخ",
     "frist.invalid": "يرجى إدخال تاريخ صحيح.",

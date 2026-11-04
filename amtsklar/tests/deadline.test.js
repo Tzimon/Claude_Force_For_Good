@@ -97,3 +97,14 @@ test("days left", () => {
   const r = D.compute({ delivery: "known", date: "2025-06-02", period: "2w", state: "BE", today: "2025-06-10" });
   assert.equal(r.daysLeft, 6);
 });
+
+test("calendar export", () => {
+  const ics = D.toICS("2026-11-30", "Frist: Widerspruch, Jobcenter", "Zeile 1\nZeile 2", new Date(Date.UTC(2026, 10, 4, 8, 0, 0)));
+  assert.match(ics, /^BEGIN:VCALENDAR\r\n/);
+  assert.match(ics, /DTSTART;VALUE=DATE:20261130\r\n/);
+  assert.match(ics, /DTEND;VALUE=DATE:20261201\r\n/);
+  assert.match(ics, /SUMMARY:Frist: Widerspruch\\, Jobcenter\r\n/);
+  assert.match(ics, /DESCRIPTION:Zeile 1\\nZeile 2\r\n/);
+  assert.equal((ics.match(/BEGIN:VALARM/g) || []).length, 2);
+  assert.ok(ics.split("\r\n").every((l) => l.length <= 75));
+});
