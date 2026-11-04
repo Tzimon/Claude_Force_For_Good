@@ -49,7 +49,8 @@
   function render(el) {
     const { esc, h, t, state } = A.util;
     const lang = state.lang;
-    const tx = (p) => p[lang] || p.en || p.de;
+    const X = A.extraI18n && A.extraI18n[lang];
+    const tx = (p) => p[lang] || (X && X.brief[p.n - 1] && { t: X.brief[p.n - 1][0], p: X.brief[p.n - 1][1] }) || p.en || p.de;
     el.replaceChildren(
       h(`
       <section class="view" aria-labelledby="b-title">

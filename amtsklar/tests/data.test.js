@@ -130,3 +130,15 @@ test("template translations cover every template, field and note", () => {
     }
   }
 });
+
+test("help directory and letter explanations are translated", () => {
+  require("../js/data/help.js");
+  require("../js/data/extra-i18n.js");
+  const { HELP, GROUPS } = global.Amtsklar.help;
+  const X = global.Amtsklar.extraI18n;
+  for (const l of ["uk", "ar", "tr", "ru", "fa"]) {
+    for (const g of Object.keys(GROUPS)) assert.ok(X[l].groups[g], `${l} group ${g}`);
+    for (const h of HELP) assert.ok(X[l].help[h.name.de] && X[l].help[h.name.de].length === 2, `${l} help ${h.name.de}`);
+    assert.equal(X[l].brief.length, 9, `${l} brief parts`);
+  }
+});

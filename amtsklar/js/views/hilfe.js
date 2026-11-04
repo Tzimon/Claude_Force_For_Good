@@ -9,6 +9,9 @@
     const { esc, h, t, state } = A.util;
     const lang = state.lang;
     const tx = (o) => o[lang] || o.en || o.de;
+    const X = A.extraI18n && A.extraI18n[lang];
+    const groupName = (g) => (X && X.groups[g]) || tx(GROUPS[g]);
+    const itemText = (x, i) => (X && X.help[x.name.de] ? X.help[x.name.de][i] : tx(i === 0 ? x.name : x.what));
     el.replaceChildren(
       h(`
       <section class="view" aria-labelledby="h-title">
@@ -22,14 +25,14 @@
           .map(
             (g) => `
           <section class="sheet" aria-labelledby="h-${g}">
-            <h3 id="h-${g}">${esc(tx(GROUPS[g]))}</h3>
+            <h3 id="h-${g}">${esc(groupName(g))}</h3>
             <div class="help-list">
               ${HELP.filter((x) => x.group === g)
                 .map(
                   (x) => `
                 <article class="help-item">
-                  <h3>${esc(tx(x.name))}</h3>
-                  <p>${esc(tx(x.what))}</p>
+                  <h3>${esc(itemText(x, 0))}</h3>
+                  <p>${esc(itemText(x, 1))}</p>
                   ${x.phone ? `<p>${esc(t("h.phone"))}: <span class="phone">${esc(x.phone)}</span></p>` : ""}
                   ${x.url ? `<p><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.url.replace(/^https:\/\/(www\.)?/, ""))}</a></p>` : ""}
                 </article>`
