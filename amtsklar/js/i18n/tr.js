@@ -95,7 +95,7 @@
     "r.toTemplate": "Uygun mektubu yaz",
     "r.terms": "İlgili kelimeler",
     "r.missing": "Durumunuz yok mu? „Yardım“ bölümündeki kuruluşlar her mektupta yardımcı olur.",
-    "r.lang": "Rehberler şimdilik Almanca ve İngilizce mevcut.",
+    "r.lang": "",
 
     "w.eyebrow": "Resmi Almanca sözlüğü",
     "w.title": "Bu kelime ne demek?",

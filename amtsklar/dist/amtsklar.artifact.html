@@ -1068,7 +1068,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     "r.toTemplate": "Написати відповідний лист",
     "r.terms": "Пов'язані слова",
     "r.missing": "Вашої ситуації немає? Служби в розділі „Допомога“ допоможуть з будь-яким листом.",
-    "r.lang": "Поради поки що доступні німецькою та англійською.",
+    "r.lang": "",
 
     "w.eyebrow": "Словник канцелярської німецької",
     "w.title": "Що означає це слово?",
@@ -1213,7 +1213,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     "r.toTemplate": "اكتب الرسالة المناسبة",
     "r.terms": "كلمات ذات صلة",
     "r.missing": "وضعك غير موجود؟ الجهات في قسم „مساعدة“ تساعد في أي رسالة.",
-    "r.lang": "الأدلة متوفرة حالياً بالألمانية والإنجليزية.",
+    "r.lang": "",
 
     "w.eyebrow": "قاموس لغة الدوائر الرسمية",
     "w.title": "ماذا تعني هذه الكلمة؟",
@@ -1358,7 +1358,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     "r.toTemplate": "Uygun mektubu yaz",
     "r.terms": "İlgili kelimeler",
     "r.missing": "Durumunuz yok mu? „Yardım“ bölümündeki kuruluşlar her mektupta yardımcı olur.",
-    "r.lang": "Rehberler şimdilik Almanca ve İngilizce mevcut.",
+    "r.lang": "",
 
     "w.eyebrow": "Resmi Almanca sözlüğü",
     "w.title": "Bu kelime ne demek?",
@@ -1502,7 +1502,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
     "r.toFrist": "Рассчитать срок",
     "r.toTemplate": "Написать подходящее письмо",
     "r.terms": "Связанные слова",
-    "r.lang": "Советы пока доступны на немецком и английском.",
+    "r.lang": "",
     "r.missing": "Вашей ситуации нет? Службы в разделе „Помощь“ помогут с любым письмом.",
 
     "w.eyebrow": "Словарь канцелярского немецкого",
@@ -1958,6 +1958,574 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
 
 </script>
 <script>
+/* Amtsklar – guides in Ukrainian (AI-assisted, review welcome) */
+(function (root) {
+  "use strict";
+  root.Amtsklar.guidesI18n = root.Amtsklar.guidesI18n || {};
+  root.Amtsklar.guidesI18n.uk = {
+    "jobcenter-rueckforderung": {
+      t: "Jobcenter вимагає повернути гроші",
+      s: "Ви отримали „Aufhebungs- und Erstattungsbescheid“ (рішення про скасування та повернення).",
+      check: [
+        "За який період і яку суму? Див. частину „рішення“.",
+        "Чому? Зазвичай враховано дохід (зарплата, Kindergeld, аліменти). Порівняйте з розрахунковими листами та виписками з рахунку.",
+        "Чи враховано пільгові суми із зарплати? Частина заробітку не зараховується.",
+        "Чи вчасно ви повідомили про зміни? Тоді повернення часто обмежене.",
+      ],
+      steps: [
+        "Обчисліть строк: зазвичай 1 місяць.",
+        "Якщо щось неправильно чи незрозуміло: подайте заперечення. Обґрунтування можна надіслати пізніше.",
+        "Попросіть доступ до справи, якщо не розумієте розрахунок.",
+        "Якщо не можете заплатити одразу: попросіть розстрочку. Jobcenter також може утримувати частину виплати (зазвичай 10 % базової ставки).",
+        "Дайте перевірити рішення в соціальній консультації – вимоги повернення часто бувають помилковими.",
+      ],
+      warn: "Якщо строк минув, часто ще допомагає заява про перегляд (Überprüfungsantrag).",
+    },
+    "jobcenter-einladung": {
+      t: "Запрошення на зустріч у Jobcenter",
+      s: "Вас просять прийти до Jobcenter або на зустріч у певний день.",
+      check: [
+        "Дата, час, місце та контактна особа.",
+        "Що потрібно взяти? (документи, резюме, посвідчення)",
+        "Чи є там „Rechtsfolgenbelehrung“ (попередження про наслідки)? Тоді в разі неявки гроші можуть скоротити.",
+      ],
+      steps: [
+        "Запишіть зустріч у календар і приходьте вчасно.",
+        "Якщо не можете прийти (напр. співбесіда, хвора дитина): повідомте одразу, заздалегідь, з підтвердженням, і попросіть нову дату.",
+        "Хворієте? Надішліть лікарняний. Jobcenter може додатково вимагати довідку, що ви не могли прийти на зустріч – запитайте лікаря.",
+        "Ви можете взяти з собою людину для підтримки (Beistand).",
+        "Попросіть підтвердження, що ви були присутні, якщо не впевнені.",
+      ],
+      warn: "Якщо ви пропустите зустріч без поважної причини, гроші можуть скоротити. Проти скорочення можна подати заперечення.",
+    },
+    "aufenthalt-verlaengern": {
+      t: "Закінчується мій дозвіл на проживання",
+      s: "Наближається дата закінчення на вашій картці чи в паспорті.",
+      check: [
+        "Точна дата закінчення на картці (eAT).",
+        "Які документи вимагає ваше Ausländerbehörde? Часто список є на сайті.",
+        "Чи щось змінилося (робота, сім'я, адреса)? Це може бути важливо.",
+      ],
+      steps: [
+        "Подавайте заяву на продовження заздалегідь – приблизно за 2–3 місяці.",
+        "Немає вільного запису? Все одно подайте заяву письмово ДО дати закінчення (онлайн-форма, e-mail, лист або факс) і збережіть підтвердження.",
+        "Якщо ви подали заяву вчасно, ви можете залишатися до рішення. Установа видає для цього Fiktionsbescheinigung.",
+        "Роботодавцю та Jobcenter часто потрібне підтвердження – покажіть Fiktionsbescheinigung або вашу заяву.",
+        "Якщо є проблеми – одразу до консультації для мігрантів.",
+      ],
+      warn: "Якщо дозвіл закінчився до того, як ви подали заяву, усе значно складніше. Негайно зверніться по консультацію.",
+    },
+    "inkasso-mahnbescheid": {
+      t: "Лист від колекторів або судовий наказ про оплату",
+      s: "Компанія або суд вимагає гроші за нібито борг.",
+      check: [
+        "Чи знаєте ви цю компанію і цю вимогу? Чи є договір або рахунок?",
+        "Чи правильна сума? Колекторські збори обмежені законом.",
+        "Чи борг старий? Багато вимог втрачають силу через 3 роки (з кінця року, в якому вони виникли).",
+        "Лист від Amtsgericht у жовтому конверті? Тоді це судовий наказ про оплату (Mahnbescheid).",
+      ],
+      steps: [
+        "Не ігноруйте – але й не платіть і нічого не підписуйте поспіхом.",
+        "Невідома чи неправильна вимога: заперечте письмово („Ich bestreite die Forderung.“) і вимагайте докази.",
+        "Судовий наказ про оплату: заперечення протягом 2 тижнів після вручення – на доданому бланку, достатньо поставити хрестик.",
+        "Якщо вимога обґрунтована, але ви не можете заплатити: запропонуйте розстрочку і зверніться до консультації з боргів.",
+        "Захистіть рахунок: переведіть його в P-Konto.",
+      ],
+      warn: "Обережно з фальшивими листами від „колекторів“ на e-mail. Не натискайте посилання і не платіть на невідомі рахунки.",
+    },
+    "steuerbescheid": {
+      t: "Податкове повідомлення від Finanzamt",
+      s: "Податкова розрахувала ваш податок – з поверненням або доплатою.",
+      check: [
+        "Що написано вгорі: „Erstattung“ (ви отримуєте гроші) чи „Nachzahlung“ (ви доплачуєте)?",
+        "Чи відхилилася податкова від вашої декларації? Див. „Erläuterungen“ (пояснення).",
+        "Чи правильні дохід, діти та витрати, пов'язані з роботою?",
+      ],
+      steps: [
+        "Строк для заперечення (Einspruch): 1 місяць.",
+        "Заперечення можна подати в довільній формі – також через ELSTER. Обґрунтування й документи можна надіслати пізніше.",
+        "Заперечення не зупиняє оплату автоматично. Для цього подайте заяву про „Aussetzung der Vollziehung“ (зупинення виконання).",
+        "Якщо не можете заплатити: попросіть відстрочку чи розстрочку – інакше нараховуються штрафи за прострочення.",
+        "Допомога: Lohnsteuerhilfeverein (недорого для найманих працівників) або податковий консультант.",
+      ],
+    },
+    "familienkasse": {
+      t: "Familienkasse вимагає документи",
+      s: "Familienkasse просить підтвердження, напр. довідку зі школи чи з навчання.",
+      check: [
+        "Які саме документи і для якої дитини?",
+        "До якого дня? Строк вказано в листі.",
+        "Ваш номер Kindergeld (вгорі листа, містить „FK“).",
+      ],
+      steps: [
+        "Надішліть документи вчасно – копії, ніколи не оригінали. На кожній сторінці напишіть номер Kindergeld.",
+        "Просто і з підтвердженням: завантажте в онлайн-портал Familienkasse.",
+        "Потрібно більше часу (напр. школа видасть довідку пізніше): попросіть продовження до закінчення строку.",
+        "Щось змінилося (навчання закінчилося, переїзд за кордон)? Повідомте негайно.",
+      ],
+      warn: "Якщо не відповісте, Kindergeld можуть зупинити і вимагати повернути.",
+    },
+    "bussgeld": {
+      t: "Штраф: анкета або постанова про штраф",
+      s: "Вас звинувачують у перевищенні швидкості, неправильному паркуванні тощо.",
+      check: [
+        "Це „Anhörungsbogen“ (анкета) чи „Bußgeldbescheid“ (постанова про штраф)?",
+        "Чи правильні дата, місце, номер авто та звинувачення?",
+        "Постанова про штраф: запишіть дату вручення з жовтого конверта.",
+      ],
+      steps: [
+        "Анкета: особисті дані ви мусите вказати. Щодо суті (напр. хто був за кермом) ви нічого не зобов'язані говорити.",
+        "Постанова про штраф: заперечення лише протягом 2 тижнів після вручення.",
+        "Якщо загрожують штрафні бали або заборона керування – часто варто звернутися до адвоката.",
+        "Якщо все правильно: сплатіть вчасно, і справу закрито.",
+      ],
+    },
+    "nebenkosten": {
+      t: "Рахунок за комунальні послуги від орендодавця",
+      s: "Орендодавець виставляє рахунок за воду, опалення, сміття тощо за рік.",
+      check: [
+        "Період: максимум 12 місяців. Рахунок має надійти до вас не пізніше ніж через 12 місяців після закінчення періоду – інакше орендодавець вже не може вимагати доплату.",
+        "Чи правильно враховано ваші авансові платежі?",
+        "Чи правильні площа житла та ключ розподілу?",
+      ],
+      steps: [
+        "Ви маєте право переглянути підтверджувальні документи в орендодавця.",
+        "Заперечення подавайте письмово протягом 12 місяців після отримання.",
+        "З Bürgergeld або соцдопомогою: одразу подайте доплату в Jobcenter чи соцслужбу – витрати часто покривають. Про повернення коштів потрібно повідомити.",
+        "Незрозуміло? Запитайте в Mieterverein (спілка орендарів).",
+      ],
+    },
+  };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/* Amtsklar – guides in Arabic (AI-assisted, review welcome) */
+(function (root) {
+  "use strict";
+  root.Amtsklar.guidesI18n = root.Amtsklar.guidesI18n || {};
+  root.Amtsklar.guidesI18n.ar = {
+    "jobcenter-rueckforderung": {
+      t: "الجوب سنتر يطلب استرداد مال",
+      s: "وصلك „Aufhebungs- und Erstattungsbescheid“ (قرار إلغاء واسترداد).",
+      check: [
+        "عن أي فترة وأي مبلغ؟ انظر جزء „القرار“.",
+        "لماذا؟ غالباً تم احتساب دخل (راتب، Kindergeld، نفقة). قارن مع كشوف الراتب وكشوف الحساب.",
+        "هل خُصمت المبالغ المعفاة من الراتب؟ جزء من دخل العمل لا يُحتسب.",
+        "هل أبلغت عن التغيير في الوقت المناسب؟ عندها يكون الاسترداد غالباً محدوداً.",
+      ],
+      steps: [
+        "احسب المهلة: عادةً شهر واحد.",
+        "إذا كان شيء خاطئاً أو غير واضح: قدّم اعتراضاً. يمكنك إرسال الأسباب لاحقاً.",
+        "اطلب الاطلاع على الملف إذا لم تفهم الحساب.",
+        "إذا لم تستطع الدفع دفعة واحدة: اطلب التقسيط. يحق للجوب سنتر أيضاً اقتطاع جزء من مساعدتك (عادةً 10 % من المعدل الأساسي).",
+        "اطلب من الاستشارة الاجتماعية فحص القرار – طلبات الاسترداد كثيراً ما تكون خاطئة.",
+      ],
+      warn: "إذا انتهت المهلة، كثيراً ما يساعد طلب المراجعة (Überprüfungsantrag).",
+    },
+    "jobcenter-einladung": {
+      t: "دعوة إلى موعد في الجوب سنتر",
+      s: "يُطلب منك الحضور إلى الجوب سنتر أو إلى موعد في يوم محدد.",
+      check: [
+        "التاريخ والساعة والمكان والشخص المسؤول.",
+        "ماذا يجب أن تحضر معك؟ (وثائق، سيرة ذاتية، هوية)",
+        "هل فيها „Rechtsfolgenbelehrung“ (بيان العواقب)؟ عندها قد يُخفَّض مالك إذا لم تحضر.",
+      ],
+      steps: [
+        "سجّل الموعد في التقويم واحضر في الوقت المحدد.",
+        "إذا لم تستطع الحضور (مثلاً مقابلة عمل، طفل مريض): أبلغ فوراً وقبل الموعد مع إثبات، واطلب موعداً جديداً.",
+        "مريض؟ أرسل الإجازة المرضية. قد يطلب الجوب سنتر أيضاً إثباتاً بأنك لم تستطع الحضور إلى الموعد – اسأل طبيبك.",
+        "يحق لك اصطحاب شخص لمساندتك (Beistand).",
+        "اطلب تأكيداً بحضورك إذا لم تكن متأكداً.",
+      ],
+      warn: "إذا تغيّبت دون سبب مهم، قد يُخفَّض مالك. يمكنك الاعتراض على التخفيض.",
+    },
+    "aufenthalt-verlaengern": {
+      t: "تصريح إقامتي على وشك الانتهاء",
+      s: "تاريخ الانتهاء على بطاقتك أو في جوازك يقترب.",
+      check: [
+        "تاريخ الانتهاء الدقيق على البطاقة (eAT).",
+        "ما الوثائق التي تطلبها دائرة الأجانب لديك؟ كثيراً ما توجد قائمة على موقعها.",
+        "هل تغيّر شيء (العمل، العائلة، العنوان)؟ قد يكون ذلك مهماً.",
+      ],
+      steps: [
+        "قدّم طلب التمديد مبكراً – قبل نحو شهرين إلى ثلاثة أشهر.",
+        "لا يوجد موعد متاح؟ قدّم الطلب كتابياً رغم ذلك قبل تاريخ الانتهاء (نموذج إلكتروني، بريد إلكتروني، رسالة أو فاكس) واحتفظ بالإثبات.",
+        "من يقدّم في الوقت المناسب يحق له البقاء حتى صدور القرار. تصدر الدائرة لذلك Fiktionsbescheinigung.",
+        "صاحب العمل والجوب سنتر يحتاجان غالباً إلى إثبات – أظهر Fiktionsbescheinigung أو طلبك.",
+        "إذا ظهرت مشاكل: توجّه فوراً إلى استشارة الهجرة.",
+      ],
+      warn: "إذا انتهى التصريح قبل أن تقدّم الطلب، يصبح الأمر أصعب بكثير. اطلب الاستشارة فوراً.",
+    },
+    "inkasso-mahnbescheid": {
+      t: "رسالة تحصيل ديون أو أمر دفع قضائي",
+      s: "شركة أو محكمة تطالب بمال عن دين مزعوم.",
+      check: [
+        "هل تعرف الشركة والمطالبة؟ هل يوجد عقد أو فاتورة؟",
+        "هل المبلغ صحيح؟ رسوم التحصيل محدودة بالقانون.",
+        "هل الدين قديم؟ كثير من المطالبات تسقط بالتقادم بعد 3 سنوات (من نهاية السنة التي نشأت فيها).",
+        "هل الرسالة من المحكمة المحلية (Amtsgericht) في ظرف أصفر؟ عندها هي أمر دفع قضائي (Mahnbescheid).",
+      ],
+      steps: [
+        "لا تتجاهلها – لكن لا تدفع ولا توقّع شيئاً على عجل.",
+        "مطالبة مجهولة أو خاطئة: اعترض كتابياً („Ich bestreite die Forderung.“) واطلب الإثباتات.",
+        "أمر الدفع القضائي: الاعتراض خلال أسبوعين من التسليم – بالنموذج المرفق، وتكفي علامة صح.",
+        "إذا كانت المطالبة صحيحة لكنك لا تستطيع الدفع: اعرض التقسيط وتواصل مع استشارة الديون.",
+        "احمِ حسابك: حوّله إلى P-Konto.",
+      ],
+      warn: "احذر رسائل التحصيل المزيفة عبر البريد الإلكتروني. لا تضغط على الروابط ولا تدفع إلى حسابات مجهولة.",
+    },
+    "steuerbescheid": {
+      t: "إشعار ضريبي من مكتب الضرائب",
+      s: "حسب مكتب الضرائب ضريبتك – مع استرداد أو دفعة إضافية.",
+      check: [
+        "هل مكتوب في الأعلى „Erstattung“ (تحصل على مال) أم „Nachzahlung“ (تدفع)؟",
+        "هل خالف مكتب الضرائب إقرارك الضريبي؟ انظر „Erläuterungen“ (التوضيحات).",
+        "هل الدخل والأطفال ونفقات العمل صحيحة؟",
+      ],
+      steps: [
+        "مهلة الاعتراض (Einspruch): شهر واحد.",
+        "الاعتراض لا يحتاج إلى نموذج خاص – ممكن أيضاً عبر ELSTER. يمكنك إرسال الأسباب والإيصالات لاحقاً.",
+        "الاعتراض لا يوقف الدفع تلقائياً. لذلك اطلب „Aussetzung der Vollziehung“ (وقف التنفيذ).",
+        "إذا لم تستطع الدفع: اطلب التأجيل أو التقسيط – وإلا تُضاف رسوم التأخير.",
+        "المساعدة: جمعية مساعدة ضريبة الأجور (Lohnsteuerhilfeverein، رخيصة للموظفين) أو مستشار ضريبي.",
+      ],
+    },
+    "familienkasse": {
+      t: "صندوق الأسرة يطلب وثائق",
+      s: "يطلب Familienkasse إثباتات، مثل شهادة المدرسة أو التدريب المهني.",
+      check: [
+        "ما الوثائق بالضبط ولأي طفل؟",
+        "حتى متى؟ المهلة مكتوبة في الرسالة.",
+        "رقم Kindergeld الخاص بك (في الأعلى، ويحتوي على „FK“).",
+      ],
+      steps: [
+        "أرسل الوثائق في الوقت المحدد – نسخاً، وليس الأصول أبداً. اكتب رقم Kindergeld على كل صفحة.",
+        "بسيط ومع إثبات: ارفعها في البوابة الإلكترونية لصندوق الأسرة.",
+        "تحتاج وقتاً أطول (مثلاً المدرسة تصدر الشهادة لاحقاً): اطلب التمديد قبل انتهاء المهلة.",
+        "هل تغيّر شيء (انتهى التدريب، انتقال إلى الخارج)؟ أبلغ فوراً.",
+      ],
+      warn: "إذا لم ترد، قد يُوقف Kindergeld ويُطالَب باسترداده.",
+    },
+    "bussgeld": {
+      t: "الغرامات: استمارة استجواب أو إشعار غرامة",
+      s: "أنت متهم بتجاوز السرعة أو الوقوف الخاطئ أو ما شابه.",
+      check: [
+        "هل هي „Anhörungsbogen“ (استمارة استجواب) أم „Bußgeldbescheid“ (إشعار غرامة)؟",
+        "هل التاريخ والمكان ورقم اللوحة والتهمة صحيحة؟",
+        "إشعار الغرامة: سجّل تاريخ التسليم المكتوب على الظرف الأصفر.",
+      ],
+      steps: [
+        "الاستمارة: يجب أن تذكر بياناتك الشخصية. لست ملزماً بقول أي شيء عن الموضوع (مثلاً من كان يقود).",
+        "إشعار الغرامة: الاعتراض فقط خلال أسبوعين من التسليم.",
+        "إذا كانت هناك نقاط مخالفات أو منع من القيادة، فالاستشارة القانونية غالباً مفيدة.",
+        "إذا كان كل شيء صحيحاً: ادفع في الوقت المحدد وينتهي الأمر.",
+      ],
+    },
+    "nebenkosten": {
+      t: "فاتورة التكاليف الإضافية من المؤجر",
+      s: "يحاسبك المؤجر على الماء والتدفئة والنفايات وغيرها عن سنة.",
+      check: [
+        "الفترة: 12 شهراً كحد أقصى. يجب أن تصلك الفاتورة خلال 12 شهراً من نهاية الفترة – وإلا لا يحق للمؤجر المطالبة بدفعة إضافية.",
+        "هل خُصمت دفعاتك المسبقة بشكل صحيح؟",
+        "هل مساحة السكن ومفتاح التوزيع صحيحان؟",
+      ],
+      steps: [
+        "يحق لك الاطلاع على الإيصالات لدى المؤجر.",
+        "قدّم اعتراضاتك كتابياً خلال 12 شهراً من الاستلام.",
+        "مع Bürgergeld أو المساعدة الاجتماعية: قدّم الدفعة الإضافية فوراً إلى الجوب سنتر أو مكتب الشؤون الاجتماعية – غالباً تُغطّى التكاليف. يجب الإبلاغ عن أي مبلغ مسترد.",
+        "غير واضح؟ اسأل جمعية المستأجرين (Mieterverein).",
+      ],
+    },
+  };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/* Amtsklar – guides in Turkish (AI-assisted, review welcome) */
+(function (root) {
+  "use strict";
+  root.Amtsklar.guidesI18n = root.Amtsklar.guidesI18n || {};
+  root.Amtsklar.guidesI18n.tr = {
+    "jobcenter-rueckforderung": {
+      t: "Jobcenter para geri istiyor",
+      s: "Bir „Aufhebungs- und Erstattungsbescheid“ (iptal ve geri ödeme kararı) aldınız.",
+      check: [
+        "Hangi dönem ve hangi tutar? „Karar“ bölümüne bakın.",
+        "Neden? Genellikle bir gelir hesaba katıldı (maaş, Kindergeld, nafaka). Maaş bordrolarınız ve hesap dökümlerinizle karşılaştırın.",
+        "Maaştan muafiyet tutarları düşüldü mü? Kazancın bir kısmı hesaba katılmaz.",
+        "Değişikliği zamanında bildirdiniz mi? O zaman geri ödeme çoğu zaman sınırlıdır.",
+      ],
+      steps: [
+        "Süreyi hesaplayın: genellikle 1 ay.",
+        "Bir şey yanlış veya belirsizse: itiraz edin. Gerekçeyi sonra gönderebilirsiniz.",
+        "Hesaplamayı anlamıyorsanız dosyayı inceleme talebinde bulunun.",
+        "Bir kerede ödeyemiyorsanız: taksit talep edin. Jobcenter yardımınızın bir kısmını da (genellikle temel tutarın %10'u) doğrudan kesebilir.",
+        "Kararı bir sosyal danışmanlığa kontrol ettirin – geri ödeme talepleri sık sık hatalıdır.",
+      ],
+      warn: "Süre geçtiyse, yeniden inceleme başvurusu (Überprüfungsantrag) çoğu zaman hâlâ işe yarar.",
+    },
+    "jobcenter-einladung": {
+      t: "Jobcenter'dan randevu daveti",
+      s: "Belirli bir günde Jobcenter'a veya bir randevuya gelmeniz isteniyor.",
+      check: [
+        "Tarih, saat, yer ve ilgili kişi.",
+        "Yanınızda ne getirmelisiniz? (belgeler, özgeçmiş, kimlik)",
+        "İçinde „Rechtsfolgenbelehrung“ (sonuçlar hakkında bilgilendirme) var mı? O zaman gelmezseniz paranız kesilebilir.",
+      ],
+      steps: [
+        "Randevuyu takviminize yazın ve zamanında gidin.",
+        "Gelemiyorsanız (ör. iş görüşmesi, hasta çocuk): hemen ve önceden, kanıtla bildirin ve yeni bir tarih isteyin.",
+        "Hasta mısınız? Hastalık raporunu gönderin. Jobcenter ayrıca randevuya gidemeyeceğinize dair bir belge isteyebilir – doktorunuza sorun.",
+        "Yanınızda size destek olacak bir kişi (Beistand) getirebilirsiniz.",
+        "Emin değilseniz katıldığınızı onaylatın.",
+      ],
+      warn: "Önemli bir sebep olmadan gelmezseniz paranız kesilebilir. Kesintiye itiraz edebilirsiniz.",
+    },
+    "aufenthalt-verlaengern": {
+      t: "Oturum iznimin süresi doluyor",
+      s: "Kartınızdaki veya pasaportunuzdaki son geçerlilik tarihi yaklaşıyor.",
+      check: [
+        "Kart (eAT) üzerindeki kesin son geçerlilik tarihi.",
+        "Ausländerbehörde hangi belgeleri istiyor? Çoğu zaman web sitesinde bir liste vardır.",
+        "Bir şey değişti mi (iş, aile, adres)? Bu önemli olabilir.",
+      ],
+      steps: [
+        "Uzatma için erken başvurun – yaklaşık 2–3 ay önce.",
+        "Boş randevu yok mu? Yine de son tarihten ÖNCE yazılı başvurun (çevrimiçi form, e-posta, mektup veya faks) ve kanıtını saklayın.",
+        "Zamanında başvuran, karar verilene kadar kalabilir. Daire bunun için Fiktionsbescheinigung düzenler.",
+        "İşveren ve Jobcenter çoğu zaman kanıt ister – Fiktionsbescheinigung'u veya başvurunuzu gösterin.",
+        "Sorun olursa hemen göçmen danışmanlığına gidin.",
+      ],
+      warn: "İzninizin süresi başvurudan önce dolduysa durum çok daha zorlaşır. Hemen danışmanlık alın.",
+    },
+    "inkasso-mahnbescheid": {
+      t: "İcra takip mektubu veya mahkeme ödeme emri",
+      s: "Bir şirket veya mahkeme, iddia edilen bir borç için para istiyor.",
+      check: [
+        "Şirketi ve talebi tanıyor musunuz? Sözleşme veya fatura var mı?",
+        "Tutar doğru mu? Tahsilat ücretleri yasayla sınırlıdır.",
+        "Borç eski mi? Birçok alacak 3 yıl sonra zamanaşımına uğrar (oluştuğu yılın sonundan itibaren).",
+        "Mektup sarı zarfla Amtsgericht'ten mi geldi? O zaman bu bir mahkeme ödeme emridir (Mahnbescheid).",
+      ],
+      steps: [
+        "Görmezden gelmeyin – ama aceleyle ödeme yapmayın veya bir şey imzalamayın.",
+        "Bilinmeyen veya yanlış talep: yazılı itiraz edin („Ich bestreite die Forderung.“) ve kanıt isteyin.",
+        "Mahkeme ödeme emri: tebliğden itibaren 2 hafta içinde itiraz – ekteki formla, bir çarpı işareti yeterlidir.",
+        "Talep haklıysa ama ödeyemiyorsanız: taksit teklif edin ve borç danışmanlığına başvurun.",
+        "Hesabınızı koruyun: P-Konto'ya dönüştürün.",
+      ],
+      warn: "Sahte tahsilat e-postalarına dikkat edin. Bağlantılara tıklamayın ve bilinmeyen hesaplara ödeme yapmayın.",
+    },
+    "steuerbescheid": {
+      t: "Vergi dairesinden vergi tahakkuku",
+      s: "Vergi dairesi verginizi hesapladı – iade veya ek ödeme ile.",
+      check: [
+        "Üstte „Erstattung“ (para alıyorsunuz) mu yoksa „Nachzahlung“ (ödüyorsunuz) mu yazıyor?",
+        "Vergi dairesi beyannamenizden saptı mı? „Erläuterungen“ (açıklamalar) bölümüne bakın.",
+        "Gelir, çocuklar ve işle ilgili giderler doğru mu?",
+      ],
+      steps: [
+        "İtiraz (Einspruch) süresi: 1 ay.",
+        "İtiraz için özel bir form gerekmez – ELSTER üzerinden de olur. Gerekçeyi ve belgeleri sonra gönderebilirsiniz.",
+        "İtiraz ödemeyi otomatik olarak durdurmaz. Bunun için „Aussetzung der Vollziehung“ (icranın durdurulması) talep edin.",
+        "Ödeyemiyorsanız: erteleme veya taksit isteyin – aksi halde gecikme cezaları eklenir.",
+        "Yardım: Lohnsteuerhilfeverein (çalışanlar için uygun fiyatlı) veya vergi danışmanı.",
+      ],
+    },
+    "familienkasse": {
+      t: "Familienkasse belge istiyor",
+      s: "Familienkasse kanıt istiyor, ör. okul veya meslek eğitimi belgesi.",
+      check: [
+        "Tam olarak hangi belgeler ve hangi çocuk için?",
+        "Ne zamana kadar? Süre mektupta yazılı.",
+        "Kindergeld numaranız (üstte, „FK“ içerir).",
+      ],
+      steps: [
+        "Belgeleri zamanında gönderin – kopyalarını, asla asıllarını değil. Her sayfaya Kindergeld numarasını yazın.",
+        "Kolay ve kanıtlı: Familienkasse çevrimiçi portalına yükleyin.",
+        "Daha fazla zamana mı ihtiyacınız var (ör. okul belgeyi daha sonra verecek): süre bitmeden uzatma isteyin.",
+        "Bir şey değişti mi (eğitim bitti, yurt dışına taşınma)? Hemen bildirin.",
+      ],
+      warn: "Cevap vermezseniz Kindergeld durdurulabilir ve geri istenebilir.",
+    },
+    "bussgeld": {
+      t: "Para cezası: ifade formu veya ceza kararı",
+      s: "Hız sınırını aşmak, yanlış park etmek gibi bir şeyle suçlanıyorsunuz.",
+      check: [
+        "Bu bir „Anhörungsbogen“ (ifade formu) mu yoksa „Bußgeldbescheid“ (ceza kararı) mı?",
+        "Tarih, yer, plaka ve suçlama doğru mu?",
+        "Ceza kararı: sarı zarftaki tebliğ tarihini not edin.",
+      ],
+      steps: [
+        "İfade formu: kişisel bilgilerinizi vermek zorundasınız. Konu hakkında (ör. aracı kimin kullandığı) hiçbir şey söylemek zorunda değilsiniz.",
+        "Ceza kararı: itiraz yalnızca tebliğden itibaren 2 hafta içinde.",
+        "Ceza puanı veya ehliyete el koyma söz konusuysa avukata danışmak çoğu zaman faydalıdır.",
+        "Her şey doğruysa: zamanında ödeyin, mesele kapanır.",
+      ],
+    },
+    "nebenkosten": {
+      t: "Ev sahibinden yan gider hesabı",
+      s: "Ev sahibiniz bir yıllık su, ısınma, çöp vb. giderleri hesaplıyor.",
+      check: [
+        "Dönem: en fazla 12 ay. Hesap, dönemin bitiminden en geç 12 ay sonra elinize ulaşmalı – yoksa ev sahibi artık ek ödeme isteyemez.",
+        "Peşin ödemeleriniz doğru düşüldü mü?",
+        "Konut alanı ve dağıtım anahtarı doğru mu?",
+      ],
+      steps: [
+        "Belgeleri ev sahibinin yanında inceleme hakkınız var.",
+        "İtirazlarınızı aldıktan sonra 12 ay içinde yazılı olarak yapın.",
+        "Bürgergeld veya sosyal yardım alıyorsanız: ek ödemeyi hemen Jobcenter'a veya sosyal yardım dairesine verin – masraflar çoğu zaman karşılanır. İadeleri bildirmeniz gerekir.",
+        "Emin değil misiniz? Mieterverein'a (kiracılar derneği) sorun.",
+      ],
+    },
+  };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/* Amtsklar – guides in Russian (AI-assisted, review welcome) */
+(function (root) {
+  "use strict";
+  root.Amtsklar.guidesI18n = root.Amtsklar.guidesI18n || {};
+  root.Amtsklar.guidesI18n.ru = {
+    "jobcenter-rueckforderung": {
+      t: "Jobcenter требует вернуть деньги",
+      s: "Вы получили „Aufhebungs- und Erstattungsbescheid“ (решение об отмене и возврате).",
+      check: [
+        "За какой период и какую сумму? См. часть „решение“.",
+        "Почему? Обычно учтён доход (зарплата, Kindergeld, алименты). Сравните с расчётными листами и выписками со счёта.",
+        "Учтены ли необлагаемые суммы из зарплаты? Часть заработка не засчитывается.",
+        "Вы вовремя сообщили об изменениях? Тогда возврат часто ограничен.",
+      ],
+      steps: [
+        "Рассчитайте срок: обычно 1 месяц.",
+        "Если что-то неверно или непонятно: подайте возражение. Обоснование можно прислать позже.",
+        "Запросите доступ к делу, если не понимаете расчёт.",
+        "Если не можете заплатить сразу: попросите рассрочку. Jobcenter также может удерживать часть выплаты (обычно 10 % базовой ставки).",
+        "Дайте проверить решение в социальной консультации – требования о возврате часто ошибочны.",
+      ],
+      warn: "Если срок прошёл, часто ещё помогает заявление о пересмотре (Überprüfungsantrag).",
+    },
+    "jobcenter-einladung": {
+      t: "Приглашение на встречу в Jobcenter",
+      s: "Вас просят прийти в Jobcenter или на встречу в определённый день.",
+      check: [
+        "Дата, время, место и контактное лицо.",
+        "Что нужно взять с собой? (документы, резюме, удостоверение)",
+        "Есть ли там „Rechtsfolgenbelehrung“ (предупреждение о последствиях)? Тогда при неявке деньги могут сократить.",
+      ],
+      steps: [
+        "Запишите встречу в календарь и приходите вовремя.",
+        "Если не можете прийти (напр. собеседование, больной ребёнок): сообщите сразу, заранее, с подтверждением, и попросите новую дату.",
+        "Болеете? Отправьте больничный. Jobcenter может дополнительно потребовать справку, что вы не могли прийти на встречу – спросите врача.",
+        "Вы можете взять с собой человека для поддержки (Beistand).",
+        "Попросите подтверждение вашего присутствия, если не уверены.",
+      ],
+      warn: "Если вы пропустите встречу без уважительной причины, деньги могут сократить. Против сокращения можно подать возражение.",
+    },
+    "aufenthalt-verlaengern": {
+      t: "Истекает мой вид на жительство",
+      s: "Приближается дата окончания на вашей карте или в паспорте.",
+      check: [
+        "Точная дата окончания на карте (eAT).",
+        "Какие документы требует ваше Ausländerbehörde? Часто список есть на сайте.",
+        "Изменилось ли что-то (работа, семья, адрес)? Это может быть важно.",
+      ],
+      steps: [
+        "Подавайте на продление заранее – примерно за 2–3 месяца.",
+        "Нет свободной записи? Всё равно подайте заявление письменно ДО даты окончания (онлайн-форма, e-mail, письмо или факс) и сохраните подтверждение.",
+        "Если вы подали вовремя, вы можете оставаться до решения. Ведомство выдаёт для этого Fiktionsbescheinigung.",
+        "Работодателю и Jobcenter часто нужно подтверждение – покажите Fiktionsbescheinigung или ваше заявление.",
+        "При проблемах – сразу в консультацию для мигрантов.",
+      ],
+      warn: "Если разрешение истекло до подачи заявления, всё значительно сложнее. Немедленно обратитесь за консультацией.",
+    },
+    "inkasso-mahnbescheid": {
+      t: "Письмо от коллекторов или судебный приказ об оплате",
+      s: "Компания или суд требует деньги за якобы существующий долг.",
+      check: [
+        "Знаете ли вы эту компанию и это требование? Есть ли договор или счёт?",
+        "Правильна ли сумма? Коллекторские сборы ограничены законом.",
+        "Долг старый? Многие требования теряют силу через 3 года (с конца года, в котором они возникли).",
+        "Письмо от Amtsgericht в жёлтом конверте? Тогда это судебный приказ об оплате (Mahnbescheid).",
+      ],
+      steps: [
+        "Не игнорируйте – но и не платите и ничего не подписывайте в спешке.",
+        "Неизвестное или неверное требование: оспорьте письменно („Ich bestreite die Forderung.“) и потребуйте доказательства.",
+        "Судебный приказ об оплате: возражение в течение 2 недель после вручения – на приложенном бланке, достаточно поставить крестик.",
+        "Если требование обосновано, но вы не можете заплатить: предложите рассрочку и обратитесь в консультацию по долгам.",
+        "Защитите счёт: переведите его в P-Konto.",
+      ],
+      warn: "Осторожно с поддельными письмами „коллекторов“ по e-mail. Не нажимайте на ссылки и не платите на неизвестные счета.",
+    },
+    "steuerbescheid": {
+      t: "Налоговое уведомление из Finanzamt",
+      s: "Налоговая рассчитала ваш налог – с возвратом или доплатой.",
+      check: [
+        "Что написано вверху: „Erstattung“ (вы получаете деньги) или „Nachzahlung“ (вы доплачиваете)?",
+        "Отклонилась ли налоговая от вашей декларации? См. „Erläuterungen“ (пояснения).",
+        "Верны ли доход, дети и расходы, связанные с работой?",
+      ],
+      steps: [
+        "Срок для возражения (Einspruch): 1 месяц.",
+        "Возражение подаётся в свободной форме – также через ELSTER. Обоснование и документы можно прислать позже.",
+        "Возражение не останавливает оплату автоматически. Для этого подайте заявление о „Aussetzung der Vollziehung“ (приостановлении исполнения).",
+        "Если не можете заплатить: попросите отсрочку или рассрочку – иначе начисляются пени.",
+        "Помощь: Lohnsteuerhilfeverein (недорого для наёмных работников) или налоговый консультант.",
+      ],
+    },
+    "familienkasse": {
+      t: "Familienkasse требует документы",
+      s: "Familienkasse просит подтверждения, напр. справку из школы или с учёбы.",
+      check: [
+        "Какие именно документы и для какого ребёнка?",
+        "До какого дня? Срок указан в письме.",
+        "Ваш номер Kindergeld (вверху письма, содержит „FK“).",
+      ],
+      steps: [
+        "Отправьте документы вовремя – копии, никогда не оригиналы. На каждой странице напишите номер Kindergeld.",
+        "Просто и с подтверждением: загрузите в онлайн-портал Familienkasse.",
+        "Нужно больше времени (напр. школа выдаст справку позже): попросите продление до истечения срока.",
+        "Что-то изменилось (учёба закончилась, переезд за границу)? Сообщите немедленно.",
+      ],
+      warn: "Если не ответите, Kindergeld могут остановить и потребовать вернуть.",
+    },
+    "bussgeld": {
+      t: "Штраф: анкета или постановление о штрафе",
+      s: "Вас обвиняют в превышении скорости, неправильной парковке и т. п.",
+      check: [
+        "Это „Anhörungsbogen“ (анкета) или „Bußgeldbescheid“ (постановление о штрафе)?",
+        "Верны ли дата, место, номер машины и обвинение?",
+        "Постановление о штрафе: запишите дату вручения с жёлтого конверта.",
+      ],
+      steps: [
+        "Анкета: личные данные вы обязаны указать. По существу дела (напр. кто был за рулём) вы ничего говорить не обязаны.",
+        "Постановление о штрафе: возражение только в течение 2 недель после вручения.",
+        "Если грозят штрафные баллы или лишение прав – часто стоит обратиться к адвокату.",
+        "Если всё верно: заплатите вовремя, и дело закрыто.",
+      ],
+    },
+    "nebenkosten": {
+      t: "Счёт за коммунальные услуги от арендодателя",
+      s: "Арендодатель выставляет счёт за воду, отопление, мусор и т. д. за год.",
+      check: [
+        "Период: максимум 12 месяцев. Счёт должен прийти к вам не позднее чем через 12 месяцев после окончания периода – иначе арендодатель уже не может требовать доплату.",
+        "Правильно ли учтены ваши авансовые платежи?",
+        "Верны ли площадь жилья и ключ распределения?",
+      ],
+      steps: [
+        "Вы имеете право посмотреть подтверждающие документы у арендодателя.",
+        "Возражения подавайте письменно в течение 12 месяцев после получения.",
+        "С Bürgergeld или соцпомощью: сразу подайте доплату в Jobcenter или соцслужбу – расходы часто покрывают. О возврате средств нужно сообщить.",
+        "Непонятно? Спросите в Mieterverein (союз арендаторов).",
+      ],
+    },
+  };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
 /* Amtsklar – guides for common letters */
 (function () {
   "use strict";
@@ -1969,7 +2537,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
   function render(el) {
     const { esc, h, t, state } = A.util;
     const lang = state.lang;
-    const tx = (g) => g[lang] || g.en || g.de;
+    const tx = (g) => g[lang] || (A.guidesI18n && A.guidesI18n[lang] && A.guidesI18n[lang][g.id]) || g.en || g.de;
     if (state.shared.openGuide) {
       open = state.shared.openGuide;
       state.shared.openGuide = null;

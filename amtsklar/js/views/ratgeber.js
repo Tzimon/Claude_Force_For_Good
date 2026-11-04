@@ -9,7 +9,7 @@
   function render(el) {
     const { esc, h, t, state } = A.util;
     const lang = state.lang;
-    const tx = (g) => g[lang] || g.en || g.de;
+    const tx = (g) => g[lang] || (A.guidesI18n && A.guidesI18n[lang] && A.guidesI18n[lang][g.id]) || g.en || g.de;
     if (state.shared.openGuide) {
       open = state.shared.openGuide;
       state.shared.openGuide = null;

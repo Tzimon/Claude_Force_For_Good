@@ -94,3 +94,19 @@ test("guides are complete and link to existing content", () => {
     for (const w of g.terms || []) assert.ok(TERMS.some((x) => x.w === w), `${g.id} term ${w}`);
   }
 });
+
+test("guide translations match the German structure", () => {
+  const { GUIDES } = global.Amtsklar.guides;
+  for (const l of ["uk", "ar", "tr", "ru"]) {
+    require(`../js/data/guides-${l}.js`);
+    const tr = global.Amtsklar.guidesI18n[l];
+    assert.deepEqual(Object.keys(tr).sort(), GUIDES.map((g) => g.id).sort(), `${l} guide ids`);
+    for (const g of GUIDES) {
+      const x = tr[g.id];
+      assert.ok(x.t && x.s, `${l}.${g.id} title`);
+      assert.equal(x.check.length, g.de.check.length, `${l}.${g.id} check`);
+      assert.equal(x.steps.length, g.de.steps.length, `${l}.${g.id} steps`);
+      assert.equal(!!x.warn, !!g.de.warn, `${l}.${g.id} warn`);
+    }
+  }
+});
