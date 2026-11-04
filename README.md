@@ -72,12 +72,19 @@ node tools/build.js           # rebuild dist/ after changes
 1. In the repository: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 2. Push to the default branch. The workflow `.github/workflows/amtsklar.yml` runs the tests and deploys `amtsklar/` to Pages.
 
+### Legal basis
+
+Every rule the app uses, with its source and the places that most need expert review:
+[`amtsklar/RECHTSGRUNDLAGEN.md`](amtsklar/RECHTSGRUNDLAGEN.md) (German).
+
 ### Help wanted
 
 - **Legal review:** a lawyer or social counsellor checks the deadline rules, glossary and templates.
 - **Translations:** native speakers for Ukrainian, Arabic, Turkish, Russian, Farsi, Dari, Pashto, Kurdish, Tigrinya and other languages.
 - **Link check:** confirm the help directory links (they could not be checked from the build environment).
-- **Spread the word:** migration counselling services, Tafeln, libraries, refugee initiatives.
+- **Spread the word:** print the [flyer](amtsklar/amtsklar-flyer.pdf) for migration counselling services, Tafeln, libraries, refugee initiatives.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 > Amtsklar is not legal advice. The content is checked carefully, but laws change and every case is different.
 

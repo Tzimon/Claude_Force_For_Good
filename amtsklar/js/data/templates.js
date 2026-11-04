@@ -163,8 +163,8 @@
           "Bitte bestätigen Sie mir den Eingang dieses Schreibens.",
         ].join("\n\n"),
       notes: {
-        de: ["Frist: meist 2 Wochen ab dem Tag, an dem das Hindernis weggefallen ist (beim Finanzamt 1 Monat). Nach einem Jahr ist es meist zu spät.", "Erklären Sie genau, warum Sie nichts tun konnten, und legen Sie Nachweise bei.", "Bei Jobcenter- und Sozialamt-Bescheiden zusätzlich möglich: Überprüfungsantrag."],
-        en: ["Deadline: usually 2 weeks from the day the obstacle ended (tax office: 1 month). After one year it is usually too late.", "Explain precisely why you could not act, and enclose proof.", "For Jobcenter and social welfare decisions you can also file a request for review (Überprüfungsantrag)."],
+        de: ["Frist: meist 2 Wochen ab dem Tag, an dem das Hindernis weggefallen ist (beim Finanzamt und bei Fristen gegenüber dem Sozialgericht: 1 Monat). Nach einem Jahr ist es meist zu spät.", "Erklären Sie genau, warum Sie nichts tun konnten, und legen Sie Nachweise bei.", "Bei Jobcenter- und Sozialamt-Bescheiden zusätzlich möglich: Überprüfungsantrag."],
+        en: ["Deadline: usually 2 weeks from the day the obstacle ended (tax office and deadlines towards the social court: 1 month). After one year it is usually too late.", "Explain precisely why you could not act, and enclose proof.", "For Jobcenter and social welfare decisions you can also file a request for review (Überprüfungsantrag)."],
       },
     },
     {
