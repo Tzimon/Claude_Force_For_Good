@@ -7,12 +7,12 @@
 (function (root) {
   "use strict";
   const CATS = {
-    brief: { de: "Brief", en: "Letter", uk: "Лист", ar: "الرسالة", tr: "Mektup" },
-    recht: { de: "Wehren", en: "Challenge", uk: "Оскарження", ar: "الاعتراض", tr: "İtiraz" },
-    geld: { de: "Geld", en: "Money", uk: "Гроші", ar: "المال", tr: "Para" },
-    sozial: { de: "Jobcenter & Soziales", en: "Benefits", uk: "Соцвиплати", ar: "المساعدات", tr: "Sosyal yardım" },
-    aufenthalt: { de: "Aufenthalt", en: "Residence", uk: "Проживання", ar: "الإقامة", tr: "Oturum" },
-    alltag: { de: "Alltag", en: "Everyday", uk: "Повсякдення", ar: "الحياة اليومية", tr: "Günlük hayat" },
+    brief: { de: "Brief", en: "Letter", uk: "Лист", ar: "الرسالة", tr: "Mektup", ru: "Письмо" },
+    recht: { de: "Wehren", en: "Challenge", uk: "Оскарження", ar: "الاعتراض", tr: "İtiraz", ru: "Обжалование" },
+    geld: { de: "Geld", en: "Money", uk: "Гроші", ar: "المال", tr: "Para", ru: "Деньги" },
+    sozial: { de: "Jobcenter & Soziales", en: "Benefits", uk: "Соцвиплати", ar: "المساعدات", tr: "Sosyal yardım", ru: "Соцвыплаты" },
+    aufenthalt: { de: "Aufenthalt", en: "Residence", uk: "Проживання", ar: "الإقامة", tr: "Oturum", ru: "Проживание" },
+    alltag: { de: "Alltag", en: "Everyday", uk: "Повсякдення", ar: "الحياة اليومية", tr: "Günlük hayat", ru: "Повседневность" },
   };
 
   const G = [

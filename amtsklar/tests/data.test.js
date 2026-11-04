@@ -45,6 +45,7 @@ test("every translation covers all interface strings", () => {
   require("../js/i18n/uk.js");
   require("../js/i18n/ar.js");
   require("../js/i18n/tr.js");
+  require("../js/i18n/ru.js");
   const en = Object.keys(T.en);
   for (const lang of Object.keys(global.Amtsklar.i18n.LANGS)) {
     const keys = Object.keys(T[lang]);
@@ -58,9 +59,9 @@ test("every translation covers all interface strings", () => {
 });
 
 test("glossary translations cover every term", () => {
-  for (const l of ["uk", "ar", "tr"]) require(`../js/data/glossary-${l}.js`);
+  for (const l of ["uk", "ar", "tr", "ru"]) require(`../js/data/glossary-${l}.js`);
   const tr = global.Amtsklar.glossaryI18n;
-  for (const l of ["uk", "ar", "tr"]) {
+  for (const l of ["uk", "ar", "tr", "ru"]) {
     const keys = Object.keys(tr[l]);
     assert.deepEqual(TERMS.map((x) => x.w).filter((w) => !tr[l][w]), [], `${l} missing`);
     assert.deepEqual(keys.filter((k) => !TERMS.some((x) => x.w === k)), [], `${l} unknown`);
