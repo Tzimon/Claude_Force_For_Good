@@ -15,9 +15,9 @@ Repository: https://github.com/digitalfabrik/integreat-cms
 
 | Issue | What | Status |
 |-------|------|--------|
-| [#3808](https://github.com/digitalfabrik/integreat-cms/issues/3808) | Push notifications from the test CMS are sent to `…-test` topics so they no longer reach real users' phones. This also unblocks [integreat-app#3301](https://github.com/digitalfabrik/integreat-app/issues/3301). | Patch ready, with pytest test |
-| [#3339](https://github.com/digitalfabrik/integreat-cms/issues/3339) | URL fields automatically get `https://` added, so entering `www.example.com` no longer fails with a confusing browser error. | Patch ready, with vitest test |
-| [#4207](https://github.com/digitalfabrik/integreat-cms/issues/4207) | The "Licenses of used software" link in the release notes is only shown next to the current version. | Patch ready |
+| [#3808](https://github.com/digitalfabrik/integreat-cms/issues/3808) | Push notifications from the test CMS are sent to `…-test` topics so they no longer reach real users' phones. This also unblocks [integreat-app#3301](https://github.com/digitalfabrik/integreat-app/issues/3301). | Branch pushed, tests pass, PR to open |
+| [#3339](https://github.com/digitalfabrik/integreat-cms/issues/3339) | URL fields automatically get `https://` added, so entering `www.example.com` no longer fails with a confusing browser error. | Branch pushed, tests pass, PR to open |
+| [#4207](https://github.com/digitalfabrik/integreat-cms/issues/4207) | The "Licenses of used software" link in the release notes is only shown next to the current version. | Branch pushed, tests pass, PR to open |
 
 Patches are in [`contributions/integreat-cms/patches`](contributions/integreat-cms/patches).
 They are based on the `develop` commit in `contributions/integreat-cms/BASE_COMMIT`.
@@ -26,7 +26,13 @@ Apply them with `git am`.
 Skipped: [#4620](https://github.com/digitalfabrik/integreat-cms/issues/4620) is already
 assigned to another contributor.
 
-### Next steps
+Branches are on the fork https://github.com/Tzimon/integreat-cms. PR texts are in
+[`contributions/integreat-cms/pr-descriptions`](contributions/integreat-cms/pr-descriptions).
 
-1. Run the project's test suite (`./tools/test.sh`) on the patches.
-2. Fork `digitalfabrik/integreat-cms`, push one branch per issue, and open PRs against `develop`.
+### Bonus finding
+`TestFirebaseApiClient` defined `__init__()`, so pytest silently skipped all of its tests
+in CI. This is fixed in the #3808 branch, together with 3 tests that had become outdated.
+
+### Testing
+Full suite with all three changes merged: 5019 passed. 83 failed, and the same 83 fail
+on unmodified `develop` in this environment, so there are no regressions.

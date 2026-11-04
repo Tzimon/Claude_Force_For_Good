@@ -1,7 +1,73 @@
-From aebc6138bfe16acd39109ade6a47464d7dd82a19 Mon Sep 17 00:00:00 2001
+From 8761be639dc3af42fcab6debd27c3f07f5b7c640 Mon Sep 17 00:00:00 2001
+From: Simon Spitzer <simon.spitzer@live.de>
+Date: Wed, 4 Nov 2026 07:39:26 +0000
+Subject: [PATCH 1/2] Make pytest collect TestFirebaseApiClient again
+
+pytest does not collect test classes which define __init__(), so none of
+the tests in this class were executed (only a PytestCollectionWarning was
+emitted). Use a class attribute instead.
+
+Three of the previously skipped tests had become outdated and are adjusted
+to the current behavior of FirebaseApiClient.send_pn():
+- An HTTP 200 response without message name is treated as failure
+- Error responses are logged as "sent, but unexpected API response"
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ tests/firebase_api/test_firebase_api_client.py | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/tests/firebase_api/test_firebase_api_client.py b/tests/firebase_api/test_firebase_api_client.py
+index 7921b13..efeeb4b 100644
+--- a/tests/firebase_api/test_firebase_api_client.py
++++ b/tests/firebase_api/test_firebase_api_client.py
+@@ -48,8 +48,9 @@ class TestFirebaseApiClient:
+         "404": {"error": {"code": 404}, "status_code": 404},
+     }
+ 
+-    def __init__(self) -> None:
+-        self.patch: Any = None
++    #: The patch of the access token method, started and stopped for every test method.
++    #: This must not be initialized in ``__init__()``, because pytest does not collect test classes with a constructor.
++    patch: Any = None
+ 
+     def setup_method(self) -> None:
+         self.patch = patch.object(
+@@ -182,7 +183,7 @@ class TestFirebaseApiClient:
+         )
+         for record in caplog.records:
+             assert "sent, but unexpected API response" in record.message
+-        assert status
++        assert not status
+ 
+     @pytest.mark.django_db
+     def test_firebase_api_403_wrong_token(
+@@ -207,7 +208,7 @@ class TestFirebaseApiClient:
+             self.response_mock_data["401_invalid_key"],
+         )
+         for record in caplog.records:
+-            assert "Received invalid response from FCM for" in record.message
++            assert "sent, but unexpected API response" in record.message
+         assert not status
+ 
+     @pytest.mark.django_db
+@@ -232,7 +233,7 @@ class TestFirebaseApiClient:
+             self.response_mock_data["404"],
+         )
+         for record in caplog.records:
+-            assert "Received invalid response from FCM for" in record.message
++            assert "sent, but unexpected API response" in record.message
+         assert not status
+ 
+     @pytest.mark.django_db
+-- 
+2.43.0
+
+
+From 3301e7e922e29ff39ea4d32d2e5c8276f403d578 Mon Sep 17 00:00:00 2001
 From: Simon Spitzer <simon.spitzer@live.de>
 Date: Wed, 4 Nov 2026 07:30:24 +0000
-Subject: [PATCH] Append -test suffix to push notification topics on test
+Subject: [PATCH 2/2] Append -test suffix to push notification topics on test
  systems
 
 When the TEST setting is enabled, push notifications are sent to the topic
@@ -64,10 +130,10 @@ index 0000000..f3fec13
 +en: Push notifications sent from test systems are now sent to separate test channels, so they no longer reach users of the production app.
 +de: Push-Benachrichtigungen von Testsystemen werden jetzt an separate Testkanäle gesendet und erreichen so keine Nutzer*innen der Produktiv-App mehr.
 diff --git a/tests/firebase_api/test_firebase_api_client.py b/tests/firebase_api/test_firebase_api_client.py
-index 7921b13..fbbbc20 100644
+index efeeb4b..e8f98c5 100644
 --- a/tests/firebase_api/test_firebase_api_client.py
 +++ b/tests/firebase_api/test_firebase_api_client.py
-@@ -319,3 +319,50 @@ class TestFirebaseApiClient:
+@@ -320,3 +320,50 @@ class TestFirebaseApiClient:
              "augsburg-en-news",
              "augsburg-de-news",
          }
