@@ -15,9 +15,9 @@ Repository: https://github.com/digitalfabrik/integreat-cms
 
 | Issue | What | Status |
 |-------|------|--------|
-| [#3808](https://github.com/digitalfabrik/integreat-cms/issues/3808) | Push notifications from the test CMS are sent to `…-test` topics so they no longer reach real users' phones. This also unblocks [integreat-app#3301](https://github.com/digitalfabrik/integreat-app/issues/3301). | Branch pushed, tests pass, PR to open |
-| [#3339](https://github.com/digitalfabrik/integreat-cms/issues/3339) | URL fields automatically get `https://` added, so entering `www.example.com` no longer fails with a confusing browser error. | Branch pushed, tests pass, PR to open |
-| [#4207](https://github.com/digitalfabrik/integreat-cms/issues/4207) | The "Licenses of used software" link in the release notes is only shown next to the current version. | Branch pushed, tests pass, PR to open |
+| [#3808](https://github.com/digitalfabrik/integreat-cms/issues/3808) | Push notifications from the test CMS are sent to `…-test` topics so they no longer reach real users' phones. This also unblocks [integreat-app#3301](https://github.com/digitalfabrik/integreat-app/issues/3301). | PR [#4686](https://github.com/digitalfabrik/integreat-cms/pull/4686) open |
+| [#3339](https://github.com/digitalfabrik/integreat-cms/issues/3339) | URL fields automatically get `https://` added, so entering `www.example.com` no longer fails with a confusing browser error. | PR [#4687](https://github.com/digitalfabrik/integreat-cms/pull/4687) open |
+| [#4207](https://github.com/digitalfabrik/integreat-cms/issues/4207) | The "Licenses of used software" link in the release notes is only shown next to the current version. | Branch ready. Waiting for a free PR slot (open-PR limit). |
 
 Patches are in [`contributions/integreat-cms/patches`](contributions/integreat-cms/patches).
 They are based on the `develop` commit in `contributions/integreat-cms/BASE_COMMIT`.
