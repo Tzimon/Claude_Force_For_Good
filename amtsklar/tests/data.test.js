@@ -142,3 +142,14 @@ test("help directory and letter explanations are translated", () => {
     assert.equal(X[l].brief.length, 9, `${l} brief parts`);
   }
 });
+
+test("glossary tips are translated for every term that has a tip", () => {
+  require("../js/data/glossary-tips-uk-ru.js");
+  require("../js/data/glossary-tips-ar-tr-fa.js");
+  const tips = global.Amtsklar.glossaryTips;
+  const withTip = TERMS.filter((x) => x.de.tip).map((x) => x.w);
+  for (const l of ["uk", "ar", "tr", "ru", "fa"]) {
+    assert.deepEqual(withTip.filter((w) => !tips[l][w]), [], `${l} missing tips`);
+    assert.deepEqual(Object.keys(tips[l]).filter((w) => !withTip.includes(w)), [], `${l} unknown tips`);
+  }
+});

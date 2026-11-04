@@ -7,6 +7,8 @@ with a focus on Germany.
 
 ## Amtsklar – Behördenbriefe verstehen
 
+> **Live schalten:** Die Schritt-für-Schritt-Anleitung, wie Amtsklar als Website online geht, steht in **[LIVE-SCHALTEN.md](LIVE-SCHALTEN.md)** (ca. 5 Minuten, ohne Programmierkenntnisse).
+
 **Amtsklar** ("officially clear") is a free web app that helps people understand and answer
 German official letters (*Behördenbriefe*): from the Jobcenter, Finanzamt, Ausländerbehörde,
 Familienkasse and others.
@@ -25,8 +27,8 @@ Migrants are hit hardest, but complicated *Amtsdeutsch* confuses native speakers
 | **Vorlagen** – letter templates | Seven ready-to-send German letters: objection, request for review (§ 44 SGB X), reinstatement after a missed deadline, access to my file, payment in instalments, more time for documents, and an informal application. |
 | **Hilfe** – free help | Nationwide free counselling services, crisis lines, and what to bring to an appointment. |
 
-Languages: German, English, Ukrainian, Arabic (right-to-left) and Turkish. The Ukrainian, Arabic
-and Turkish translations are AI-assisted and marked as such in the app.
+Languages: German, English, Ukrainian, Arabic, Turkish, Russian and Persian (Farsi/Dari), with right-to-left
+layout for Arabic and Persian. Every section is fully translated. All translations except German and English are AI-assisted and marked as such in the app.
 
 Principles:
 
@@ -38,7 +40,7 @@ Principles:
 
 ### Try it
 
-- Website: enable GitHub Pages (see below). The app is then at `https://tzimon.github.io/Claude_Force_For_Good/`
+- Website: `https://tzimon.github.io/Claude_Force_For_Good/` once GitHub Pages is enabled (see [LIVE-SCHALTEN.md](LIVE-SCHALTEN.md))
 - Offline: download [`amtsklar/dist/amtsklar.html`](amtsklar/dist/amtsklar.html) and open it in any browser.
 - Locally: open `amtsklar/index.html`.
 

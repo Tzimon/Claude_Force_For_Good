@@ -15,7 +15,8 @@
     if (term[lang]) return term[lang];
     const extra = A.glossaryI18n && A.glossaryI18n[lang] && A.glossaryI18n[lang][term.w];
     // Translated meaning; the practical tip falls back to English and is marked as such
-    if (extra) return { p: extra, tip: term.en.tip, tipLang: "en" };
+    const tip = A.glossaryTips && A.glossaryTips[lang] && A.glossaryTips[lang][term.w];
+    if (extra) return tip ? { p: extra, tip } : { p: extra, tip: term.en.tip, tipLang: "en" };
     return term.en || term.de;
   }
 
