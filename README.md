@@ -19,17 +19,22 @@ Migrants are hit hardest, but complicated *Amtsdeutsch* confuses native speakers
 
 | Section | What you get |
 |---|---|
-| **Frist** – deadline calculator | Calculates the last day to object. It applies the 4-day delivery rule for letters (3 days for letters sent before 2025), the § 188 BGB month rules, and the weekend and public holiday shift for all 16 federal states. It explains every step with the legal source, and always recommends the safe (earliest) date. |
-| **Wörter** – Amtsdeutsch decoder | 65 bureaucratic terms explained in plain German and English, each with a practical tip. Searchable and filterable by topic. |
-| **Vorlagen** – letter templates | Six ready-to-send German letters: objection (*Widerspruch*), request for review (*Überprüfungsantrag*, § 44 SGB X), access to my file, payment in instalments, more time for documents, and an informal application. |
+| **Frist** – deadline calculator | Calculates the last day to object. It applies the 4-day delivery rule for letters (3 days for letters sent before 2025), the § 188 BGB month rules, and the weekend and public holiday shift for all 16 federal states. It explains every step with the legal source, always recommends the safe (earliest) date, and adds the deadline to your calendar with reminders 3 days and 1 day before. |
+| **Brief** – how to read a decision | A sample *Bescheid* (made-up names) with nine numbered parts explained, plus a recommended reading order. |
+| **Wörter** – Amtsdeutsch decoder | 65 bureaucratic terms explained in plain German and English, with the meanings also in Ukrainian, Arabic and Turkish. Each comes with a practical tip, and you can search or filter by topic. |
+| **Vorlagen** – letter templates | Seven ready-to-send German letters: objection, request for review (§ 44 SGB X), reinstatement after a missed deadline, access to my file, payment in instalments, more time for documents, and an informal application. |
 | **Hilfe** – free help | Nationwide free counselling services, crisis lines, and what to bring to an appointment. |
+
+Languages: German, English, Ukrainian, Arabic (right-to-left) and Turkish. The Ukrainian, Arabic
+and Turkish translations are AI-assisted and marked as such in the app.
 
 Principles:
 
 - **No sign-up, no tracking, no server.** Everything runs in the browser. Name and address for letters are stored only on the user's device.
-- **Works offline.** `amtsklar/dist/amtsklar.html` is one self-contained file. You can e-mail it, put it on a USB stick, and double-click to open.
-- **Accessible and readable.** Plain language, large legible type (Atkinson Hyperlegible), keyboard-friendly, light and dark mode, works on phones.
+- **Works offline.** It can be installed on a phone from the website. `amtsklar/dist/amtsklar.html` is one self-contained file you can e-mail or put on a USB stick.
+- **Accessible.** Plain language and a highly legible typeface. axe-core finds no WCAG 2 A or AA violations in any section, in light or dark mode. Works on phones.
 - **Conservative by design.** When the law is ambiguous, Amtsklar recommends the earlier date.
+- **Tested.** 20 automated tests cover the deadline engine (holidays, month ends, delivery rules), letter generation, translation completeness and offline caching.
 
 ### Try it
 
@@ -44,10 +49,11 @@ amtsklar/
   index.html            app page (loads the files below)
   css/app.css           styles (design tokens, light/dark)
   js/deadline.js        deadline engine – pure functions, unit-tested
-  js/i18n.js            interface strings (de, en, …)
+  js/i18n.js            interface strings (de, en); js/i18n/*.js uk, ar, tr
   js/app.js             shell, routing, deadline view
   js/data/*.js          content: glossary, letter templates, help directory
-  js/views/*.js         glossary, templates and help views
+  js/views/*.js         letter, glossary, templates and help views
+  sw.js, manifest.webmanifest, icon.svg   offline / installable app
   tests/*.test.js       node --test
   tools/build.js        bundles everything into dist/amtsklar.html
   dist/                 single-file builds (committed)

@@ -2130,6 +2130,30 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
       },
     },
     {
+      id: "wiedereinsetzung",
+      de: { title: "Frist verpasst: Wiedereinsetzung", desc: "Sie haben eine Frist ohne eigene Schuld verpasst, z. B. wegen Krankenhaus oder Reise. Meist 2 Wochen Zeit ab Wegfall des Hindernisses." },
+      en: { title: "Missed deadline: reinstatement", desc: "You missed a deadline through no fault of your own, e.g. hospital or travel. Usually 2 weeks from when the obstacle ended." },
+      fields: [
+        { id: "letterDate", type: "date", de: "Datum des Bescheids", en: "Date of the decision" },
+        { id: "subject", type: "text", de: "Worum geht es? (steht im Betreff)", en: "What is it about? (subject line)", ph: "Bescheid über Kosten der Unterkunft" },
+        { id: "reason", type: "textarea", rows: 4, de: "Warum konnten Sie die Frist nicht einhalten? (genau, mit Daten)", en: "Why could you not meet the deadline? (precisely, with dates)", ph: "Ich war vom 02.10. bis 30.10.2026 im Krankenhaus. Den Brief habe ich erst am 31.10.2026 gelesen." },
+        { id: "proof", type: "text", de: "Nachweis, den Sie beilegen", en: "Proof you enclose", ph: "Bescheinigung des Krankenhauses" },
+      ],
+      subject: (v) => `Antrag auf Wiedereinsetzung in den vorigen Stand und Widerspruch gegen den Bescheid vom ${v("letterDate", fmt)}${v.has("subject") ? " – " + v("subject") : ""}`,
+      body: (v) =>
+        [
+          "hiermit beantrage ich Wiedereinsetzung in den vorigen Stand wegen Versäumung der Widerspruchsfrist.",
+          `Ich war ohne eigenes Verschulden verhindert, die Frist einzuhalten. Grund:\n${v("reason")}`,
+          `Als Nachweis lege ich bei: ${v("proof")}.`,
+          `Gleichzeitig lege ich Widerspruch gegen Ihren Bescheid vom ${v("letterDate", fmt)} ein. Die Begründung reiche ich nach.`,
+          "Bitte bestätigen Sie mir den Eingang dieses Schreibens.",
+        ].join("\n\n"),
+      notes: {
+        de: ["Frist: meist 2 Wochen ab dem Tag, an dem das Hindernis weggefallen ist (beim Finanzamt 1 Monat). Nach einem Jahr ist es meist zu spät.", "Erklären Sie genau, warum Sie nichts tun konnten, und legen Sie Nachweise bei.", "Bei Jobcenter- und Sozialamt-Bescheiden zusätzlich möglich: Überprüfungsantrag."],
+        en: ["Deadline: usually 2 weeks from the day the obstacle ended (tax office: 1 month). After one year it is usually too late.", "Explain precisely why you could not act, and enclose proof.", "For Jobcenter and social welfare decisions you can also file a request for review (Überprüfungsantrag)."],
+      },
+    },
+    {
       id: "antrag",
       de: { title: "Formloser Antrag", desc: "Sie wollen eine Leistung beantragen, haben aber noch nicht alle Formulare. Der Antrag sichert das Datum." },
       en: { title: "Informal application", desc: "You want to apply for a benefit but do not have all forms yet. The application secures the date." },
