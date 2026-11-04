@@ -75,3 +75,21 @@ test("service worker caches every script the page loads", () => {
   const sw = fs.readFileSync(path.join(__dirname, "../sw.js"), "utf8");
   for (const [, src] of html.matchAll(/<script src="([^"]+)"/g)) assert.ok(sw.includes(`"${src}"`), `sw.js misses ${src}`);
 });
+
+test("guides are complete and link to existing content", () => {
+  require("../js/data/guides.js");
+  const { GUIDES } = global.Amtsklar.guides;
+  const tpl = global.Amtsklar.templates.TEMPLATES.map((x) => x.id);
+  for (const g of GUIDES) {
+    for (const l of ["de", "en"]) {
+      const x = g[l];
+      assert.ok(x.t && x.s && x.check.length && x.steps.length, `${g.id}.${l}`);
+      assert.equal(x.check.length, g.de.check.length, `${g.id}.${l} check count`);
+      assert.equal(x.steps.length, g.de.steps.length, `${g.id}.${l} steps count`);
+      assert.equal(!!x.warn, !!g.de.warn, `${g.id}.${l} warn`);
+    }
+    if (g.template) assert.ok(tpl.includes(g.template), `${g.id} template`);
+    if (g.period) assert.ok(["1w", "2w", "1m", "3m", "1y"].includes(g.period));
+    for (const w of g.terms || []) assert.ok(TERMS.some((x) => x.w === w), `${g.id} term ${w}`);
+  }
+});

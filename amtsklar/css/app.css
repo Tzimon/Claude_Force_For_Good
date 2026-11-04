@@ -261,3 +261,15 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
 .anatomy-list li.active { background: var(--yellow-soft); color: var(--yellow-ink); }
 .anatomy-list li.active .anno { background: var(--stamp); color: var(--sheet); }
 .anatomy-list p { color: inherit; }
+
+/* Guides */
+.guides { display: grid; gap: 10px; }
+.guide { background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius); }
+.guide[open] { border-color: var(--stamp); }
+.guide summary { cursor: pointer; padding: 14px 16px; display: grid; gap: 2px; list-style: none; }
+.guide summary::-webkit-details-marker { display: none; }
+.guide summary::before { content: "+"; float: inline-end; font: 600 1.3rem/1 var(--font-mono); color: var(--stamp); }
+.guide[open] summary::before { content: "–"; }
+.guide-title { font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; }
+.guide-body { padding: 4px 16px 18px; display: grid; gap: 16px; }
+.guide-body ul, .guide-body ol { margin: 6px 0 0; padding-inline-start: 1.3em; display: grid; gap: 6px; }

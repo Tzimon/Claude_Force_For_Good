@@ -22,6 +22,11 @@
   function render(el) {
     const { esc, h, t, state } = A.util;
     const lang = state.lang;
+    if (state.shared.query) {
+      query = state.shared.query;
+      cat = "";
+      state.shared.query = null;
+    }
     const catLabel = (c) => (CATS[c][lang] || CATS[c].en || CATS[c].de);
     el.replaceChildren(
       h(`

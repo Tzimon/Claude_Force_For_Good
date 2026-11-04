@@ -49,6 +49,10 @@
     const { esc, h, t, state, todayISO, copyText } = A.util;
     const lang = state.lang;
     load();
+    if (state.shared.template) {
+      current = state.shared.template;
+      state.shared.template = null;
+    }
     // Take over the letter date from the deadline calculator, if available
     if (state.shared.letterDate && !values.letterDate) values.letterDate = state.shared.letterDate;
 

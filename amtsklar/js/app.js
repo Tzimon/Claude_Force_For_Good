@@ -10,7 +10,7 @@
   const { LANGS, t: tr } = A.i18n;
   const D = A.deadline;
 
-  const ROUTES = ["frist", "brief", "woerter", "vorlagen", "hilfe"];
+  const ROUTES = ["frist", "brief", "ratgeber", "woerter", "vorlagen", "hilfe"];
   const state = {
     lang: "de",
     route: "frist",
@@ -78,6 +78,10 @@
   };
 
   function renderFrist(el) {
+    if (state.shared.period) {
+      fristForm.period = state.shared.period;
+      state.shared.period = null;
+    }
     const savedState = store("state");
     if (savedState && D.STATES[savedState]) fristForm.state = savedState;
     if (!fristForm.date) {
