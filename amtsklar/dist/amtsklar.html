@@ -686,6 +686,17 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
       "v.complete": "Der Brief ist vollständig. Ausdrucken, unterschreiben, Kopie behalten.",
       "v.notes": "Gut zu wissen",
 
+      "h.eyebrow": "Kostenlose Hilfe",
+      "h.title": "Sie müssen das nicht allein schaffen",
+      "h.lede": "Diese Stellen helfen kostenlos bei Briefen, Anträgen und Problemen mit Behörden. Viele beraten auch in anderen Sprachen.",
+      "h.emergency": "Notfall: Polizei 110 · Feuerwehr und Rettungsdienst 112",
+      "h.phone": "Telefon (kostenlos)",
+      "h.bring": "Das sollten Sie zur Beratung mitnehmen",
+      "h.bring.1": "Den Brief der Behörde – mit allen Seiten und dem Umschlag.",
+      "h.bring.2": "Ausweis oder Pass und, falls vorhanden, Aufenthaltstitel.",
+      "h.bring.3": "Frühere Bescheide und Ihre eigenen Briefe an die Behörde.",
+      "h.bring.4": "Das Ergebnis des Fristenrechners – damit die Frist nicht vergessen wird.",
+
       "disclaimer": "Amtsklar ist keine Rechtsberatung. Wir prüfen die Inhalte sorgfältig, aber Gesetze ändern sich und jeder Fall ist anders. Bei wichtigen Fragen: kostenlose Beratung nutzen (siehe „Hilfe“).",
       "footer.privacy": "Keine Anmeldung, kein Tracking, keine Daten verlassen Ihr Gerät.",
       "footer.source": "Freie Software. Quellcode und Mitmachen:",
@@ -783,6 +794,17 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
       "v.missing": "{n} gaps left in square brackets [ ]. Fill in the fields above.",
       "v.complete": "The letter is complete. Print it, sign it, keep a copy.",
       "v.notes": "Good to know",
+
+      "h.eyebrow": "Free help",
+      "h.title": "You do not have to do this alone",
+      "h.lede": "These services help for free with letters, applications and problems with authorities. Many also advise in other languages.",
+      "h.emergency": "Emergency: police 110 · fire brigade and ambulance 112",
+      "h.phone": "Phone (free)",
+      "h.bring": "What to bring to a counselling appointment",
+      "h.bring.1": "The authority's letter – all pages and the envelope.",
+      "h.bring.2": "ID or passport and, if you have one, your residence permit.",
+      "h.bring.3": "Earlier decisions and your own letters to the authority.",
+      "h.bring.4": "The result of the deadline calculator – so the deadline is not forgotten.",
 
       "disclaimer": "Amtsklar is not legal advice. We check the content carefully, but laws change and every case is different. For important questions, use free counselling (see „Help“).",
       "footer.privacy": "No sign-up, no tracking, no data leaves your device.",
@@ -1501,6 +1523,162 @@ footer { border-top: 1px solid var(--rule); padding-block: 24px 40px; color: var
   }
 
   A.views.vorlagen = { render };
+})();
+
+</script>
+<script>
+/*
+ * Amtsklar – free help directory. Only nationwide, free services.
+ * Keep entries factual; verify links before release (see README).
+ */
+(function (root) {
+  "use strict";
+  const HELP = [
+    {
+      group: "urgent",
+      name: { de: "Telefonseelsorge", en: "Telefonseelsorge (crisis line)" },
+      what: { de: "Wenn Ihnen alles zu viel wird. Rund um die Uhr, anonym, kostenlos.", en: "When everything gets too much. 24/7, anonymous, free (German; chat also online)." },
+      phone: "0800 111 0 111 · 0800 111 0 222",
+      url: "https://www.telefonseelsorge.de",
+    },
+    {
+      group: "urgent",
+      name: { de: "Hilfetelefon Gewalt gegen Frauen", en: "Helpline violence against women" },
+      what: { de: "Rund um die Uhr, anonym, kostenlos, in 18 Sprachen.", en: "24/7, anonymous, free, in 18 languages." },
+      phone: "116 016",
+      url: "https://www.hilfetelefon.de",
+    },
+    {
+      group: "urgent",
+      name: { de: "Nummer gegen Kummer", en: "Nummer gegen Kummer (children and parents)" },
+      what: { de: "Kinder- und Jugendtelefon: 116 111. Elterntelefon: 0800 111 0 550.", en: "Children and youth: 116 111. Parents: 0800 111 0 550." },
+      phone: "116 111 · 0800 111 0 550",
+      url: "https://www.nummergegenkummer.de",
+    },
+    {
+      group: "letters",
+      name: { de: "Migrationsberatung für Erwachsene (MBE)", en: "Migration counselling for adults (MBE)" },
+      what: { de: "Kostenlose Beratung für Zugewanderte ab 27 Jahren: Briefe, Anträge, Arbeit, Sprache. Oft auch in Ihrer Sprache. Beratungsstellen finden Sie im BAMF-NAvI.", en: "Free counselling for immigrants aged 27+: letters, applications, work, language. Often in your language. Find offices with BAMF-NAvI." },
+      url: "https://bamf-navi.bamf.de",
+    },
+    {
+      group: "letters",
+      name: { de: "Jugendmigrationsdienste (JMD)", en: "Youth migration services (JMD)" },
+      what: { de: "Kostenlose Beratung für junge Zugewanderte von 12 bis 27 Jahren.", en: "Free counselling for young immigrants aged 12 to 27." },
+      url: "https://www.jugendmigrationsdienste.de",
+    },
+    {
+      group: "letters",
+      name: { de: "Sozialberatung von Caritas, Diakonie, AWO, DRK", en: "Social counselling (Caritas, Diakonie, AWO, Red Cross)" },
+      what: { de: "In fast jeder Stadt. Hilfe bei Briefen, Anträgen und Geldsorgen – unabhängig von Religion und Herkunft. Caritas bietet auch Online-Beratung.", en: "In almost every town. Help with letters, applications and money worries – regardless of religion or origin. Caritas also offers online counselling." },
+      url: "https://www.caritas.de/onlineberatung",
+    },
+    {
+      group: "letters",
+      name: { de: "Rechtsantragsstelle am Gericht", en: "Legal application office at the court" },
+      what: { de: "Beim Amtsgericht und Sozialgericht. Dort schreibt man Ihre Klage oder Ihren Eilantrag kostenlos auf. Den Beratungshilfeschein (Anwalt für max. 15 €) bekommen Sie beim Amtsgericht.", en: "At the local and social courts. Staff write down your lawsuit or urgent application for free. The certificate for legal advice (lawyer for max. 15 €) is issued at the local court (Amtsgericht)." },
+    },
+    {
+      group: "letters",
+      name: { de: "Erwerbslosen- und Sozialhilfeberatung", en: "Counselling for unemployed people and benefit claimants" },
+      what: { de: "Unabhängige Beratung zu Jobcenter und Sozialamt. Tacheles e. V. hat ein großes Forum und eine Liste von Beratungsstellen.", en: "Independent advice on Jobcenter and social welfare. Tacheles e. V. runs a large forum and a list of counselling offices." },
+      url: "https://tacheles-sozialhilfe.de",
+    },
+    {
+      group: "money",
+      name: { de: "Schuldnerberatung", en: "Debt counselling" },
+      what: { de: "Kostenlose, seriöse Schuldnerberatung über Wohlfahrtsverbände und Verbraucherzentralen. Achtung vor Firmen, die Geld für „Schuldenhilfe“ verlangen.", en: "Free, reputable debt counselling through charities and consumer centres. Beware of companies charging money for „debt help“." },
+      url: "https://www.meine-schulden.de",
+    },
+    {
+      group: "money",
+      name: { de: "Verbraucherzentrale", en: "Consumer advice centre" },
+      what: { de: "Hilfe bei Verträgen, Rechnungen, Inkasso, Energie und Versicherungen. Teilweise kostenpflichtig, oft günstig.", en: "Help with contracts, bills, debt collection, energy and insurance. Some services cost a small fee." },
+      url: "https://www.verbraucherzentrale.de",
+    },
+    {
+      group: "home",
+      name: { de: "Mieterverein", en: "Tenants' association" },
+      what: { de: "Beratung bei Miete, Nebenkosten und Kündigung. Mitgliedschaft nötig (meist wenige Euro im Monat).", en: "Advice on rent, utility bills and eviction. Membership needed (usually a few euros a month)." },
+      url: "https://www.mieterbund.de",
+    },
+    {
+      group: "migration",
+      name: { de: "PRO ASYL und Flüchtlingsräte", en: "PRO ASYL and refugee councils" },
+      what: { de: "Beratung und Informationen zu Asyl, Duldung und Aufenthalt. PRO ASYL nennt Beratungsstellen in Ihrem Bundesland.", en: "Advice and information on asylum, toleration and residence. PRO ASYL lists counselling offices in your state." },
+      url: "https://www.proasyl.de",
+    },
+    {
+      group: "migration",
+      name: { de: "Handbook Germany", en: "Handbook Germany" },
+      what: { de: "Informationen zum Leben in Deutschland in vielen Sprachen, mit Suche nach Beratungsstellen in der Nähe.", en: "Information about life in Germany in many languages, with a search for local counselling services." },
+      url: "https://handbookgermany.de",
+    },
+  ];
+  const GROUPS = {
+    urgent: { de: "Sofort Hilfe – rund um die Uhr", en: "Immediate help – 24/7" },
+    letters: { de: "Hilfe bei Briefen, Anträgen und Widerspruch", en: "Help with letters, applications and objections" },
+    money: { de: "Geld und Schulden", en: "Money and debts" },
+    home: { de: "Wohnen", en: "Housing" },
+    migration: { de: "Aufenthalt und Migration", en: "Residence and migration" },
+  };
+  root.Amtsklar = root.Amtsklar || {};
+  root.Amtsklar.help = { HELP, GROUPS };
+})(typeof self !== "undefined" ? self : this);
+
+</script>
+<script>
+/* Amtsklar – free help view */
+(function () {
+  "use strict";
+  const A = (window.Amtsklar = window.Amtsklar || {});
+  A.views = A.views || {};
+  const { HELP, GROUPS } = A.help;
+
+  function render(el) {
+    const { esc, h, t, state } = A.util;
+    const lang = state.lang;
+    const tx = (o) => o[lang] || o.en || o.de;
+    el.replaceChildren(
+      h(`
+      <section class="view" aria-labelledby="h-title">
+        <header style="display:grid;gap:10px">
+          <p class="eyebrow">${esc(t("h.eyebrow"))}</p>
+          <h2 id="h-title">${esc(t("h.title"))}</h2>
+          <p class="lede">${esc(t("h.lede"))}</p>
+        </header>
+        <p class="callout warn"><strong>${esc(t("h.emergency"))}</strong></p>
+        ${Object.keys(GROUPS)
+          .map(
+            (g) => `
+          <section class="sheet" aria-labelledby="h-${g}">
+            <h3 id="h-${g}">${esc(tx(GROUPS[g]))}</h3>
+            <div class="help-list">
+              ${HELP.filter((x) => x.group === g)
+                .map(
+                  (x) => `
+                <article class="help-item">
+                  <h3>${esc(tx(x.name))}</h3>
+                  <p>${esc(tx(x.what))}</p>
+                  ${x.phone ? `<p>${esc(t("h.phone"))}: <span class="phone">${esc(x.phone)}</span></p>` : ""}
+                  ${x.url ? `<p><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.url.replace(/^https:\/\/(www\.)?/, ""))}</a></p>` : ""}
+                </article>`
+                )
+                .join("")}
+            </div>
+          </section>`
+          )
+          .join("")}
+        <section class="sheet">
+          <h3>${esc(t("h.bring"))}</h3>
+          <ul style="margin:0;padding-inline-start:1.2em;display:grid;gap:6px">
+            <li>${esc(t("h.bring.1"))}</li><li>${esc(t("h.bring.2"))}</li><li>${esc(t("h.bring.3"))}</li><li>${esc(t("h.bring.4"))}</li>
+          </ul>
+        </section>
+      </section>`)
+    );
+  }
+  A.views.hilfe = { render };
 })();
 
 </script>
